@@ -6,6 +6,7 @@ pg.init()
 
 DISPLAY=pg.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 CLOCK=pg.time.Clock()
+pg.display.set_caption("-")
 
 while True:
     for event in pg.event.get():
@@ -13,7 +14,6 @@ while True:
             pg.quit()
 
     pg.display.flip()
-    pg.display.set_caption(CLOCK.tick(FPS))
     CLOCK.tick(FPS)
         
         
