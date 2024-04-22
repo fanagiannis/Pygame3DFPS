@@ -5,7 +5,7 @@ from Settings import*
 pg.init()
 
 WIN=pg.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-pg.display.set_caption("DOOM CLONE")
+pg.display.set_caption("WINDOWS --> TRASH")
 CLOCK=pg.time.Clock()
 
 while True:
