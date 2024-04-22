@@ -4,8 +4,7 @@ from Settings import*
 
 pg.init()
 
-WIN=pg.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-pg.display.set_caption("WINDOWS --> TRASH")
+DISPLAY=pg.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 CLOCK=pg.time.Clock()
 
 while True:
@@ -14,6 +13,7 @@ while True:
             pg.quit()
 
     pg.display.flip()
+    pg.display.set_caption(CLOCK.tick(FPS))
     CLOCK.tick(FPS)
         
         
