@@ -35,8 +35,11 @@ class Player:
         if keys[pg.K_s]:
             self.posx-=-math.sin(self.angle)*self.speed
             self.posy-=math.cos(self.angle)*self.speed
-
         pass
+
+    def get_pos(self):
+        return self.posx,self.posy
+    
     def update(self):
         self.move()
         pass
