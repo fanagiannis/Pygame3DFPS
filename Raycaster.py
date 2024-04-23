@@ -14,7 +14,7 @@ class Raycaster():
 
     def cast_rays(self):
         MAP=map_default.get_map()
-        start_angle=P.get_angle()-P.HFOV
+        start_angle=P.get_angle()-P.HFOV+0.001
        
         for rays in range(self.rays_casted):   
             for depth in range(self.maxdepth):

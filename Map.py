@@ -2,24 +2,14 @@ import pygame as pg
 import math
 
 from Settings import*
-
-MAP_SIZE=8
-MAP_DEF=(
-    "########"
-    "#      #"
-    "#    # #"
-    "#      #"
-    "#      #"
-    "#      #"
-    "#  #   #"
-    "########"
-)
+from Maps import*
 
 class Map:
-    def __init__(self,size,map):
-        self.size=size
+    def __init__(self,map):
         self.map=map
+        self.size=int(math.sqrt((self.map.__len__())))
         self.tile_size=int((SCREEN_WIDTH/2)/(self.size))
+        print(self.size)
     def draw(self):
         for row in range(self.size):
             for column in range(self.size):
@@ -29,4 +19,4 @@ class Map:
     def get_map(self):
         return self.map
 
-map_default=Map(MAP_SIZE,MAP_DEF)
+map_default=Map(MAP_SMALL)
