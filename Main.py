@@ -7,8 +7,6 @@ from Map import*
 
 pg.init()
 
-map=Map(MAP_SIZE,MAP_DEF)
-
 while True:
     DISPLAY.fill((0,0,0))
     for event in pg.event.get():
@@ -16,7 +14,7 @@ while True:
             pg.quit()
 
 
-    map.draw()
+    map_default.draw()
     P.draw()
     P.update()
     

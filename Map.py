@@ -3,7 +3,6 @@ import pygame as pg
 from Settings import*
 
 MAP_SIZE=16
-
 MAP_DEF=(
     "################"
     "#              #"
@@ -23,6 +22,7 @@ MAP_DEF=(
     "################"
 )
 
+
 class Map:
     def __init__(self,size,map):
         self.size=size
@@ -34,3 +34,7 @@ class Map:
                 square= row*self.size + column
                 rect=(column*self.tile_size,row*self.tile_size,self.tile_size-2,self.tile_size-2)
                 pg.draw.rect(DISPLAY,(200,200,200) if self.map[square]=='#' else (100,100,100),rect)
+    def get_map(self):
+        return self.map
+
+map_default=Map(MAP_SIZE,MAP_DEF)
