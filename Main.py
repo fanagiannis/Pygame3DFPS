@@ -17,7 +17,6 @@ while True:
 
 
     map_default.draw()
-    RayCaster.update()
     P.update()
     
     pg.display.set_caption(f'{CLOCK.get_fps():.1f}')

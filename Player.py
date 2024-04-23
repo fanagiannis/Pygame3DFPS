@@ -15,7 +15,8 @@ class Player:
         self.HFOV=self.FOV/2
         self.forward=False
     
-    def draw(self):  
+    def draw(self):
+        self.look()  
         pg.draw.circle(DISPLAY,(255,0,0),(int(self.posx),int(self.posy)),8)
         pass
     
