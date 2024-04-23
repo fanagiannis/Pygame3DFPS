@@ -15,6 +15,8 @@ class Player:
         self.HFOV=self.FOV/2
     
     def draw(self):  
+        pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle-self.HFOV)*50),int(self.posy+math.cos(self.angle-self.HFOV)*50)),3)
+        pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle+self.HFOV)*50),int(self.posy+math.cos(self.angle+self.HFOV)*50)),3)
         pg.draw.circle(DISPLAY,(255,0,0),(int(self.posx),int(self.posy)),8)
         pass
     
@@ -50,6 +52,9 @@ class Player:
 
     def get_pos(self):
         return self.posx,self.posy
+
+    def get_angle(self):
+        return self.angle
     
     def update(self):
         self.map_collision()
