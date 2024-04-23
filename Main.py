@@ -8,7 +8,7 @@ from Map import*
 pg.init()
 
 while True:
-    DISPLAY.fill((0,0,0))
+    DISPLAY.fill((100,100,100))
     for event in pg.event.get():
         if event.type==pg.QUIT :
             pg.quit()

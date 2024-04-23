@@ -32,8 +32,8 @@ class Map:
         for row in range(self.size):
             for column in range(self.size):
                 square= row*self.size + column
-                rect=(column*self.tile_size,row*self.tile_size,self.tile_size-2,self.tile_size-2)
-                pg.draw.rect(DISPLAY,(200,200,200) if self.map[square]=='#' else (100,100,100),rect)
+                rect=(column*self.tile_size,row*self.tile_size,self.tile_size-1,self.tile_size-1)
+                pg.draw.rect(DISPLAY,(100,100,100) if self.map[square]=='#' else (0,0,0),rect)
     def get_map(self):
         return self.map
 
