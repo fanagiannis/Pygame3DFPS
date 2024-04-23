@@ -2,7 +2,7 @@ import pygame as pg
 
 SCREEN_HEIGHT=480
 SCREEN_WIDTH=2*SCREEN_HEIGHT
-FPS=0
+FPS=60
 
 
 DISPLAY=pg.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
