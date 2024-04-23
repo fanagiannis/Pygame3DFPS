@@ -1,11 +1,9 @@
 import pygame as pg
 
 from Settings import*
+from Player import*
 
 pg.init()
-
-DISPLAY=pg.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-CLOCK=pg.time.Clock()
 pg.display.set_caption("-")
 
 while True:
@@ -13,6 +11,7 @@ while True:
         if event.type==pg.QUIT :
             pg.quit()
 
+    P.draw()
     pg.display.flip()
     CLOCK.tick(FPS)
         
