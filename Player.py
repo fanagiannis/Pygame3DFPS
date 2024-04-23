@@ -10,20 +10,15 @@ class Player:
         self.pos=((int(SCREEN_WIDTH/2)/2),(int(SCREEN_WIDTH/2)/2))
         self.posx,self.posy=self.pos
         
-        self.depth=30
         self.angle=math.pi
         self.FOV=math.pi/3
         self.HFOV=self.FOV/2
     
     def draw(self):  
-        self.look()
         pg.draw.circle(DISPLAY,(255,0,0),(int(self.posx),int(self.posy)),8)
         pass
     
-    def look(self):
-        self.TARGET_X=self.posx-math.sin(self.angle)*self.depth
-        self.TARGET_Y=self.posy+math.cos(self.angle)*self.depth
-        pg.draw.line(DISPLAY,(0,255,0),(self.posx,self.posy),(self.TARGET_X,self.TARGET_Y),3)
+    #def look(self):
 
     def move(self):
         keys=pg.key.get_pressed()

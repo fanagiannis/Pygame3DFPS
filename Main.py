@@ -3,6 +3,7 @@ import pygame as pg
 from Settings import*
 from Player import*
 from Map import*
+from Raycaster import*
 
 
 pg.init()
@@ -15,6 +16,7 @@ while True:
 
 
     map_default.draw()
+    RayCaster.update()
     P.update()
     
     pg.display.set_caption(f'{CLOCK.get_fps():.1f}')
