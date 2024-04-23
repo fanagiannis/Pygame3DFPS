@@ -15,7 +15,6 @@ while True:
 
 
     map_default.draw()
-    P.draw()
     P.update()
     
     pg.display.set_caption(f'{CLOCK.get_fps():.1f}')
