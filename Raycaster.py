@@ -11,8 +11,11 @@ class Raycaster():
         self.depth=int(map_default.size*map_default.tile_size)
 
     def cast_rays(self):
-        self.start_angle=P.get_angle()-P.HFOV
+        playerposx,playerposy=P.get_pos()
+        playermapposx,playermapposy=P.get_map_pos()
+        self.start_angle=P.get_angle()-P.HFOV+0.0001
         for rays in range(self.rays_casted):
+            
             for depth in range(self.depth):
                 PLAYER_X,PLAYER_Y=P.get_pos()
                 TARGET_X=PLAYER_X-math.sin(P.get_angle())*self.depth
@@ -27,8 +30,9 @@ class Raycaster():
                     depth=depth*math.cos(P.get_angle()-self.start_angle)
                     break
             self.start_angle+=self.step_angle
+            
 
     def update(self):
         self.cast_rays()
 
-RayCaster=Raycaster(60)
+RayCaster=Raycaster(80)

@@ -13,14 +13,15 @@ class Player:
         self.angle=math.pi
         self.FOV=math.pi/3
         self.HFOV=self.FOV/2
+        self.forward=False
     
     def draw(self):  
-        pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle-self.HFOV)*50),int(self.posy+math.cos(self.angle-self.HFOV)*50)),3)
-        pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle+self.HFOV)*50),int(self.posy+math.cos(self.angle+self.HFOV)*50)),3)
         pg.draw.circle(DISPLAY,(255,0,0),(int(self.posx),int(self.posy)),8)
         pass
     
-    #def look(self):
+    def look(self):
+        pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle-self.HFOV)*50),int(self.posy+math.cos(self.angle-self.HFOV)*50)),3)
+        pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle+self.HFOV)*50),int(self.posy+math.cos(self.angle+self.HFOV)*50)),3)
 
     def move(self):
         keys=pg.key.get_pressed()
@@ -55,6 +56,9 @@ class Player:
 
     def get_angle(self):
         return self.angle
+    
+    def get_map_pos(self):
+        return int(self.posx),int(self.posy)
     
     def update(self):
         self.map_collision()

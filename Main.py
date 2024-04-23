@@ -9,7 +9,8 @@ from Raycaster import*
 pg.init()
 
 while True:
-    DISPLAY.fill((100,100,100))
+    
+    DISPLAY.fill((0,0,0))
     for event in pg.event.get():
         if event.type==pg.QUIT :
             pg.quit()
@@ -21,6 +22,7 @@ while True:
     
     pg.display.set_caption(f'{CLOCK.get_fps():.1f}')
     pg.display.flip()
+    
     CLOCK.tick(FPS)
         
         
