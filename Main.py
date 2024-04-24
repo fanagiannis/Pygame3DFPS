@@ -16,7 +16,7 @@ while True:
             pg.quit()
 
 
-    #map_default.draw()
+    map_s.draw()
     RayCaster.update()
     P.update()
     
