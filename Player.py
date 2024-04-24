@@ -66,7 +66,7 @@ class Player:
     def update(self):
         self.map_collision()
         self.move()
-        #self.draw()
+        self.draw()
         pass
 
 P=Player()
