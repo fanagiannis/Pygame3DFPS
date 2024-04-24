@@ -19,4 +19,5 @@ class Map:
     def get_map(self):
         return self.map
 
-map_default=Map(MAP_SMALL)
+map_s=Map(MAP_SMALL)
+map_m=Map(MAP_MED)

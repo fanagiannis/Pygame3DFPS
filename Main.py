@@ -16,14 +16,14 @@ while True:
             pg.quit()
 
 
-    map_default.draw()
+    #map_default.draw()
     RayCaster.update()
     P.update()
     
     pg.display.set_caption(f'{CLOCK.get_fps():.1f}')
     pg.display.flip()
     
-    CLOCK.tick(FPS)
+    DELTA_TIME=CLOCK.tick(FPS)
         
         
                         

@@ -6,7 +6,7 @@ from Map import*
 
 class Player:
     def __init__(self):
-        self.speed=2
+        self.speed=1*DELTA_TIME
         self.pos=((int(SCREEN_WIDTH/2)/2),(int(SCREEN_WIDTH/2)/2))
         self.posx,self.posy=self.pos
         
@@ -14,6 +14,8 @@ class Player:
         self.FOV=math.pi/3
         self.HFOV=self.FOV/2
         self.forward=False
+
+        self.curmap=map_s
     
     def draw(self):
         self.look()  
@@ -41,10 +43,10 @@ class Player:
         pass
     
     def map_collision(self):
-        column=int(self.posx/map_default.tile_size)
-        row=int(self.posy/map_default.tile_size)
-        square=row*map_default.size+column
-        if map_default.get_map()[square]=='#':
+        column=int(self.posx/self.curmap.tile_size)
+        row=int(self.posy/self.curmap.tile_size)
+        square=row*self.curmap.size+column
+        if self.curmap.get_map()[square]=='#':
             if self.forward:
                 self.posx-=-math.sin(self.angle)*self.speed
                 self.posy-=math.cos(self.angle)*self.speed
@@ -64,7 +66,7 @@ class Player:
     def update(self):
         self.map_collision()
         self.move()
-        self.draw()
+        #self.draw()
         pass
 
 P=Player()
