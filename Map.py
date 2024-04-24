@@ -18,14 +18,7 @@ class Map:
                 rect=(column*self.tile_size,row*self.tile_size,self.tile_size,self.tile_size)
                 pg.draw.rect(DISPLAY,(100,100,100) if self.map[square]=='#' else (0,0,0),rect)
     def map_control(self):
-        for event in pg.event.get():
-            if event.type==pg.KEYUP:
-                key=pg.key.get_pressed()
-                if key[pg.K_w]: 
-                    if self.map_open:
-                        self.map_open=False
-                    else:
-                        self.map_open=True
+        pass
     def get_map(self):
         return self.map
     def update(self):
