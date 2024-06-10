@@ -36,7 +36,7 @@ class Game:
         self.selectedmap=self.map_s
 
     def Update(self):
-        self.FloorCaster.update(self.player)
+        self.FloorCaster.Update(self.player)
         self.RayCaster.update()
         self.map_s.update()
         self.player.update()

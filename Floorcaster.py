@@ -27,7 +27,7 @@ class Floorcaster():
         surf= pg.transform.scale(surf,(SCREEN_WIDTH,SCREEN_HEIGHT))
         DISPLAY.blit(surf,(0,0))
 
-    def update(self,player):
+    def LoadFrames(self,player):
         for i in range(self.HRES):
             ROT_i=self.ROT+np.deg2rad(i/self.MOD-30)
             sin,cos=np.sin(ROT_i),np.cos(ROT_i)
@@ -44,6 +44,8 @@ class Floorcaster():
         self.POSX,self.POSY=player.get_pos()
         self.ROT=player.get_angle()
 
+    def Update(self,player): 
+        self.LoadFrames(player)
         self.LoadSurface()
         
         
