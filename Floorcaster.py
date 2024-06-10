@@ -2,6 +2,7 @@ import pygame as pg
 import numpy as np
 
 from Settings import *
+from numba import njit
 
 class Floorcaster():
     def __init__(self):
@@ -31,7 +32,8 @@ class Floorcaster():
         self.POSX,self.POSY=player.get_pos()
         self.ROT=player.get_angle()
         frame=self.FrameCalculation(self.HRES,self.MOD,self.HALFRES,self.POSX,self.POSY,self.ROT,self.floor,self.FRAME)
-        
+
+    @njit()    
     def FrameCalculation(self,HRES,MOD,HALFRES,POSX,POSY,ROT,floor,frame):
         for i in range(HRES):
             ROT_i=ROT+np.deg2rad(i/MOD-30)
