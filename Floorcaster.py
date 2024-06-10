@@ -10,27 +10,29 @@ class Floorcaster():
         self.HALFRES=int(self.VERTICAL/2)
         self.MOD=self.HALFRES/60
         self.POSX,self.POSY,self.ROT=0,0,0
+
         self.FRAME=np.random.uniform(0,1,(self.HRES,self.VERTICAL,3))
         
-        self.sky=pg.image.load('Assets/Images/skybox.jpg')
-        self.sky=self.LoadSky()
+        
+        self.LoadSky()
         
 
     def LoadSky(self):
-        self.sky=pg.surfarray.make_surface(self.FRAME*255)
-        self.sky=pg.transform.scale(self.sky,(SCREEN_WIDTH,SCREEN_HEIGHT))
-        DISPLAY.blit(self.sky,(0,0))
-        #pg.display.update()
-        #self.sky=pg.surfarray.array3d(pg.transform.scale(self.sky,(360,self.HALFRES*2)))
-        pass
+        self.sky=pg.image.load('Assets/Images/skybox.jpg')
+        self.sky=self.sky.convert_alpha()
+        self.sky=pg.surfarray.array3d(pg.transform.scale(self.sky,(360,self.HALFRES*2)))
+
+    def LoadSurface(self):
+        surf = pg.surfarray.make_surface(self.FRAME*255)
+        surf= pg.transform.scale(surf,(SCREEN_WIDTH,SCREEN_HEIGHT))
+        DISPLAY.blit(surf,(0,0))
 
     def update(self,player):
-        self.LoadSky()
         for i in range(self.HRES):
             ROT_i=self.ROT+np.deg2rad(i/self.MOD-30)
             sin,cos=np.sin(ROT_i),np.cos(ROT_i)
 
-            #self.FRAME[i][:]=self.SURF[int(np.rad2deg(ROT_i)%360)][:]/255
+            self.FRAME[i][:]=self.sky[int(np.rad2deg(ROT_i)%360)][:]/255    
 
             for j in range (self.HALFRES):
                 n=self.HALFRES / (self.HALFRES- j)
@@ -41,8 +43,8 @@ class Floorcaster():
                     self.FRAME[i][self.HALFRES*2-j-1]=[1,1,1]
         self.POSX,self.POSY=player.get_pos()
         self.ROT=player.get_angle()
-        print(self.POSX,self.POSY,self.ROT)
-        #surf = pg.surfarray.make_surface(self.FRAME*255)
-        #surf= pg.transform.scale(surf,(800,600))
-        #DISPLAY.blit(surf,(0,0))
+
+        self.LoadSurface()
+        
+        
         pass
