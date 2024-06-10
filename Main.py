@@ -2,6 +2,6 @@ import pygame as pg
 
 from Game import*
 
-game=Game()
-
-game.Run()
+if __name__=='__main__':
+    game=Game()
+    game.Run()

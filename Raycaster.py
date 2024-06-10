@@ -94,3 +94,6 @@ class Raycaster():
 
     def update(self):
         self.cast_rays()
+
+if __name__=='__main__':
+    print("RayCaster")

@@ -11,11 +11,6 @@ class Game:
         self.player=Player(self.selectedmap)
         self.RayCaster=Raycaster(80,self.player,self.map_s)
         pass
-    
-    def LoadMaps(self):
-        self.map_s=Map(MAP_SMALL)
-        self.map_m=Map(MAP_MED)
-        self.selectedmap=self.map_s
 
     def Run(self):
         pg.init()
@@ -26,14 +21,21 @@ class Game:
             DISPLAY.fill((0,0,0))
             DELTA_TIME=CLOCK.tick(FPS)
             self.Update()
-        
-        
+
     def Events(self):
         for event in pg.event.get():
             if event.type==pg.QUIT :
-                pg.quit()
+                pg.quit()    
+    
+    def LoadMaps(self):
+        self.map_s=Map(MAP_SMALL)
+        self.map_m=Map(MAP_MED)
+        self.selectedmap=self.map_s
 
     def Update(self):
         self.RayCaster.update()
         self.map_s.update()
         self.player.update()
+
+if __name__=='__main__':
+    print("Game Class")

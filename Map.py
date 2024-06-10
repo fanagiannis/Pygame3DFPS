@@ -26,4 +26,5 @@ class Map:
         if self.map_open:
             self.draw()
 
-
+if __name__=='__main__':
+    print("Map Class")

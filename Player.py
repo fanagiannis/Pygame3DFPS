@@ -68,3 +68,6 @@ class Player:
         self.move()
         #self.draw()
         pass
+
+if __name__=='__main__':
+    print("Player Class")
