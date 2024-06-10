@@ -1,30 +1,7 @@
 import pygame as pg
 
-from Settings import*
-from Player import*
-from Map import*
-from Raycaster import*
+from Game import*
 
+game=Game()
 
-pg.init()
-
-while True:
-    
-    DISPLAY.fill((0,0,0))
-    for event in pg.event.get():
-        if event.type==pg.QUIT :
-            pg.quit()
-
-
-    
-    RayCaster.update()
-    map_s.update()
-    P.update()
-    
-    pg.display.set_caption(f'{CLOCK.get_fps():.1f}')
-    pg.display.flip()
-    
-    DELTA_TIME=CLOCK.tick(FPS)
-        
-        
-                        
+game.Run()

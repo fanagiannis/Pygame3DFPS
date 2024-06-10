@@ -5,7 +5,7 @@ from Settings import *
 from Map import*
 
 class Player:
-    def __init__(self):
+    def __init__(self,map):
         self.speed=1*DELTA_TIME
         self.pos=((int(SCREEN_WIDTH/2)/2),(int(SCREEN_WIDTH/2)/2))
         self.posx,self.posy=self.pos
@@ -15,7 +15,7 @@ class Player:
         self.HFOV=self.FOV/2
         self.forward=False
 
-        self.curmap=map_s
+        self.curmap=map
     
     def draw(self):
         self.look()  
@@ -68,5 +68,3 @@ class Player:
         self.move()
         #self.draw()
         pass
-
-P=Player()

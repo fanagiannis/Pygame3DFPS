@@ -3,12 +3,13 @@ import pygame as pg
 from Settings import*
 from Player import*
 
-class Raycaster():
-    def __init__(self,rays):
-        self.curmap=map_s
 
+class Raycaster():
+    def __init__(self,rays,player,map):
+        self.player=player
+        self.curmap=map
         self.rays_casted=rays
-        self.step_angle=P.FOV/self.rays_casted
+        self.step_angle=player.FOV/self.rays_casted
         self.maxdepth=int(self.curmap.size*self.curmap.tile_size)
         self.scale=(SCREEN_WIDTH)//self.rays_casted
         
@@ -17,9 +18,9 @@ class Raycaster():
         
         MAP=self.curmap.get_map()
         
-        PLAYER_X,PLAYER_Y=P.get_pos()
-        PLAYER_MAPX,PLAYER_MAPY=P.get_map_pos()
-        start_angle=P.get_angle()-P.HFOV+0.0001
+        PLAYER_X,PLAYER_Y=self.player.get_pos()
+        PLAYER_MAPX,PLAYER_MAPY=self.player.get_map_pos()
+        start_angle=self.player.get_angle()-self.player.HFOV+0.0001
 
         # for rays in range(self.rays_casted):
             
@@ -66,8 +67,8 @@ class Raycaster():
        
         for rays in range(self.rays_casted):   
             for depth in range(self.maxdepth):
-                PLAYER_X,PLAYER_Y=P.get_pos()
-                PLAYER_ANGLE=P.get_angle()
+                PLAYER_X,PLAYER_Y=self.player.get_pos()
+                PLAYER_ANGLE=self.player.get_angle()
                 TARGET_X=PLAYER_X-math.sin(start_angle)*depth
                 TARGET_Y=PLAYER_Y+math.cos(start_angle)*depth
                 #pg.draw.line(DISPLAY,(0,255,0),(PLAYER_X,PLAYER_Y),(TARGET_X,TARGET_Y),3)
@@ -93,5 +94,3 @@ class Raycaster():
 
     def update(self):
         self.cast_rays()
-
-RayCaster=Raycaster(80)

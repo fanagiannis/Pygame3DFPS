@@ -26,5 +26,4 @@ class Map:
         if self.map_open:
             self.draw()
 
-map_s=Map(MAP_SMALL)
-map_m=Map(MAP_MED)
+
