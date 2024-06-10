@@ -40,7 +40,6 @@ class Player:
             self.forward=False
             self.posx-=-math.sin(self.angle)*self.speed
             self.posy-=math.cos(self.angle)*self.speed
-        pass
     
     def map_collision(self):
         column=int(self.posx/self.curmap.tile_size)

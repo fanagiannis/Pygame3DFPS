@@ -16,8 +16,7 @@ class Raycaster():
         
     def cast_rays(self):
         
-        MAP=self.curmap.get_map()
-        
+        MAP=self.curmap.get_map() 
         PLAYER_X,PLAYER_Y=self.player.get_pos()
         PLAYER_MAPX,PLAYER_MAPY=self.player.get_map_pos()
         start_angle=self.player.get_angle()-self.player.HFOV+0.0001

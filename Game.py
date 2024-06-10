@@ -1,20 +1,23 @@
 import pygame as pg
 
-from Settings import*
-from Player import*
-from Map import*
-from Raycaster import*
+from Settings import *
+from Player import *
+from Map import *
+from Raycaster import *
+from Floorcaster import *
 
 class Game:
     def __init__(self):
+        self.running=True
         self.LoadMaps()
         self.player=Player(self.selectedmap)
         self.RayCaster=Raycaster(80,self.player,self.map_s)
+        self.FloorCaster=Floorcaster()
         pass
 
     def Run(self):
         pg.init()
-        while True:
+        while self.running:
             self.Events()
             pg.display.set_caption(f'{CLOCK.get_fps():.1f}')
             pg.display.flip()
@@ -33,9 +36,11 @@ class Game:
         self.selectedmap=self.map_s
 
     def Update(self):
+        self.FloorCaster.update(self.player)
         self.RayCaster.update()
         self.map_s.update()
         self.player.update()
+        
 
 if __name__=='__main__':
     print("Game Class")
