@@ -24,6 +24,7 @@ class Game:
             DISPLAY.fill((0,0,0))
             DELTA_TIME=CLOCK.tick(FPS)
             self.Update()
+            pg.display.update()
 
     def Events(self):
         for event in pg.event.get():

@@ -5,23 +5,23 @@ from Settings import *
 
 class Floorcaster():
     def __init__(self):
-        self.HRES=120
-        self.VERTICAL=200
+        self.HRES=100
+        self.VERTICAL=100
         self.HALFRES=int(self.VERTICAL/2)
         self.MOD=self.HALFRES/60
         self.POSX,self.POSY,self.ROT=0,0,0
-
         self.FRAME=np.random.uniform(0,1,(self.HRES,self.VERTICAL,3))
-        
-        
-        self.LoadSky()
-        
+        self.LoadSky()   
+        self.LoadGround() 
 
     def LoadSky(self):
         self.sky=pg.image.load('Assets/Images/skybox.jpg')
         self.sky=self.sky.convert_alpha()
         self.sky=pg.surfarray.array3d(pg.transform.scale(self.sky,(360,self.HALFRES*2)))
 
+    def LoadGround(self):
+        self.floor=pg.surfarray.array3d(pg.image.load('Assets/Images/floor.jpg'))
+    
     def LoadSurface(self):
         surf = pg.surfarray.make_surface(self.FRAME*255)
         surf= pg.transform.scale(surf,(SCREEN_WIDTH,SCREEN_HEIGHT))
@@ -30,23 +30,23 @@ class Floorcaster():
     def LoadFrames(self,player):
         for i in range(self.HRES):
             ROT_i=self.ROT+np.deg2rad(i/self.MOD-30)
-            sin,cos=np.sin(ROT_i),np.cos(ROT_i)
+            sin,cos,cos2=np.sin(ROT_i),np.cos(ROT_i),np.cos(np.deg2rad(i/self.MOD-30))
 
-            self.FRAME[i][:]=self.sky[int(np.rad2deg(ROT_i)%360)][:]/255    
+            self.FRAME[i][:]=self.sky[int(np.rad2deg(ROT_i)%359)][:]/255    
 
             for j in range (self.HALFRES):
-                n=self.HALFRES / (self.HALFRES- j)
+                n=(self.HALFRES / (self.HALFRES- j))/cos2
+                #x,y= self.POSX*0.1+cos*n,self.POSY*0.1 +sin*n 
                 x,y= self.POSY*0.1+cos*n,-self.POSX*0.1 +sin*n                                          #!!!WARNING! REVERSE X AND Y FROM PLAYER MOVEMENT! y=-PLAYER POSISTION ON Y!
-                if int(x)%2 ==int(y)%2:
-                    self.FRAME[i][self.HALFRES*2-j-1]=[0,0,0]
-                else:
-                    self.FRAME[i][self.HALFRES*2-j-1]=[1,1,1]
+
+                gx,gy=int(x*1%1*100),int(y*1%1*100)                                                     #gx,gy = ground x and ground y  HERE YOU CAN ADJUST THE RESOLUTION SCALE
+                shader=0.2+0.8*(1-j/self.HALFRES)                                              
+                self.FRAME[i][self.HALFRES*2-j-1]=shader*self.floor[gx][gy]/255
+
         self.POSX,self.POSY=player.get_pos()
         self.ROT=player.get_angle()
+        
 
     def Update(self,player): 
         self.LoadFrames(player)
         self.LoadSurface()
-        
-        
-        pass
