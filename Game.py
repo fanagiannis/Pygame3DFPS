@@ -13,7 +13,7 @@ class Game:
         self.running=True
         self.clock=pg.time.Clock()
         self.DELTA_TIME=self.clock.tick(FPS)
-        self.map=Map(MAP_SMALL)
+        self.map=Map(self,MAP_SMALL)
         #self.LoadMaps()
         self.player=Player(self,self.map)
         self.RayCaster=Raycaster(self,80,self.player,self.map)
@@ -27,7 +27,7 @@ class Game:
         while self.running:
             self.Events()
             pg.display.set_caption(f'{self.clock.get_fps():.1f}')
-            pg.display.flip()
+            #pg.display.flip()
             DISPLAY.fill((0,0,0))
             self.DELTA_TIME=self.clock.tick(FPS)
             self.Update()
@@ -42,6 +42,8 @@ class Game:
         self.map=Map(MAP_SMALL)
         #self.map_m=Map(MAP_MED)
         self.selectedmap=self.map
+    def GetMap(self):
+        return self.map
 
     def Update(self):
         #self.FloorCaster.Update(self.player)

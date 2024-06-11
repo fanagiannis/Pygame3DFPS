@@ -17,6 +17,7 @@ class Player:
         self.forward=False
 
         self.curmap=map
+        print(self.game.map.worldmap)
 
         
     
@@ -33,9 +34,7 @@ class Player:
     def move(self):
         keys=pg.key.get_pressed()
         #self.map_collision(self.posx,self.posy)
-        if keys[pg.K_a]:self.angle-=0.01*self.game.DELTA_TIME
-        if keys[pg.K_d]:self.angle+=0.01*self.game.DELTA_TIME
-        self.angle%=math.tau
+        
 
         dx,dy=0,0
         
@@ -47,14 +46,21 @@ class Player:
             self.forward=False
             dx-=-math.sin(self.angle)*self.speed*self.game.DELTA_TIME
             dy-=math.cos(self.angle)*self.speed*self.game.DELTA_TIME
-
+        #print(self.check_wall(self.posx,self.posy))
         self.map_collision(dx,dy)
+
+        if keys[pg.K_a]:self.angle-=0.01*self.game.DELTA_TIME
+        if keys[pg.K_d]:self.angle+=0.01*self.game.DELTA_TIME
+        self.angle%=math.tau
+
     def check_wall(self,x,y):
-        return(x,y) not in self.game.map.map
+        return(x,y) not in self.game.map.worldmap
     
     def map_collision(self,dx,dy):
-        if(self.check_wall(int(self.posx+dx),int(self.posy))):self.posx+=dx
-        if(self.check_wall(int(self.posx),int(self.posy+dy))):self.posy+=dy
+        if self.check_wall(int(self.posx+dx),int(self.posy)):
+            self.posx+=dx
+        if self.check_wall(int(self.posx),int(self.posy+dy)):
+            self.posy+=dy
         # column=int(self.posx/self.curmap.tile_size)
         # row=int(self.posy/self.curmap.tile_size)
         # square=row*self.curmap+column
@@ -81,7 +87,6 @@ class Player:
         self.move()
         #self.mousecontrol()
         self.draw()
-        print(self.game.DELTA_TIME)
         pass
 
 if __name__=='__main__':
