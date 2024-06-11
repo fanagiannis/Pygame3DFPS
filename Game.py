@@ -5,6 +5,7 @@ from Player import *
 from Map import *
 from Raycaster import *
 from Floorcaster import *
+from TextureLoader import *
 
 class Game:
     def __init__(self):
@@ -12,8 +13,9 @@ class Game:
         self.running=True
         self.LoadMaps()
         self.player=Player(self.selectedmap)
-        self.RayCaster=Raycaster(80,self.player,self.map_s)
+        self.RayCaster=Raycaster(self,80,self.player,self.map_s)
         self.FloorCaster=Floorcaster()
+        self.Textureloader=TextureLoader()
         pass
 
     def Run(self):
@@ -34,14 +36,15 @@ class Game:
     
     def LoadMaps(self):
         self.map_s=Map(MAP_SMALL)
-        self.map_m=Map(MAP_MED)
+        #self.map_m=Map(MAP_MED)
         self.selectedmap=self.map_s
 
     def Update(self):
-        self.FloorCaster.Update(self.player)
-        self.RayCaster.update()
+        #self.FloorCaster.Update(self.player)
+        #self.RayCaster.update()
         self.map_s.update()
-        self.player.update()
+        #self.player.update()
+        #self.Textureloader.update()
         
 
 if __name__=='__main__':
