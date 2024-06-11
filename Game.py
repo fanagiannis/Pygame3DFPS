@@ -11,8 +11,10 @@ class Game:
     def __init__(self):
         pg.mouse.set_visible(False)
         self.running=True
+        self.clock=pg.time.Clock()
+        self.DELTA_TIME=self.clock.tick(FPS)
         self.LoadMaps()
-        self.player=Player(self.selectedmap)
+        self.player=Player(self,self.selectedmap)
         self.RayCaster=Raycaster(self,80,self.player,self.map_s)
         self.FloorCaster=Floorcaster()
         self.Textureloader=TextureLoader()
@@ -22,10 +24,10 @@ class Game:
         pg.init()
         while self.running:
             self.Events()
-            pg.display.set_caption(f'{CLOCK.get_fps():.1f}')
+            pg.display.set_caption(f'{self.clock.get_fps():.1f}')
             pg.display.flip()
             DISPLAY.fill((0,0,0))
-            DELTA_TIME=CLOCK.tick(FPS)
+            self.DELTA_TIME=self.clock.tick(FPS)
             self.Update()
             pg.display.update()
 
@@ -43,7 +45,7 @@ class Game:
         #self.FloorCaster.Update(self.player)
         #self.RayCaster.update()
         self.map_s.update()
-        #self.player.update()
+        self.player.update()
         #self.Textureloader.update()
         
 

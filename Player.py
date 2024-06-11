@@ -5,8 +5,9 @@ from Settings import *
 from Map import*
 
 class Player:
-    def __init__(self,map):
-        self.speed=1*DELTA_TIME
+    def __init__(self,game,map):
+        self.game=game
+        self.speed=0.1
         self.pos=((int(SCREEN_WIDTH/2)/2),(int(SCREEN_WIDTH/2)/2))
         self.posx,self.posy=self.pos
         
@@ -31,17 +32,17 @@ class Player:
     def move(self):
         keys=pg.key.get_pressed()
 
-        if keys[pg.K_a]:self.angle-=0.1
-        if keys[pg.K_d]:self.angle+=0.1
+        if keys[pg.K_a]:self.angle-=0.01*self.game.DELTA_TIME
+        if keys[pg.K_d]:self.angle+=0.01*self.game.DELTA_TIME
 
         if keys[pg.K_w]:
             self.forward=True
-            self.posx+=-math.sin(self.angle)*self.speed*DELTA_TIME
-            self.posy+=math.cos(self.angle)*self.speed*DELTA_TIME
+            self.posx+=-math.sin(self.angle)*self.speed*self.game.DELTA_TIME
+            self.posy+=math.cos(self.angle)*self.speed*self.game.DELTA_TIME
         if keys[pg.K_s]:
             self.forward=False
-            self.posx-=-math.sin(self.angle)*self.speed*DELTA_TIME
-            self.posy-=math.cos(self.angle)*self.speed*DELTA_TIME
+            self.posx-=-math.sin(self.angle)*self.speed*self.game.DELTA_TIME
+            self.posy-=math.cos(self.angle)*self.speed*self.game.DELTA_TIME
     
     # def mousecontrol(self):
     #     mx,my=pg.mouse.get_pos()
@@ -53,16 +54,17 @@ class Player:
 
 
     def map_collision(self):
-        column=int(self.posx/self.curmap.tile_size)
-        row=int(self.posy/self.curmap.tile_size)
-        square=row*self.curmap.size+column
-        if self.curmap.get_map()[square]=='#':
-            if self.forward:
-                self.posx-=-math.sin(self.angle)*self.speed*DELTA_TIME
-                self.posy-=math.cos(self.angle)*self.speed*DELTA_TIME
-            else:
-                self.posx+=-math.sin(self.angle)*self.speed*DELTA_TIME
-                self.posy+=math.cos(self.angle)*self.speed*DELTA_TIME
+        # column=int(self.posx/self.curmap.tile_size)
+        # row=int(self.posy/self.curmap.tile_size)
+        # square=row*self.curmap+column
+        # if self.curmap.get_map()[square]=='#':
+        #     if self.forward:
+        #         self.posx-=-math.sin(self.angle)*self.speed*DELTA_TIME
+        #         self.posy-=math.cos(self.angle)*self.speed*DELTA_TIME
+        #     else:
+        #         self.posx+=-math.sin(self.angle)*self.speed*DELTA_TIME
+        #         self.posy+=math.cos(self.angle)*self.speed*DELTA_TIME
+        pass
 
     def get_pos(self):
         return self.posx,self.posy
@@ -74,10 +76,11 @@ class Player:
         return int(self.posx),int(self.posy)
     
     def update(self):
-        self.map_collision()
+        #self.map_collision()
         self.move()
         #self.mousecontrol()
-        #self.draw()
+        self.draw()
+        print(self.game.DELTA_TIME)
         pass
 
 if __name__=='__main__':
