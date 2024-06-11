@@ -2,7 +2,6 @@ import pygame as pg
 import numpy as np
 
 from Settings import *
-from numba import jit
 
 class Floorcaster():
     def __init__(self):
