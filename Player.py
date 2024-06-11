@@ -16,6 +16,8 @@ class Player:
         self.forward=False
 
         self.curmap=map
+
+        
     
     def draw(self):
         self.look()  
@@ -34,24 +36,33 @@ class Player:
 
         if keys[pg.K_w]:
             self.forward=True
-            self.posx+=-math.sin(self.angle)*self.speed
-            self.posy+=math.cos(self.angle)*self.speed
+            self.posx+=-math.sin(self.angle)*self.speed*DELTA_TIME
+            self.posy+=math.cos(self.angle)*self.speed*DELTA_TIME
         if keys[pg.K_s]:
             self.forward=False
-            self.posx-=-math.sin(self.angle)*self.speed
-            self.posy-=math.cos(self.angle)*self.speed
+            self.posx-=-math.sin(self.angle)*self.speed*DELTA_TIME
+            self.posy-=math.cos(self.angle)*self.speed*DELTA_TIME
     
+    # def mousecontrol(self):
+    #     mx,my=pg.mouse.get_pos()
+    #     if mx < MOUSE_BORDER_LEFT or mx>MOUSE_BORDER_RIGHT:
+    #         pg.mouse.get_pos([SCREEN_HALF_WIDTH,SCREEN_HALF_HEIGHT])
+    #     self.rel=pg.mouse.get_rel()[0]
+    #     self.rel=max(-MOUSE_MAX_REL_MOV,min(MOUSE_MAX_REL_MOV,self.rel))
+    #     self.angle+=self.rel*MOUSE_SENSITIVITY*DELTA_TIME
+
+
     def map_collision(self):
         column=int(self.posx/self.curmap.tile_size)
         row=int(self.posy/self.curmap.tile_size)
         square=row*self.curmap.size+column
         if self.curmap.get_map()[square]=='#':
             if self.forward:
-                self.posx-=-math.sin(self.angle)*self.speed
-                self.posy-=math.cos(self.angle)*self.speed
+                self.posx-=-math.sin(self.angle)*self.speed*DELTA_TIME
+                self.posy-=math.cos(self.angle)*self.speed*DELTA_TIME
             else:
-                self.posx+=-math.sin(self.angle)*self.speed
-                self.posy+=math.cos(self.angle)*self.speed
+                self.posx+=-math.sin(self.angle)*self.speed*DELTA_TIME
+                self.posy+=math.cos(self.angle)*self.speed*DELTA_TIME
 
     def get_pos(self):
         return self.posx,self.posy
@@ -65,6 +76,7 @@ class Player:
     def update(self):
         self.map_collision()
         self.move()
+        #self.mousecontrol()
         #self.draw()
         pass
 

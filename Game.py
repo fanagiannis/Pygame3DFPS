@@ -8,6 +8,7 @@ from Floorcaster import *
 
 class Game:
     def __init__(self):
+        pg.mouse.set_visible(False)
         self.running=True
         self.LoadMaps()
         self.player=Player(self.selectedmap)
