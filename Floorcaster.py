@@ -2,26 +2,25 @@ import pygame as pg
 import numpy as np
 
 from Settings import *
-from numba import njit
 
 class Floorcaster():
     def __init__(self):
         self.HRES=120
         self.VERTICAL=100
         self.HALFRES=int(self.VERTICAL/2)
-        self.MOD=self.HALFRES/60
+        self.MOD=self.HRES/60
         self.POSX,self.POSY,self.ROT=0,0,0
         self.FRAME=np.random.uniform(0,1,(self.HRES,self.VERTICAL,3))
         self.LoadSky()   
         self.LoadGround() 
 
     def LoadSky(self):
-        self.sky=pg.image.load('Assets/Images/skybox.jpg')
+        self.sky=pg.image.load('Assets/Images/skybox.jpg').convert_alpha()
         self.sky=self.sky.convert_alpha()
         self.sky=pg.surfarray.array3d(pg.transform.scale(self.sky,(360,self.HALFRES*2)))
 
     def LoadGround(self):
-        self.floor=pg.surfarray.array3d(pg.image.load('Assets/Images/floor.jpg'))
+        self.floor=pg.surfarray.array3d(pg.image.load('Assets/Images/floor2.jpg').convert_alpha())
     
     def LoadSurface(self):
         surf = pg.surfarray.make_surface(self.FRAME*255)
@@ -32,8 +31,7 @@ class Floorcaster():
         self.POSX,self.POSY=player.get_pos()
         self.ROT=player.get_angle()
         frame=self.FrameCalculation(self.HRES,self.MOD,self.HALFRES,self.POSX,self.POSY,self.ROT,self.floor,self.FRAME)
-
-    @njit()    
+   
     def FrameCalculation(self,HRES,MOD,HALFRES,POSX,POSY,ROT,floor,frame):
         for i in range(HRES):
             ROT_i=ROT+np.deg2rad(i/MOD-30)
@@ -54,3 +52,4 @@ class Floorcaster():
     def Update(self,player): 
         self.LoadFrames(player)
         self.LoadSurface()
+        pass
