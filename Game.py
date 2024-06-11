@@ -13,11 +13,13 @@ class Game:
         self.running=True
         self.clock=pg.time.Clock()
         self.DELTA_TIME=self.clock.tick(FPS)
-        self.LoadMaps()
-        self.player=Player(self,self.selectedmap)
-        self.RayCaster=Raycaster(self,80,self.player,self.map_s)
+        self.map=Map(MAP_SMALL)
+        #self.LoadMaps()
+        self.player=Player(self,self.map)
+        self.RayCaster=Raycaster(self,80,self.player,self.map)
         self.FloorCaster=Floorcaster()
         self.Textureloader=TextureLoader()
+        
         pass
 
     def Run(self):
@@ -37,14 +39,14 @@ class Game:
                 pg.quit()    
     
     def LoadMaps(self):
-        self.map_s=Map(MAP_SMALL)
+        self.map=Map(MAP_SMALL)
         #self.map_m=Map(MAP_MED)
-        self.selectedmap=self.map_s
+        self.selectedmap=self.map
 
     def Update(self):
         #self.FloorCaster.Update(self.player)
         #self.RayCaster.update()
-        self.map_s.update()
+        self.map.update()
         self.player.update()
         #self.Textureloader.update()
         

@@ -26,34 +26,35 @@ class Player:
         pass
     
     def look(self):
-        pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle-self.HFOV)*50),int(self.posy+math.cos(self.angle-self.HFOV)*50)),3)
-        pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle+self.HFOV)*50),int(self.posy+math.cos(self.angle+self.HFOV)*50)),3)
+        #pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle-self.HFOV)*50),int(self.posy+math.cos(self.angle-self.HFOV)*50)),1)
+        #pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle+self.HFOV)*50),int(self.posy+math.cos(self.angle+self.HFOV)*50)),1)
+        pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle)*50),int(self.posy+math.cos(self.angle)*50)),1)
 
     def move(self):
         keys=pg.key.get_pressed()
-
+        #self.map_collision(self.posx,self.posy)
         if keys[pg.K_a]:self.angle-=0.01*self.game.DELTA_TIME
         if keys[pg.K_d]:self.angle+=0.01*self.game.DELTA_TIME
+        self.angle%=math.tau
 
+        dx,dy=0,0
+        
         if keys[pg.K_w]:
             self.forward=True
-            self.posx+=-math.sin(self.angle)*self.speed*self.game.DELTA_TIME
-            self.posy+=math.cos(self.angle)*self.speed*self.game.DELTA_TIME
+            dx+=-math.sin(self.angle)*self.speed*self.game.DELTA_TIME
+            dy+=math.cos(self.angle)*self.speed*self.game.DELTA_TIME
         if keys[pg.K_s]:
             self.forward=False
-            self.posx-=-math.sin(self.angle)*self.speed*self.game.DELTA_TIME
-            self.posy-=math.cos(self.angle)*self.speed*self.game.DELTA_TIME
+            dx-=-math.sin(self.angle)*self.speed*self.game.DELTA_TIME
+            dy-=math.cos(self.angle)*self.speed*self.game.DELTA_TIME
+
+        self.map_collision(dx,dy)
+    def check_wall(self,x,y):
+        return(x,y) not in self.game.map.map
     
-    # def mousecontrol(self):
-    #     mx,my=pg.mouse.get_pos()
-    #     if mx < MOUSE_BORDER_LEFT or mx>MOUSE_BORDER_RIGHT:
-    #         pg.mouse.get_pos([SCREEN_HALF_WIDTH,SCREEN_HALF_HEIGHT])
-    #     self.rel=pg.mouse.get_rel()[0]
-    #     self.rel=max(-MOUSE_MAX_REL_MOV,min(MOUSE_MAX_REL_MOV,self.rel))
-    #     self.angle+=self.rel*MOUSE_SENSITIVITY*DELTA_TIME
-
-
-    def map_collision(self):
+    def map_collision(self,dx,dy):
+        if(self.check_wall(int(self.posx+dx),int(self.posy))):self.posx+=dx
+        if(self.check_wall(int(self.posx),int(self.posy+dy))):self.posy+=dy
         # column=int(self.posx/self.curmap.tile_size)
         # row=int(self.posy/self.curmap.tile_size)
         # square=row*self.curmap+column
