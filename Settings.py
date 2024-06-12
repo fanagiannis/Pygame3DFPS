@@ -11,7 +11,6 @@ DELTA_TIME=1
 DISPLAY=pg.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 CLOCK=pg.time.Clock()
 
-MAP_SIZE = 16
 
 #MOUSE CONTROL
 
