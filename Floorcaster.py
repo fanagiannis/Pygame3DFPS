@@ -32,12 +32,12 @@ class Floorcaster():
         self.POSX,self.POSY=player.get_pos()
         self.ROT=player.get_angle()
 
-    def Update(self,player): 
-        self.LoadFrames(player)
-        self.LoadSurface()
+    def Update(self,player): pass
+        # self.LoadFrames(player)
+        # self.LoadSurface()
         
-        self.LoadGround()
-        self.LoadSky()
+        # self.LoadGround()
+        #self.LoadSky()
 
 
     #CUT CODE
