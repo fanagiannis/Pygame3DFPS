@@ -10,7 +10,7 @@ class Raycaster():
         self.curmap=map
         self.rays_casted=rays
         self.step_angle=player.FOV/self.rays_casted
-        self.maxdepth=int(self.curmap.size*self.curmap.tile_size)
+        #self.maxdepth=int(self.curmap.size*self.curmap.tile_size)
         self.scale=(SCREEN_WIDTH)//self.rays_casted
         
         
@@ -92,7 +92,8 @@ class Raycaster():
             
 
     def update(self):
-        self.cast_rays()
+        #self.cast_rays()
+        pass
 
 if __name__=='__main__':
     print("RayCaster")

@@ -4,27 +4,47 @@ import math
 from Settings import*
 from Maps import*
 
+_=False
+MAP=[
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,_,_,_,_,_,_,1,_,_,_,_,_,_,_,1],
+    [1,_,_,_,_,_,_,_,_,_,_,_,_,_,_,1],
+    [1,_,_,_,_,_,_,_,_,_,_,1,_,_,_,1],
+    [1,_,_,_,_,_,_,_,_,_,_,1,_,_,_,1],
+    [1,_,_,_,_,_,_,_,_,_,_,_,_,_,_,1],
+    [1,_,_,_,_,1,_,_,_,_,_,_,_,_,_,1],
+    [1,_,_,_,_,_,_,_,_,_,_,_,_,_,_,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+]
+
 class Map:
-    def __init__(self,map):
-        self.map=map
-        self.map_open=False
-        self.size=int(math.sqrt((self.map.__len__())))
-        self.tile_size=int((SCREEN_WIDTH/2)/(self.size))
-        print(self.size)
+    def __init__(self,game,map):
+        self.game=game
+        self.mini_map=map
+        self.world_map={}
+        self.rows=len(self.mini_map)
+        self.cols=len(self.mini_map[0])
+        self.get_map()
+        self.tilesize=50
+        #self.draw()
     def draw(self):
-        for row in range(self.size):
-            for column in range(self.size):
-                square= row*self.size + column
-                rect=(column*self.tile_size,row*self.tile_size,self.tile_size,self.tile_size)
-                pg.draw.rect(DISPLAY,(100,100,100) if self.map[square]=='#' else (0,0,0),rect)
-    def map_control(self):
-        pass
+        [pg.draw.rect(DISPLAY,(100,100,100),(pos[0] * 50, pos[1] * self.tilesize, self.tilesize, self.tilesize), 2) for pos in self.world_map]
+
     def get_map(self):
-        return self.map
+        for j,row in enumerate(self.mini_map):
+            for i,value in enumerate(row):
+                if value:
+                    self.world_map[(i,j)]=value
+
+    def check_collision(self,x,y):
+        tile_x,tile_y = int(x//self.tilesize),int(y//self.tilesize)
+        if 0 <= tile_x < self.cols and 0 <= tile_y < self.rows:
+            return self.mini_map[tile_y][tile_x] == 1
+        return False
+    
     def update(self):
-        self.map_control()
-        if self.map_open:
-            self.draw()
+        self.draw()
+        pass
 
 if __name__=='__main__':
     print("Map Class")

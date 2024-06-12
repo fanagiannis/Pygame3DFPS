@@ -12,7 +12,7 @@ class Game:
         self.running=True
         self.LoadMaps()
         self.player=Player(self.selectedmap)
-        self.RayCaster=Raycaster(80,self.player,self.map_s)
+        self.RayCaster=Raycaster(80,self.player,self.map)
         self.FloorCaster=Floorcaster()
         pass
 
@@ -33,15 +33,16 @@ class Game:
                 pg.quit()    
     
     def LoadMaps(self):
-        self.map_s=Map(MAP_SMALL)
-        self.map_m=Map(MAP_MED)
-        self.selectedmap=self.map_s
+        self.map=Map(self,MAP)
+        #self.map_m=Map(MAP_MED)
+        self.selectedmap=self.map
 
     def Update(self):
-        self.FloorCaster.Update(self.player)
-        self.RayCaster.update()
-        self.map_s.update()
+        #self.FloorCaster.Update(self.player)
+        #self.RayCaster.update()
+        self.map.update()
         self.player.update()
+        
         
 
 if __name__=='__main__':
