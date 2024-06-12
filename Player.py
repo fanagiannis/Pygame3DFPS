@@ -6,12 +6,12 @@ from Map import*
 
 class Player:
     def __init__(self,map):
-        self.speed=10*DELTA_TIME
+        self.speed=100*DELTA_TIME
         self.rot_speed=0.1*DELTA_TIME
         self.pos=((int(SCREEN_WIDTH/2)/2),(int(SCREEN_WIDTH/2)/2))
         self.posx,self.posy=self.pos
         
-        self.angle=math.pi
+        self.angle=0#math.pi
         self.FOV=math.pi/3
         self.HFOV=self.FOV/2
 
@@ -29,7 +29,7 @@ class Player:
         pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle+self.HFOV)*50),int(self.posy+math.cos(self.angle+self.HFOV)*50)),1)
 
     def move(self):
-        self.speed=0.1*DELTA_TIME
+        self.speed=1*DELTA_TIME
         self.rot_speed=0.01*DELTA_TIME
         dx,dy=0,0
         keys=pg.key.get_pressed()
