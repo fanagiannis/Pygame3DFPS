@@ -36,9 +36,9 @@ class Game:
     
     def LoadMaps(self):
         self.map=Map(self,MAP)
-        self.map2=Map(self,MAP2)
+        #self.map2=Map(self,MAP2)
         #self.map_m=Map(MAP_MED)
-        self.selectedmap=self.map2
+        self.selectedmap=self.map
 
     def Update(self):
         self.player.update()

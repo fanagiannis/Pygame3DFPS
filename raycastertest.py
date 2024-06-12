@@ -84,7 +84,7 @@ while True:
     pg.draw.rect(WIN, (100, 100, 100), (0, SCREEN_HEIGHT//2 , SCREEN_WIDTH , SCREEN_HEIGHT//2))  # Floor
     pg.draw.rect(WIN, (200, 200, 200), (0, SCREEN_WIDTH//2 , SCREEN_WIDTH, SCREEN_HEIGHT//2))  # Ceiling
     
-    #draw_map()
+    draw_map()
     cast_rays()
 
     # Player movement and collision detection

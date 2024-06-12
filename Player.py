@@ -16,6 +16,7 @@ class Player:
         self.HFOV=self.FOV/2
 
         self.curmap=map
+        self.TILE_SIZE=self.curmap.tilesize
 
         
     
@@ -31,25 +32,19 @@ class Player:
     def move(self):
         self.speed=1*DELTA_TIME
         self.rot_speed=0.1*DELTA_TIME
-        dx,dy=0,0
-        keys=pg.key.get_pressed()
-
-        if keys[pg.K_a]:self.angle-=self.rot_speed
-        if keys[pg.K_d]:self.angle+=self.rot_speed
-
-        if keys[pg.K_w]: 
-            dx+=-math.sin(self.angle)*self.speed
-            dy+=math.cos(self.angle)*self.speed
-        if keys[pg.K_s]:
-            dx-=-math.sin(self.angle)*self.speed
-            dy-=math.cos(self.angle)*self.speed
-
-        next_posx=self.posx+dx
-        next_posy=self.posy+dy
-
-        if not self.curmap.check_collision(next_posx, next_posy):
-            self.posx = next_posx
-            self.posy = next_posy    
+        keys = pg.key.get_pressed()
+        if keys[pg.K_LEFT]: self.angle -= 0.1
+        if keys[pg.K_RIGHT]: self.angle += 0.1
+        if keys[pg.K_UP]:
+            new_x = self.posx + math.cos(self.angle) * self.speed
+            new_y = self.posy + math.sin(self.angle) * self.speed
+            if MAP[int(new_y / self.TILE_SIZE)][int(new_x / self.TILE_SIZE)] == 0:
+                self.posx, self.posy = new_x, new_y
+        if keys[pg.K_DOWN]:
+            new_x = self.posx - math.cos(self.angle) * self.speed
+            new_y = self.posy - math.sin(self.angle) * self.speed
+            if MAP[int(new_y / self.TILE_SIZE)][int(new_x / self.TILE_SIZE)] == 0:
+                self.posx, self.posy= new_x, new_y    
     
     def get_pos(self):
         return self.posx,self.posy
