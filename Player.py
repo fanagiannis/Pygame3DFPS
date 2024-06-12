@@ -62,7 +62,7 @@ class Player:
     
     def update(self):
         self.move()
-        self.draw()
+        #self.draw()
         pass
 
 if __name__=='__main__':

@@ -22,7 +22,7 @@ class Game:
             self.Events()
             
             pg.display.set_caption(f'{CLOCK.get_fps():.1f}')
-            #pg.display.flip()
+            pg.display.flip()
             
             DELTA_TIME=CLOCK.tick(FPS)
             self.Update()
@@ -43,7 +43,7 @@ class Game:
     def Update(self):
         self.player.update()
         self.RayCaster.update()
-        self.map.draw()
+        #self.map.draw()
         
         
         
