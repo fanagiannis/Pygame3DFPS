@@ -1,5 +1,7 @@
 import pygame as pg
 
+from Player import *
+
 class Game():
     def __init__(self):
         self.SCREEN_WIDTH=1600
@@ -7,11 +9,18 @@ class Game():
         self.DISPLAY=pg.display.set_mode((self.SCREEN_WIDTH,self.SCREEN_HEIGHT))
         self.CLOCK=pg.time.Clock()
         self.FPS=60
+        self.DELTA_TIME=0
         self.running=True
+        print("Game Created!")
         pass
     
+    def New_properties(self):
+        self.player=Player(self)
+        pass
+
     def Run(self):
         pg.init()
+        self.New_properties()
         while self.running:
             self.Events()
             self.Cycle()
@@ -24,9 +33,9 @@ class Game():
                 pg.quit()    
 
     def Cycle(self): 
-        self.DISPLAY.fill((0,0,0))
         self.ShowFPS()
-        pg.display.flip()
+        pg.display.update()
+        self.DISPLAY.fill((0,0,0))
         self.DELTA_TIME=self.CLOCK.tick(self.FPS)
         
     def ShowFPS(self):
@@ -37,5 +46,9 @@ class Game():
         self.DISPLAY.blit(text_surface,(0,0))
 
     def Update(self):
-        
+        self.player.Update()
         pass
+
+if __name__=='__main__':
+    game=Game()
+    game.Run()
