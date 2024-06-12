@@ -5,83 +5,26 @@ from Settings import*
 from Maps import*
 
 class Map:
-    def __init__(self,game,map):
-        self.game=game
-        self.mini_map=map
-        self.worldmap={}
-        self.get_map()
-    
+    def __init__(self,map):
+        self.map=map
+        self.map_open=False
+        self.size=int(math.sqrt((self.map.__len__())))
+        self.tile_size=int((SCREEN_WIDTH/2)/(self.size))
+        print(self.size)
     def draw(self):
-        [pg.draw.rect(self.game.DISPLAY,'darkgray',(pos[0]*100,pos[1]*100,100,100),2)
-        for pos in self.worldmap]
-        # for row in range(self.size):
-        #     for column in range(self.size):
-        #         square= row*self.size + column
-        #         rect=(column*self.tile_size,row*self.tile_size,self.tile_size,self.tile_size)
-        #         pg.draw.rect(DISPLAY,(100,100,100) if self.map[square]=='#' else (0,0,0),rect)
+        for row in range(self.size):
+            for column in range(self.size):
+                square= row*self.size + column
+                rect=(column*self.tile_size,row*self.tile_size,self.tile_size,self.tile_size)
+                pg.draw.rect(DISPLAY,(100,100,100) if self.map[square]=='#' else (0,0,0),rect)
+    def map_control(self):
+        pass
     def get_map(self):
-        for j,row in enumerate(self.mini_map):
-            for i,value in enumerate(row):
-                if value:
-                    self.worldmap[(i,j)]=value
+        return self.map
+    def update(self):
+        self.map_control()
+        if self.map_open:
+            self.draw()
 
 if __name__=='__main__':
     print("Map Class")
-
-# import pygame as pg
-
-# _ = False
-# mini_map = [
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1],
-#     [1, _, _, 3, 3, 3, 3, _, _, _, 2, 2, 2, _, _, 1],
-#     [1, _, _, _, _, _, 4, _, _, _, _, _, 2, _, _, 1],
-#     [1, _, _, _, _, _, 4, _, _, _, _, _, 2, _, _, 1],
-#     [1, _, _, 3, 3, 3, 3, _, _, _, _, _, _, _, _, 1],
-#     [1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1],
-#     [1, _, _, _, 4, _, _, _, 4, _, _, _, _, _, _, 1],
-#     [1, 1, 1, 3, 1, 3, 1, 1, 1, 3, _, _, 3, 1, 1, 1],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 3, _, _, 3, 1, 1, 1],
-#     [1, 1, 1, 1, 1, 1, 1, 1, 1, 3, _, _, 3, 1, 1, 1],
-#     [1, 1, 3, 1, 1, 1, 1, 1, 1, 3, _, _, 3, 1, 1, 1],
-#     [1, 4, _, _, _, _, _, _, _, _, _, _, _, _, _, 1],
-#     [3, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1],
-#     [1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1],
-#     [1, _, _, 2, _, _, _, _, _, 3, 4, _, 4, 3, _, 1],
-#     [1, _, _, 5, _, _, _, _, _, _, 3, _, 3, _, _, 1],
-#     [1, _, _, 2, _, _, _, _, _, _, _, _, _, _, _, 1],
-#     [1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1],
-#     [3, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1],
-#     [1, 4, _, _, _, _, _, _, 4, _, _, 4, _, _, _, 1],
-#     [1, 1, 3, 3, _, _, 3, 3, 1, 3, 3, 1, 3, 1, 1, 1],
-#     [1, 1, 1, 3, _, _, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-#     [1, 3, 3, 4, _, _, 4, 3, 3, 3, 3, 3, 3, 3, 3, 1],
-#     [3, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 3],
-#     [3, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 3],
-#     [3, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 3],
-#     [3, _, _, 5, _, _, _, 5, _, _, _, 5, _, _, _, 3],
-#     [3, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 3],
-#     [3, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 3],
-#     [3, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 3],
-#     [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-# ]
-
-
-# class Map:
-#     def __init__(self, game):
-#         self.game = game
-#         self.mini_map = mini_map
-#         self.world_map = {}
-#         self.rows = len(self.mini_map)
-#         self.cols = len(self.mini_map[0])
-#         self.get_map()
-
-#     def get_map(self):
-#         for j, row in enumerate(self.mini_map):
-#             for i, value in enumerate(row):
-#                 if value:
-#                     self.world_map[(i, j)] = value
-
-#     def draw(self):
-#         [pg.draw.rect(self.game.screen, 'darkgray', (pos[0] * 100, pos[1] * 100, 100, 100), 2)
-#          for pos in self.world_map]

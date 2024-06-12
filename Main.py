@@ -6,4 +6,4 @@ from numba import njit
 njit
 if __name__=='__main__':
     game=Game()
-    game.Run() 
+    game.Run()
