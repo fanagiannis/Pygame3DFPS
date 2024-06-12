@@ -6,7 +6,7 @@ from Map import*
 
 class Player:
     def __init__(self,map):
-        self.speed=100*DELTA_TIME
+        self.speed=1*DELTA_TIME
         self.rot_speed=0.1*DELTA_TIME
         self.pos=((int(SCREEN_WIDTH/2)/2),(int(SCREEN_WIDTH/2)/2))
         self.posx,self.posy=self.pos
@@ -30,7 +30,7 @@ class Player:
 
     def move(self):
         self.speed=1*DELTA_TIME
-        self.rot_speed=0.01*DELTA_TIME
+        self.rot_speed=0.1*DELTA_TIME
         dx,dy=0,0
         keys=pg.key.get_pressed()
 

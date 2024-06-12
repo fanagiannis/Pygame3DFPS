@@ -33,29 +33,3 @@ class Floorcaster():
         self.ROT=player.get_angle()
 
     def Update(self,player): pass
-        # self.LoadFrames(player)
-        # self.LoadSurface()
-        
-        # self.LoadGround()
-        #self.LoadSky()
-
-
-    #CUT CODE
-
-    # def FrameCalculation(self,HRES,MOD,HALFRES,POSX,POSY,ROT,floor,frame):
-    #     for i in range(HRES):
-    #         ROT_i=ROT+np.deg2rad(i/MOD-30)
-    #         sin,cos,cos2=np.sin(ROT_i),np.cos(ROT_i),np.cos(np.deg2rad(i/MOD-30))
-
-    #         frame[i][:]=self.sky[int(np.rad2deg(ROT_i)%359)][:]/255    
-
-    #         for j in range (HALFRES):
-    #             n=(HALFRES / (HALFRES- j))/cos2
-    #             #x,y= self.POSX*0.1+cos*n,self.POSY*0.1 +sin*n 
-    #             x,y= POSY*0.1+cos*n,-POSX*0.1 +sin*n                                          #!!!WARNING! REVERSE X AND Y FROM PLAYER MOVEMENT! y=-PLAYER POSISTION ON Y!
-
-    #             gx,gy=int(x*1%1*100),int(y*1%1*100)                                                     #gx,gy = ground x and ground y  HERE YOU CAN ADJUST THE RESOLUTION SCALE
-    #             shader=0.3+0.7*(1-j/HALFRES)                                              
-    #             frame[i][HALFRES*2-j-1]=shader*floor[gx][gy]/255
-    #     return frame
-    #     pass
