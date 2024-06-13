@@ -56,7 +56,7 @@ class Game():
         self.DISPLAY.blit(text_surface,(0,0))
 
     def Update(self):
-        #self.map.Update()
+        self.map.Update()
         self.player.Update()
         self.floorcaster.Update()
         self.raycaster.Update()
