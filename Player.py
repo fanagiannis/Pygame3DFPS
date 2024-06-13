@@ -7,7 +7,7 @@ class Player():
         self.SPEED=0.1
         self.ROT_SPEED=0.01
         self.ANGLE=0
-        self.FOV=math.pi/3
+        self.FOV=math.pi/4
         self.pos=(self.game.SCREEN_WIDTH//2,self.game.SCREEN_HEIGHT//2)
         self.posx,self.posy=self.pos
         print("Player Created!")
@@ -21,16 +21,17 @@ class Player():
         if keys[pg.K_d]: self.ANGLE+=self.ROT_SPEED*self.game.DELTA_TIME
         if keys[pg.K_a]: self.ANGLE-=self.ROT_SPEED*self.game.DELTA_TIME
         if keys[pg.K_w] : 
-            dx+= math.cos(self.ANGLE) *self.SPEED
-            dy+= math.sin(self.ANGLE) *self.SPEED
-
-            print(self.posx)
+            dx= math.cos(self.ANGLE) *self.SPEED
+            dy= math.sin(self.ANGLE) *self.SPEED
+            
         if keys[pg.K_s] : 
-            dx+= -math.cos(self.ANGLE) * self.SPEED
-            dy+= -math.sin(self.ANGLE) * self.SPEED
-            print(self.posy)
-        self.posx+=dx
-        self.posy+=dy
+            dx= -math.cos(self.ANGLE) * self.SPEED
+            dy= -math.sin(self.ANGLE) * self.SPEED
+
+        if not self.game.map.check_collision(self.posx+dx,self.posy+dy):
+            self.posx+=dx
+            self.posy+=dy   
+        
         
         
         pass
