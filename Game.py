@@ -4,6 +4,7 @@ from numba import njit
 from Player import *
 from Map import *
 from Raycaster import *
+from Floorcaster import * 
 
 class Game():
     def __init__(self):
@@ -20,7 +21,7 @@ class Game():
     def New_properties(self):
         self.map=Map(self,MAP2)
         self.player=Player(self,self.map)
-        
+        self.floorcaster=Floorcaster()
         self.raycaster=Raycaster(self)
         pass
 
@@ -55,9 +56,8 @@ class Game():
     def Update(self):
         #self.map.Update()
         self.player.Update()
+        self.floorcaster.Update()
         self.raycaster.Update()
-        
-        pass
 
 if __name__=='__main__':
     game=Game()

@@ -15,12 +15,11 @@ class Floorcaster():
         self.LoadGround() 
     
     def LoadSky(self):
-        self.sky=pg.image.load('Assets/Images/skybox.jpg').convert_alpha()
+        self.sky=pg.image.load('Assets/Textures/sky.png').convert_alpha()
         self.sky=pg.surfarray.array3d(self.sky)#pg.transform.scale(self.sky,(SCREEN_WIDTH,SCREEN_HEIGHT)))
-        pass
 
     def LoadGround(self):
-        pg.draw.rect(DISPLAY,(50,50,50),(0,SCREEN_HALF_HEIGHT,SCREEN_WIDTH,SCREEN_HEIGHT))
+        pg.draw.rect(DISPLAY,'black',(0,SCREEN_HALF_HEIGHT,SCREEN_WIDTH,SCREEN_HEIGHT))
         pass
     
     def LoadSurface(self):
@@ -32,4 +31,7 @@ class Floorcaster():
         self.POSX,self.POSY=player.get_pos()
         self.ROT=player.get_angle()
 
-    def Update(self,player): pass
+    def Update(self):
+        self.LoadSurface() 
+        self.LoadGround()   
+        
