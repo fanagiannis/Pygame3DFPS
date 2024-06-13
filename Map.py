@@ -1,8 +1,6 @@
 import pygame as pg
-import math
 
 from Settings import*
-from Maps import*
 
 _=False
 MAP=[
@@ -41,6 +39,10 @@ class Map:
         if 0 <= tile_x < self.cols and 0 <= tile_y < self.rows:
             return self.mini_map[tile_y][tile_x] == 1
         return False
+    
+    def Update(self):
+        self.get_map()
+        self.draw()
 
 if __name__=='__main__':
     print("Map Class")

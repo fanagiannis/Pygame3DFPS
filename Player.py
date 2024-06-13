@@ -23,6 +23,7 @@ class Player():
         if keys[pg.K_w] : 
             dx+= math.cos(self.ANGLE) *self.SPEED
             dy+= math.sin(self.ANGLE) *self.SPEED
+
             print(self.posx)
         if keys[pg.K_s] : 
             dx+= -math.cos(self.ANGLE) * self.SPEED

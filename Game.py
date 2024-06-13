@@ -1,6 +1,7 @@
 import pygame as pg
 
 from Player import *
+from Map import *
 
 class Game():
     def __init__(self):
@@ -16,6 +17,7 @@ class Game():
     
     def New_properties(self):
         self.player=Player(self)
+        self.map=Map(self,MAP)
         pass
 
     def Run(self):
@@ -47,6 +49,7 @@ class Game():
 
     def Update(self):
         self.player.Update()
+        self.map.Update()
         pass
 
 if __name__=='__main__':
