@@ -1,13 +1,13 @@
 import pygame as pg 
-import numpy as np
+import math
 
 class Player():
     def __init__(self,game,map):
         self.game=game
         self.SPEED=0.1
         self.ROT_SPEED=0.01
-        self.ANGLE=np.pi
-        self.FOV=np.pi/3
+        self.ANGLE=math.pi
+        self.FOV=math.pi/3
         self.pos=(500,500)
         self.posx,self.posy=self.pos
         print("Player Created!")
@@ -21,12 +21,12 @@ class Player():
         if keys[pg.K_d]: self.ANGLE+=self.ROT_SPEED*self.game.DELTA_TIME
         if keys[pg.K_a]: self.ANGLE-=self.ROT_SPEED*self.game.DELTA_TIME
         if keys[pg.K_w] : 
-            dx= np.cos(self.ANGLE) *self.SPEED
-            dy= np.sin(self.ANGLE) *self.SPEED
+            dx= math.cos(self.ANGLE) *self.SPEED
+            dy= math.sin(self.ANGLE) *self.SPEED
             
         if keys[pg.K_s] : 
-            dx= -np.cos(self.ANGLE) * self.SPEED
-            dy= -np.sin(self.ANGLE) * self.SPEED
+            dx= -math.cos(self.ANGLE) * self.SPEED
+            dy= -math.sin(self.ANGLE) * self.SPEED
 
         if not self.game.map.check_collision(self.posx+dx,self.posy+dy):
             self.posx+=dx
@@ -38,8 +38,8 @@ class Player():
     
     def Draw(self):
         #FOV
-        pg.draw.line(self.game.DISPLAY,(0,255,0),(self.posx,self.posy),(int(self.posx-np.sin(self.ANGLE-self.FOV/2)*50),int(self.posy+np.cos(self.ANGLE-self.FOV/2)*50)),1)
-        pg.draw.line(self.game.DISPLAY,(0,255,0),(self.posx,self.posy),(int(self.posx+np.sin(self.ANGLE+self.FOV/2)*50),int(self.posy-np.cos(self.ANGLE+self.FOV/2)*50)),1)
+        pg.draw.line(self.game.DISPLAY,(0,255,0),(self.posx,self.posy),(int(self.posx-math.sin(self.ANGLE-self.FOV/2)*50),int(self.posy+math.cos(self.ANGLE-self.FOV/2)*50)),1)
+        pg.draw.line(self.game.DISPLAY,(0,255,0),(self.posx,self.posy),(int(self.posx+math.sin(self.ANGLE+self.FOV/2)*50),int(self.posy-math.cos(self.ANGLE+self.FOV/2)*50)),1)
         #pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle+self.HFOV)*50),int(self.posy+math.cos(self.angle+self.HFOV)*50)),1)
         
         pg.draw.circle(self.game.DISPLAY,(255,0,255),(int(self.posx),int(self.posy)),3)

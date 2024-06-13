@@ -1,36 +1,36 @@
 import pygame as pg
-import numpy as np
-
+import math
 class Raycaster():
     def __init__(self,game):
         self.game=game
-        self.CASTED_RAYS=int(self.game.SCREEN_WIDTH/5)
+        self.CASTED_RAYS=120#int(self.game.SCREEN_WIDTH/5)
         self.MAX_DEPTH=int(self.game.SCREEN_WIDTH/2)
         self.TILE_SIZE=self.game.map.tilesize
-        pass
 
     def cast_rays(self):
         SCALE = self.game.SCREEN_WIDTH//self.CASTED_RAYS
         STEP_ANGLE=(self.game.player.FOV)/self.CASTED_RAYS
-        START_ANGLE=self.game.player.ANGLE-self.game.player.FOV*2
         PLAYER_X,PLAYER_Y=self.game.player.Get_pos
-        for rays in range(self.CASTED_RAYS): 
+        START_ANGLE = self.game.player.Get_angle - self.game.player.FOV/2
+        for ray in range(self.CASTED_RAYS):
             for depth in range(self.MAX_DEPTH):
-                TARGET_X=PLAYER_X-np.sin(START_ANGLE)*depth
-                TARGET_Y=PLAYER_Y+np.cos(START_ANGLE)*depth
-                #pg.draw.line(self.game.DISPLAY,'yellow',(self.game.player.posx,self.game.player.posy),(TARGET_X,TARGET_Y),2)
+                TARGET_X= PLAYER_X + math.cos(START_ANGLE) * depth
+                TARGET_Y = PLAYER_Y + math.sin(START_ANGLE) * depth
 
-                row=int(TARGET_Y/self.TILE_SIZE)
-                column=int(TARGET_X/self.TILE_SIZE)
-                square=row*self.game.map.Mapsize
-                if self.game.map.check_collision(TARGET_X,TARGET_Y):
-                    #pg.draw.rect(self.game.DISPLAY,'WHITE',(column*self.TILE_SIZE,row*self.TILE_SIZE,self.TILE_SIZE-2,self.TILE_SIZE-2))
+                row = int(TARGET_Y / self.TILE_SIZE)
+                col = int(TARGET_X / self.TILE_SIZE)
+                #pg.draw.line(self.game.DISPLAY,'yellow',(self.game.player.Get_pos),(TARGET_X,TARGET_Y),2)
+                if self.game.map.mini_map[row][col] == 1:
+                    color = 255 / (1 + depth * depth * 0.0001)
+                    depth *= math.cos(self.game.player.ANGLE - START_ANGLE)
+                    wall_height = 21000 / (depth + 0.0001)
+                    wall_height = min(wall_height, self.game.SCREEN_HEIGHT)
                     
-                    wall_height=42000/(depth+0.001) #min=21000/480~43px max=21000/0.0001=210000000 px (!)
 
-                    pg.draw.rect(self.game.DISPLAY,'WHITE',(rays*SCALE,self.game.SCREEN_HEIGHT/2-wall_height/2,SCALE,wall_height))#
+                    pg.draw.rect(self.game.DISPLAY, (color, color, color), (ray * SCALE, self.game.SCREEN_HEIGHT / 2 - wall_height / 2, SCALE, wall_height))
+                    break
 
             START_ANGLE+=STEP_ANGLE
-
+    
     def Update(self):
         self.cast_rays()
