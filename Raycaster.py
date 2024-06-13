@@ -14,11 +14,12 @@ class Raycaster():
         ####
 
 
-    def cast_rays(self):
+    def cast_rays(self): 
         SCALE = self.game.SCREEN_WIDTH//self.CASTED_RAYS
         STEP_ANGLE=(self.game.player.FOV)/self.CASTED_RAYS
         PLAYER_X,PLAYER_Y=self.game.player.Get_pos
         START_ANGLE = self.game.player.Get_angle - self.game.player.FOV/2
+        
         for ray in range(self.CASTED_RAYS):
             for depth in range(self.MAX_DEPTH):
                 TARGET_X= PLAYER_X + math.cos(START_ANGLE) * depth
@@ -36,7 +37,7 @@ class Raycaster():
                     wall_height = 42000 / (depth + 0.0001)
                     wall_height = min(wall_height, self.game.SCREEN_HEIGHT)
                     
-                    texture_slice = texture.subsurface(texture_x, 0, 1, texture.get_height())
+                    texture_slice = texture.subsurface(texture_x, 0,1, texture.get_height())
                     texture_slice = pg.transform.scale(texture_slice, (SCALE, int(wall_height)))
                     
                     self.game.DISPLAY.blit(texture_slice, (ray * SCALE, self.game.SCREEN_HEIGHT / 2 - wall_height / 2))
