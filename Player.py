@@ -6,8 +6,8 @@ class Player():
         self.game=game
         self.SPEED=0.1
         self.ROT_SPEED=0.01
-        self.ANGLE=0
-        self.FOV=math.pi/4
+        self.ANGLE=math.pi
+        self.FOV=math.pi/3
         self.pos=(self.game.SCREEN_WIDTH//2,self.game.SCREEN_HEIGHT//2)
         self.posx,self.posy=self.pos
         print("Player Created!")
@@ -15,7 +15,7 @@ class Player():
     
     def Move(self):
         self.SPEED=0.1*self.game.DELTA_TIME
-        self.ROT_SPEED=0.001*self.game.DELTA_TIME
+        self.ROT_SPEED=0.0001*self.game.DELTA_TIME
         keys=pg.key.get_pressed()
         dx,dy=0,0
         if keys[pg.K_d]: self.ANGLE+=self.ROT_SPEED*self.game.DELTA_TIME
@@ -45,6 +45,10 @@ class Player():
         pg.draw.circle(self.game.DISPLAY,(255,0,255),(int(self.posx),int(self.posy)),3)
         pass    
     
+    @property
+    def Get_angle(self):
+        return self.ANGLE
+
     def Update(self):
         self.Move()
         self.Draw()

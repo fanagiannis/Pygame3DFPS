@@ -26,7 +26,7 @@ class Map:
         self.tilesize=100
         
     def draw(self):
-        [pg.draw.rect(DISPLAY,(100,100,100),(pos[0] * self.tilesize, pos[1] * self.tilesize, self.tilesize, self.tilesize), 2) for pos in self.world_map]
+        [pg.draw.rect(DISPLAY,(100,100,100),(pos[0] * self.tilesize, pos[1] * self.tilesize, self.tilesize, self.tilesize)) for pos in self.world_map]
 
     def get_map(self):
         for j,row in enumerate(self.mini_map):
@@ -40,6 +40,10 @@ class Map:
             return self.mini_map[tile_y][tile_x] == 1
         return False
     
+    @property
+    def Mapsize(self):
+        return self.rows*self.cols
+
     def Update(self):
         self.get_map()
         self.draw()
