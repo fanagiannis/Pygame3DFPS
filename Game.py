@@ -1,5 +1,6 @@
 import pygame as pg
 
+from numba import njit
 from Player import *
 from Map import *
 from Raycaster import *
@@ -17,8 +18,9 @@ class Game():
         pass
     
     def New_properties(self):
-        self.player=Player(self)
-        self.map=Map(self,MAP)
+        self.map=Map(self,MAP2)
+        self.player=Player(self,self.map)
+        
         self.raycaster=Raycaster(self)
         pass
 
@@ -39,6 +41,7 @@ class Game():
     def Cycle(self): 
         self.ShowFPS()
         pg.display.update()
+        pg.display.flip()
         self.DISPLAY.fill((0,0,0))
         self.DELTA_TIME=self.CLOCK.tick(self.FPS)
         
@@ -50,7 +53,7 @@ class Game():
         self.DISPLAY.blit(text_surface,(0,0))
 
     def Update(self):
-        self.map.Update()
+        #self.map.Update()
         self.player.Update()
         self.raycaster.Update()
         
