@@ -3,7 +3,7 @@ import math
 class Raycaster():
     def __init__(self,game):
         self.game=game
-        self.CASTED_RAYS=120#int(self.game.SCREEN_WIDTH/5)
+        self.CASTED_RAYS=int(self.game.SCREEN_WIDTH/6)
         self.MAX_DEPTH=int(self.game.SCREEN_WIDTH/2)
         self.TILE_SIZE=self.game.map.tilesize
 
@@ -27,7 +27,7 @@ class Raycaster():
                     wall_height = min(wall_height, self.game.SCREEN_HEIGHT)
                     
 
-                    pg.draw.rect(self.game.DISPLAY, (color, color, color), (ray * SCALE, self.game.SCREEN_HEIGHT / 2 - wall_height / 2, SCALE, wall_height))
+                    pg.draw.rect(self.game.DISPLAY, (color, color, color), (ray * SCALE, self.game.SCREEN_HEIGHT / 2 - wall_height / 2, SCALE, wall_height))  #wallheigh/2 is the height of our perspective
                     break
 
             START_ANGLE+=STEP_ANGLE
