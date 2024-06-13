@@ -49,7 +49,7 @@ class Map:
     def check_collision(self,x,y):
         tile_x,tile_y = int(x//self.tilesize),int(y//self.tilesize)
         if 0 <= tile_x < self.cols and 0 <= tile_y < self.rows:
-            return self.mini_map[tile_y][tile_x] == 1
+            return self.mini_map[tile_y][tile_x] != 0
         return False
     
     @property
