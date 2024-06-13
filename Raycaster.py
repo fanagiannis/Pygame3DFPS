@@ -29,7 +29,8 @@ class Raycaster():
                 #pg.draw.line(self.game.DISPLAY,'yellow',(self.game.player.Get_pos),(TARGET_X,TARGET_Y),2)
                 if self.game.map.mini_map[row][col] != 0:
                     texture = self.textures[self.game.map.mini_map[row][col]]
-                    texture_x = int((TARGET_X % self.TILE_SIZE) / self.TILE_SIZE* texture.get_width())
+                    texture_x = int((TARGET_X % self.TILE_SIZE) / self.TILE_SIZE* (texture.get_width()))
+                    texture_y = int((TARGET_Y % self.TILE_SIZE) / self.TILE_SIZE* (texture.get_height()))
                     
                     depth *= math.cos(self.game.player.ANGLE - START_ANGLE)
                     wall_height = 42000 / (depth + 0.0001)
@@ -43,8 +44,6 @@ class Raycaster():
 
                     # color = 255 / (1 + depth * depth * 0.0001)
                     # pg.draw.rect(self.game.DISPLAY, (color, color, color), (ray * SCALE, self.game.SCREEN_HEIGHT / 2 - wall_height / 2, SCALE, wall_height))  #wallheigh/2 is the height of our perspective
-
-
             START_ANGLE+=STEP_ANGLE
     
     def Update(self):
