@@ -1,10 +1,10 @@
 import pygame as pg
 
-from numba import njit
 from Player import *
 from Map import *
 from Raycaster import *
 from Floorcaster import * 
+from TextureLoader import *
 
 class Game():
     def __init__(self):
@@ -22,7 +22,9 @@ class Game():
         self.map=Map(self,MAP2)
         self.player=Player(self,self.map)
         self.floorcaster=Floorcaster()
+        self.textureloader=TextureLoader(self)
         self.raycaster=Raycaster(self)
+
         pass
 
     def Run(self):
