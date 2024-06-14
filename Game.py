@@ -6,6 +6,7 @@ from Player import *
 from Raycaster import *
 from TextureRenderer import*
 from Floorcaster import * 
+from SpriteRenderer import *
 
 
 class Game:
@@ -26,6 +27,7 @@ class Game:
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
+        self.Sprite1=Sprite(self)
     
     def Run(self):
         self.Game_Objects()
@@ -54,10 +56,12 @@ class Game:
 
     def Update(self):
         self.DISPLAY.fill('black')
+        #self.map.draw()
         self.Floorcaster.Update()
         self.Texturerenderer.Update()
         self.player.Update()
         self.Raycaster.update()
+        self.Sprite1.Update()
         self.Cycle()
 
 

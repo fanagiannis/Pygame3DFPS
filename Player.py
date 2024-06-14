@@ -6,7 +6,7 @@ import math
 class Player:
     def __init__(self, game):
         self.game = game
-        self.x, self.y = PLAYER_POS
+        self.posx, self.posy = PLAYER_POS
         self.angle = PLAYER_ANGLE
         self.speed=0.004
 
@@ -48,24 +48,25 @@ class Player:
 
     def check_wall_collision(self, dx, dy):
         scale = PLAYER_SIZE_SCALE / self.game.DELTA_TIME
-        if self.check_wall(int(self.x + dx * scale), int(self.y)):
-            self.x += dx
-        if self.check_wall(int(self.x), int(self.y + dy * scale)):
-            self.y += dy
+        if self.check_wall(int(self.posx + dx * scale), int(self.posy)):
+            self.posx += dx
+        if self.check_wall(int(self.posx), int(self.posy + dy * scale)):
+            self.posy += dy
 
     def draw(self):
-        pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100),
+        pg.draw.line(self.game.DISPLAY, 'yellow', (self.posx * 100, self.posy * 100),
                     (self.x * 100 + WIDTH * math.cos(self.angle),
                      self.y * 100 + WIDTH * math. sin(self.angle)), 2)
-        pg.draw.circle(self.game.screen, 'green', (self.x * 100, self.y * 100), 15)
+        pg.draw.circle(self.game.DISPLAY, 'green', (self.posx * 100, self.posy * 100), 15)
 
     def Update(self):
+        #self.draw()
         self.movement()
 
     @property
     def pos(self):
-        return self.x, self.y
+        return self.posx, self.posy
 
     @property
     def map_pos(self):
-        return int(self.x), int(self.y)
+        return int(self.posx), int(self.posy)
