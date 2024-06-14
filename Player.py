@@ -1,59 +1,72 @@
-import pygame as pg 
+from Settings import *
+import pygame as pg
 import math
 
-class Player():
-    def __init__(self,game,map):
-        self.game=game
-        self.SPEED=0.1
-        self.ROT_SPEED=0.01
-        self.ANGLE=math.pi
-        self.FOV=math.pi/3
-        self.pos=(500,500)
-        self.posx,self.posy=self.pos
-        print("Player Created!")
-        pass
-    
-    def Move(self):
-        self.SPEED=0.1*self.game.DELTA_TIME
-        self.ROT_SPEED=0.001
-        keys=pg.key.get_pressed()
-        dx,dy=0,0
-        if keys[pg.K_d]: self.ANGLE+=self.ROT_SPEED*self.game.DELTA_TIME
-        if keys[pg.K_a]: self.ANGLE-=self.ROT_SPEED*self.game.DELTA_TIME
-        if keys[pg.K_w] : 
-            dx= math.cos(self.ANGLE) *self.SPEED
-            dy= math.sin(self.ANGLE) *self.SPEED
-            
-        if keys[pg.K_s] : 
-            dx= -math.cos(self.ANGLE) * self.SPEED
-            dy= -math.sin(self.ANGLE) * self.SPEED
 
-        if not self.game.map.check_collision(self.posx+dx,self.posy+dy):
-            self.posx+=dx
-            self.posy+=dy   
-        
-        
-        
-        pass
-    
-    def Draw(self):
-        #FOV
-        pg.draw.line(self.game.DISPLAY,(0,255,0),(self.posx,self.posy),(int(self.posx-math.sin(self.ANGLE-self.FOV/2)*50),int(self.posy+math.cos(self.ANGLE-self.FOV/2)*50)),1)
-        pg.draw.line(self.game.DISPLAY,(0,255,0),(self.posx,self.posy),(int(self.posx+math.sin(self.ANGLE+self.FOV/2)*50),int(self.posy-math.cos(self.ANGLE+self.FOV/2)*50)),1)
-        #pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle+self.HFOV)*50),int(self.posy+math.cos(self.angle+self.HFOV)*50)),1)
-        
-        pg.draw.circle(self.game.DISPLAY,(255,0,255),(int(self.posx),int(self.posy)),3)
-        pass    
-    
-    @property
-    def Get_angle(self):
-        return self.ANGLE
-    
-    @property
-    def Get_pos(self):
-        return self.posx,self.posy
+class Player:
+    def __init__(self, game):
+        self.game = game
+        self.x, self.y = PLAYER_POS
+        self.angle = PLAYER_ANGLE
+        self.shot = False
+        self.health = PLAYER_MAX_HEALTH
+
+    def movement(self):
+        sin_a = math.sin(self.angle)
+        cos_a = math.cos(self.angle)
+        dx, dy = 0, 0
+        speed = PLAYER_SPEED * self.game.DELTA_TIME
+        speed_sin = speed * sin_a
+        speed_cos = speed * cos_a
+
+        keys = pg.key.get_pressed()
+
+        #ANGLE 
+        if keys[pg.K_LEFT]:
+            self.angle-=0.001*self.game.DELTA_TIME
+        if keys[pg.K_RIGHT]:
+            self.angle+=0.001*self.game.DELTA_TIME
+
+        #MOVEMENT
+        if keys[pg.K_w]:   
+            dx += speed_cos
+            dy += speed_sin
+        if keys[pg.K_s]: 
+            dx += -speed_cos
+            dy += -speed_sin
+        if keys[pg.K_a]:
+            dx += speed_sin
+            dy += -speed_cos
+        if keys[pg.K_d]:
+            dx += -speed_sin
+            dy += speed_cos
+
+        self.check_wall_collision(dx, dy)
+        self.angle %= math.tau
+
+    def check_wall(self, x, y):
+        return (x, y) not in self.game.map.world_map
+
+    def check_wall_collision(self, dx, dy):
+        scale = PLAYER_SIZE_SCALE / self.game.DELTA_TIME
+        if self.check_wall(int(self.x + dx * scale), int(self.y)):
+            self.x += dx
+        if self.check_wall(int(self.x), int(self.y + dy * scale)):
+            self.y += dy
+
+    def draw(self):
+        pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100),
+                    (self.x * 100 + WIDTH * math.cos(self.angle),
+                     self.y * 100 + WIDTH * math. sin(self.angle)), 2)
+        pg.draw.circle(self.game.screen, 'green', (self.x * 100, self.y * 100), 15)
 
     def Update(self):
-        self.Move()
-        #self.Draw() 
-        pass
+        self.movement()
+
+    @property
+    def pos(self):
+        return self.x, self.y
+
+    @property
+    def map_pos(self):
+        return int(self.x), int(self.y)

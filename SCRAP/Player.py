@@ -1,64 +1,63 @@
 import pygame as pg 
 import math
 
-from Settings import *
-from Map import*
-
-class Player:
-    def __init__(self,map):
-        self.speed=1*DELTA_TIME
-        self.rot_speed=0.1*DELTA_TIME
-        self.pos=((int(SCREEN_WIDTH/2)/2),(int(SCREEN_WIDTH/2)/2))
-        self.posx,self.posy=self.pos
-        
-        self.angle=0#math.pi
+class Player():
+    def __init__(self,game,map):
+        self.game=game
+        self.SPEED=0.1
+        self.ROT_SPEED=0.01
+        self.ANGLE=math.pi
         self.FOV=math.pi/3
-        self.HFOV=self.FOV/2
+        self.pos=(500,500)
+        self.posx,self.posy=self.pos
+        print("Player Created!")
+        pass
+    
+    def Move(self):
+        self.SPEED=0.1*self.game.DELTA_TIME
+        self.ROT_SPEED=0.001
+        keys=pg.key.get_pressed()
+        dx,dy=0,0
+        if keys[pg.K_d]: self.ANGLE+=self.ROT_SPEED*self.game.DELTA_TIME
+        if keys[pg.K_a]: self.ANGLE-=self.ROT_SPEED*self.game.DELTA_TIME
+        if keys[pg.K_w] : 
+            dx= math.cos(self.ANGLE) *self.SPEED
+            dy= math.sin(self.ANGLE) *self.SPEED
+            
+        if keys[pg.K_s] : 
+            dx= -math.cos(self.ANGLE) * self.SPEED
+            dy= -math.sin(self.ANGLE) * self.SPEED
 
-        self.curmap=map
-        self.TILE_SIZE=self.curmap.tilesize
-
+        if not self.game.map.check_collision(self.posx+dx,self.posy+dy):
+            self.posx+=dx
+            self.posy+=dy   
         
-    
-    def draw(self):
-        self.look()  
-        pg.draw.circle(DISPLAY,(255,0,0),(int(self.posx),int(self.posy)),3)
+        
+        
         pass
     
-    def look(self):
-        pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle-self.HFOV)*50),int(self.posy+math.cos(self.angle-self.HFOV)*50)),1)
-        pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle+self.HFOV)*50),int(self.posy+math.cos(self.angle+self.HFOV)*50)),1)
-
-    def move(self):
-        self.speed=1*DELTA_TIME
-        self.rot_speed=0.1*DELTA_TIME
-        keys = pg.key.get_pressed()
-        if keys[pg.K_LEFT]: self.angle -= 0.1
-        if keys[pg.K_RIGHT]: self.angle += 0.1
-        if keys[pg.K_UP]:
-            new_x = self.posx + math.cos(self.angle) * self.speed
-            new_y = self.posy + math.sin(self.angle) * self.speed
-            if MAP[int(new_y / self.TILE_SIZE)][int(new_x / self.TILE_SIZE)] == 0:
-                self.posx, self.posy = new_x, new_y
-        if keys[pg.K_DOWN]:
-            new_x = self.posx - math.cos(self.angle) * self.speed
-            new_y = self.posy - math.sin(self.angle) * self.speed
-            if MAP[int(new_y / self.TILE_SIZE)][int(new_x / self.TILE_SIZE)] == 0:
-                self.posx, self.posy= new_x, new_y    
+    def Draw(self):
+        #FOV
+        pg.draw.line(self.game.DISPLAY,(0,255,0),(self.posx,self.posy),(int(self.posx-math.sin(self.ANGLE-self.FOV/2)*50),int(self.posy+math.cos(self.ANGLE-self.FOV/2)*50)),1)
+        pg.draw.line(self.game.DISPLAY,(0,255,0),(self.posx,self.posy),(int(self.posx+math.sin(self.ANGLE+self.FOV/2)*50),int(self.posy-math.cos(self.ANGLE+self.FOV/2)*50)),1)
+        #pg.draw.line(DISPLAY,(0,255,0),(self.get_pos()),(int(self.posx-math.sin(self.angle+self.HFOV)*50),int(self.posy+math.cos(self.angle+self.HFOV)*50)),1)
+        
+        pg.draw.circle(self.game.DISPLAY,(255,0,255),(int(self.posx),int(self.posy)),3)
+        pass    
     
-    def get_pos(self):
+    @property
+    def Get_angle(self):
+        return self.ANGLE
+    
+    @property
+    def Get_pos(self):
         return self.posx,self.posy
+    
+    @property
+    def map_pos(self):
+        return int(self.posx), int(self.posy)
 
-    def get_angle(self):
-        return self.angle
-    
-    def get_map_pos(self):
-        return int(self.posx),int(self.posy)
-    
-    def update(self):
-        self.move()
-        #self.draw()
+    def Update(self):
+        self.Move()
+        self.Draw() 
         pass
-
-if __name__=='__main__':
-    print("Player Class")

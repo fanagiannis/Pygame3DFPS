@@ -1,7 +1,5 @@
-import pygame as pg
+from Game import * 
 
-from Game import *
-
-if __name__=='__main__':
-    game=Game()
+if __name__ == '__main__':
+    game = Game()
     game.Run()
