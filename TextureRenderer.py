@@ -9,7 +9,7 @@ class TextureRenderer:
         self.wall_textures = self.load_wall_textures()
 
     def render_textures(self):
-        list_objects = sorted(self.game.raycasting.objects_to_render, key=lambda t: t[0], reverse=True)
+        list_objects = sorted(self.game.Raycaster.objects_to_render, key=lambda t: t[0], reverse=True)
         for depth, image, pos in list_objects:
             self.screen.blit(image, pos)
 

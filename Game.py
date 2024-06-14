@@ -5,6 +5,7 @@ from Map import *
 from Player import *
 from Raycaster import *
 from TextureRenderer import*
+from Floorcaster import * 
 
 
 class Game:
@@ -22,8 +23,9 @@ class Game:
     def Game_Objects(self):
         self.map = Map(self,MAP)
         self.player = Player(self)
-        self.texturerenderer = TextureRenderer(self)
-        self.raycasting = RayCaster(self)
+        self.Texturerenderer = TextureRenderer(self)
+        self.Raycaster = RayCaster(self)
+        self.Floorcaster=Floorcaster(self)
     
     def Run(self):
         self.Game_Objects()
@@ -52,9 +54,10 @@ class Game:
 
     def Update(self):
         self.DISPLAY.fill('black')
-        self.texturerenderer.Update()
+        self.Floorcaster.Update()
+        self.Texturerenderer.Update()
         self.player.Update()
-        self.raycasting.update()
+        self.Raycaster.update()
         self.Cycle()
 
 
