@@ -14,7 +14,7 @@ class RayCaster:
         self.objects_to_render = []
         for ray, values in enumerate(self.ray_casting_result):
             depth, proj_height, texture, offset = values
-
+            shading = max(0.1, min(1, 1 / (depth * 0.9)))  #shader
             if proj_height < HEIGHT:
                 wall_column = self.textures[texture].subsurface(
                     offset * (TEXTURE_SIZE - SCALE), 0, SCALE, TEXTURE_SIZE
@@ -27,9 +27,11 @@ class RayCaster:
                     offset * (TEXTURE_SIZE - SCALE), HALF_TEXTURE_SIZE - texture_height // 2,
                     SCALE, texture_height
                 )
+
                 wall_column = pg.transform.scale(wall_column, (SCALE, HEIGHT))
                 wall_pos = (ray * SCALE, 0)
 
+            wall_column.fill((shading*255,shading*255,shading*255),special_flags=pg.BLEND_MULT)  #shader implementation
             self.objects_to_render.append((depth, wall_column, wall_pos))
 
     def ray_cast(self):

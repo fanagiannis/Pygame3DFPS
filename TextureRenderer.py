@@ -20,12 +20,18 @@ class TextureRenderer:
 
     def load_wall_textures(self):
         return {
-            1: self.get_texture('Assets/textures/1.png'),
-            2: self.get_texture('Assets/textures/2.png'),
-            3: self.get_texture('Assets/textures/3.png'),
-            4: self.get_texture('Assets/textures/4.png'),
-            5: self.get_texture('Assets/textures/5.png'),
+            1: self.get_texture('Assets/Textures/Cave/1.png'),
+            2: self.get_texture('Assets/Textures/Cave/2.png'),
+            3: self.get_texture('Assets/Textures/Cave/3.png'),
+            4: self.get_texture('Assets/Textures/Cave/4.png'),
+            5: self.get_texture('Assets/Textures/Cave/5.png'),
+            6: self.get_texture('Assets/Textures/Cave/6.png'),
         }
+        #     2: self.get_texture('Assets/textures/2.png'),
+        #     3: self.get_texture('Assets/textures/3.png'),
+        #     4: self.get_texture('Assets/textures/4.png'),
+        #     5: self.get_texture('Assets/textures/5.png'),
+        # }
 
     def Update(self):
         self.render_textures()

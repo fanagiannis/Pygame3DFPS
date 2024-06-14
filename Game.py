@@ -47,10 +47,10 @@ class Game:
         
     def ShowFPS(self):
         pg.display.set_caption(f'{self.CLOCK.get_fps():.1f}')
-        #fps = str(int(self.CLOCK.get_fps()))
-        #font = pg.font.SysFont('Monospace Regular', 30)
-        #text_surface = font.render(fps, False, 'yellow')
-        #self.DISPLAY.blit(text_surface,(0,0))
+        # fps = str(int(self.CLOCK.get_fps()))
+        # font = pg.font.SysFont('Monospace Regular', 30)
+        # text_surface = font.render(fps, False, 'yellow')
+        # self.DISPLAY.blit(text_surface,(0,0))
 
     def Update(self):
         self.DISPLAY.fill('black')
