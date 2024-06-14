@@ -27,7 +27,7 @@ class Game:
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
-        self.Sprite1=Sprite(self)
+        self.Sprite1=Sprite(self,'Assets/Sprites/test.png')
     
     def Run(self):
         self.Game_Objects()
