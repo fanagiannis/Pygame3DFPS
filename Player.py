@@ -167,59 +167,42 @@ class PlayerVitality():
     
 class PlayerStats():
     def __init__(self,game,STR,END,DEX,MIND,INT):
-        self.game=game
-        self.Level=0
-        self.XP=0
-        self.Strength=STR     #ATTACK POWER
-        self.Endurance=END    #HP
-        self.Dexterity=DEX    #STAMINA
-        self.Mind=MIND        #MANA
-        self.Intelligence=INT #MAGIC POWER
-
+        self.game = game
+        self.stats = {
+            'Level': {'value': 0, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 10)},
+            'XP': {'value': 0, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 40)},
+            'Strength': {'value': STR, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 80)},
+            'Endurance': {'value': END, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 110)},
+            'Dexterity': {'value': DEX, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 140)},
+            'Mind': {'value': MIND, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 170)},
+            'Intelligence': {'value': INT, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 200)},
+            'Token': {'value': 0, 'color': 'orange', 'pos': (game.SCREEN_WIDTH - 150, 250)},
+        }
         self.XPthreshhold=100
-        self.Token=0
-
-        
-        
-        
 
     def UpgradeStat(self,stat):
-        if self.Token>0: 
-            stat+=1
-            self.Token-=1
-        else: print("NO TOKENS LEFT")
+        if self.stats['Tokens']['value']>0 and stat in self.stats:
+            self.stats[stat]['value']+=1
+            self.stats['Tokens']['value']-=1
+        else:
+            print("Cant level up!")
 
     def GetXP(self,value):
-        self.XP+=value
+        self.stats['XP']['value']+=value
 
     def LevelUP(self):
-        if self.XP>self.XPthreshhold:
+        if self.stats['XP']['value']>self.XPthreshhold:
             self.XPthreshhold*=2
-            self.Level+=1
-            self.Token+=1
+            self.stats['Level']['value']+=1
+            self.stats['Token']['value']+=1
     
     def DisplayStats(self):
-        self.display_stats=[]
-        DISPLAY_POSX=self.game.SCREEN_WIDTH-120
-        self.display_stats_positions=[(DISPLAY_POSX,10),(DISPLAY_POSX,40),(DISPLAY_POSX,80),(DISPLAY_POSX,110),(DISPLAY_POSX,140),(DISPLAY_POSX,170),(DISPLAY_POSX,200),(DISPLAY_POSX-30,250)]
-        text_LVL=FONT_STATS.render(f"LEVEL :{self.Level}", False, 'yellow')
-        self.game.DISPLAY.blit(text_LVL,self.display_stats_positions[0])
-        text_XP=FONT_STATS.render(f"XP :{self.XP}", False, 'yellow')
-        self.game.DISPLAY.blit(text_XP,self.display_stats_positions[1])
-        text_STR=FONT_STATS.render(f"STR :{self.Strength}", False, 'yellow')
-        self.game.DISPLAY.blit(text_STR,self.display_stats_positions[2])
-        text_END=FONT_STATS.render(f"END :{self.Endurance}", False, 'yellow')
-        self.game.DISPLAY.blit(text_END,self.display_stats_positions[3])
-        text_DEX=FONT_STATS.render(f"DEX :{self.Dexterity}", False, 'yellow')
-        self.game.DISPLAY.blit(text_DEX,self.display_stats_positions[4])
-        text_MIND=FONT_STATS.render(f"MIND :{self.Mind}", False, 'yellow')
-        self.game.DISPLAY.blit(text_MIND,self.display_stats_positions[5])
-        text_INT=FONT_STATS.render(f"INT :{self.Intelligence}", False, 'yellow')
-        self.game.DISPLAY.blit(text_INT,self.display_stats_positions[6])
-        if(self.Token>0):
-            text_TOKEN=FONT_BASIC.render(f"TOKENS AVAILABLE :{self.Token}", False, 'orange')
-            self.game.DISPLAY.blit(text_TOKEN,self.display_stats_positions[7])
+        for stat,values in self.stats.items():
+            if stat == 'Token' and values['value'] == 0:
+                continue
+            text = FONT_STATS.render(f"{stat} : {values['value']}", False, 'orange')
+            self.game.DISPLAY.blit(text, values['pos'])
 
     def Update(self):
         self.DisplayStats()
-        if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GetXP(1), print(self.XP," ",self.Level," ",self.XPthreshhold," ",self.Token)
+        if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GetXP(1)
