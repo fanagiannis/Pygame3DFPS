@@ -29,6 +29,7 @@ class Game:
         self.Floorcaster=Floorcaster(self)
         self.Sprite1=Sprite(self,'Assets/Sprites/test.png')#,(5,5))
         self.Sprite2=LightSource(self,'Assets/Sprites/test.png',(5,5))
+        self.Sprite3=AnimatedSprite(self,'Assets/Sprites/Animated/1.png',(10,10))
     
     def Run(self):
         self.Game_Objects()
@@ -64,6 +65,7 @@ class Game:
         self.Raycaster.update()
         self.Sprite1.update()
         self.Sprite2.update()
+        self.Sprite3.update()
         self.Cycle()
 
 
