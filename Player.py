@@ -6,8 +6,9 @@ import math
 class Player:
     def __init__(self, game):
         self.game = game
-        self.posx, self.posy = PLAYER_POS
-        self.angle = PLAYER_ANGLE
+        self.posx, self.posy = (1.5,5)
+        self.angle = 0
+        self.scale=60
         self.speed=0.004
 
     def movement(self):
@@ -47,7 +48,7 @@ class Player:
         return (x, y) not in self.game.map.world_map
 
     def check_wall_collision(self, dx, dy):
-        scale = PLAYER_SIZE_SCALE / self.game.DELTA_TIME
+        scale = self.scale / self.game.DELTA_TIME
         if self.check_wall(int(self.posx + dx * scale), int(self.posy)):
             self.posx += dx
         if self.check_wall(int(self.posx), int(self.posy + dy * scale)):

@@ -27,7 +27,8 @@ class Game:
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
-        self.Sprite1=Sprite(self,'Assets/Sprites/test.png')
+        self.Sprite1=Sprite(self,'Assets/Sprites/test.png')#,(5,5))
+        self.Sprite2=Sprite(self,'Assets/Sprites/test.png',(5,5))
     
     def Run(self):
         self.Game_Objects()
@@ -61,7 +62,8 @@ class Game:
         self.Texturerenderer.Update()
         self.player.Update()
         self.Raycaster.update()
-        self.Sprite1.Update()
+        self.Sprite1.update()
+        self.Sprite2.update()
         self.Cycle()
 
 
