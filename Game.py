@@ -28,7 +28,7 @@ class Game:
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
         self.Sprite1=Sprite(self,'Assets/Sprites/test.png')#,(5,5))
-        self.Sprite2=Sprite(self,'Assets/Sprites/test.png',(5,5))
+        self.Sprite2=LightSource(self,'Assets/Sprites/test.png',(5,5))
     
     def Run(self):
         self.Game_Objects()
