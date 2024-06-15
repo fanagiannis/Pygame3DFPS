@@ -93,50 +93,56 @@ class PlayerVitality():
         self.maxhp=maxhp
         self.maxstamina=maxstamina
         self.maxmana=mana
-        self.HP=self.maxhp
+        #self.HP=self.maxhp
         self.Stamina=self.maxstamina
         self.Mana=self.maxmana
+
+        self.vitality_stats={
+            'HP': {'value':self.maxhp,'color':'orange','pos':(0,0)},
+            'STAMINA': {'value':self.maxstamina,'color':'orange','pos':(0,18)},
+            'MANA': {'value':self.maxmana,'color':'orange','pos':(0,36)}
+        }
         self.IsDead=False
 
     #HEALTH
     def TakeDamage(self,dmg): 
-        if self.HP<=self.maxhp: self.HP-=dmg
+        if self.vitality_stats['HP']['value']<=self.maxhp: self.vitality_stats['HP']['value']-=dmg
         
     def Heal(self,value): 
-        if self.HP<=self.maxhp and self.HP>=0: self.HP+=value
+        if self.vitality_stats['HP']['value']<=self.maxhp and self.vitality_stats['HP']['value']>=0: self.vitality_stats['HP']['value']+=value
 
     def IncMaxHP(self,value):
         if self.maxhp<1000: self.maxhp+=value
         else: self.maxhp=1000
         
     def Death(self):
-        if self.HP<=0: self.IsDead=True
+        if self.vitality_stats['HP']['value']<=0: self.IsDead=True
         else: self.IsDead=False
         return self.IsDead
     
     #STAMINA
     def DecStamina(self,value):
-        if self.Stamina<=self.maxstamina: self.Stamina-=value
+        if self.vitality_stats['STAMINA']['value']<=self.maxstamina: self.vitality_stats['STAMINA']['value']-=value
     
     def IncStamina(self,value):
-        if self.Stamina<=self.maxstamina and self.Stamina>=0: self.Stamina+=value
+        if self.vitality_stats['STAMINA']['value']<=self.maxstamina and self.vitality_stats['STAMINA']['value']>=0: self.vitality_stats['STAMINA']['value']+=value
 
     #MANA
     def DecMana(self,value): 
-        if self.Mana<=self.maxmana and self.Mana>=0: self.Mana-=value
+        if self.vitality_stats['MANA']['value']<=self.maxmana and self.vitality_stats['MANA']['value']>=0: self.vitality_stats['MANA']['value']-=value
         
     def IncMana(self,value):
-        if self.Mana<=self.maxmana and self.Mana>=0: self.Mana+=value
-        elif self.Mana<0: self.Mana=0
-        elif self.Mana>self.maxmana: self.Mana=self.maxmana
+        if self.vitality_stats['MANA']['value']<=self.maxmana and self.vitality_stats['MANA']['value']>=0: self.vitality_stats['MANA']['value']+=value
+        elif self.vitality_stats['MANA']['value']<0: self.vitality_stats['MANA']['value']=0
+        elif self.vitality_stats['MANA']['value']>self.maxmana: self.vitality_stats['MANA']['value']=self.maxmana
 
     def StatsReset(self):
-        if self.HP<0: self.HP=0
-        if self.HP>self.maxhp: self.HP=self.maxhp
-        if self.Stamina<0: self.Stamina=0
-        if self.Stamina>self.maxstamina: self.Stamina=self.maxstamina
-        if self.Mana<0: self.Mana=0
-        if self.Mana>self.maxmana: self.Mana=self.maxmana
+        if self.vitality_stats['HP']['value']<0: self.vitality_stats['HP']['value']=0
+        if self.vitality_stats['HP']['value']>self.maxhp: self.vitality_stats['HP']['value']=self.maxhp
+        if self.vitality_stats['STAMINA']['value']<0: self.vitality_stats['STAMINA']['value']=0
+        if self.vitality_stats['STAMINA']['value']>self.maxstamina: self.vitality_stats['STAMINA']['value']=self.maxstamina
+        if self.vitality_stats['MANA']['value']<0: self.vitality_stats['MANA']['value']=0
+        if self.vitality_stats['MANA']['value']>self.maxmana: self.vitality_stats['MANA']['value']=self.maxmana
     
     def Fonts(self):
         text_HP = FONT_BASIC.render("HP", False, 'yellow')
@@ -147,9 +153,9 @@ class PlayerVitality():
         self.game.DISPLAY.blit(text_MANA,(0,36))
     
     def Bars(self):
-        pg.draw.rect(self.game.DISPLAY,'red',(20,3,self.HP,10),self.HP) #HP BAR
-        pg.draw.rect(self.game.DISPLAY,'green',(60,20,self.Stamina,10),self.Stamina) #STAMINA BAR
-        pg.draw.rect(self.game.DISPLAY,'blue',(40,38,self.Mana,10),self.Mana) #MANA BAR
+        pg.draw.rect(self.game.DISPLAY,'red',(20,3,self.vitality_stats['HP']['value'],10),self.vitality_stats['HP']['value']) #HP BAR
+        pg.draw.rect(self.game.DISPLAY,'green',(60,20,self.vitality_stats['STAMINA']['value'],10),self.vitality_stats['STAMINA']['value']) #STAMINA BAR
+        pg.draw.rect(self.game.DISPLAY,'blue',(40,38,self.vitality_stats['MANA']['value'],10),self.vitality_stats['MANA']['value']) #MANA BAR
 
     def Update(self):
         self.Bars()
