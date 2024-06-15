@@ -22,24 +22,27 @@ class Game:
         pass
 
     def Game_Objects(self):
+        self.running=True
         self.map = Map(self,MAP)
         self.player = PlayerMovement(self)
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
         self.Sprites=SpriteLoader(self)
-        self.Stats=PlayerStats(self,100,100,100)
     
     def Run(self):
         self.Game_Objects()
-        while True:
+        while self.running:
             self.Events()
             self.Update()
+        self.Restart()
 
     def Events(self):
         for event in pg.event.get():
             if event.type==pg.QUIT :
-                pg.quit()    
+                pg.quit() 
+            if self.player.stats.IsDead and pg.key.get_pressed()[pg.K_TAB]:
+                self.running=False
 
     def Cycle(self): 
         self.ShowFPS()
@@ -55,6 +58,10 @@ class Game:
         # text_surface = font.render(fps, False, 'yellow')
         # self.DISPLAY.blit(text_surface,(0,0))
 
+    def Restart(self):
+        self.Game_Objects()
+        self.Run()
+
     def Update(self):
         self.DISPLAY.fill('black')
         #self.map.draw()
@@ -63,7 +70,6 @@ class Game:
         self.player.Update()
         self.Raycaster.Update()
         self.Sprites.Update()
-        self.Stats.Update()
         self.Cycle()
 
 

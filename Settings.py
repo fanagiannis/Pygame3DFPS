@@ -10,6 +10,7 @@ HALF_HEIGHT = HEIGHT // 2
 #FONT
 FONT_RPG="Assets\Fonts\AncientModernTales-a7Po.ttf"
 FONT_BASIC=pg.font.Font(FONT_RPG,15)
+FONT_DEATH=pg.font.Font(FONT_RPG,50)
 
 FOV = math.pi / 3
 HALF_FOV = FOV / 2
