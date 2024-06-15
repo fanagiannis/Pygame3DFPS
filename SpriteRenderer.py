@@ -45,13 +45,13 @@ class Sprite:
         self.game.Raycaster.objects_to_render.append((self.norm_dist, image, pos))
 
     def get_sprite(self):
-        dx = self.x - self.player.posx
-        dy = self.y - self.player.posy
+        dx = self.x - self.player.movement.posx
+        dy = self.y - self.player.movement.posy
         self.dx, self.dy = dx, dy
         self.theta = math.atan2(dy, dx)
 
-        delta = self.theta - self.player.angle
-        if (dx > 0 and self.player.angle > math.pi) or (dx < 0 and dy < 0):
+        delta = self.theta - self.player.movement.angle
+        if (dx > 0 and self.player.movement.angle > math.pi) or (dx < 0 and dy < 0):
             delta += math.tau
 
         delta_rays = delta / DELTA_ANGLE

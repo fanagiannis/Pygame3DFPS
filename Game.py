@@ -24,7 +24,7 @@ class Game:
     def Game_Objects(self):
         self.running=True
         self.map = Map(self,MAP)
-        self.player = PlayerMovement(self)
+        self.player = Player(self)
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
@@ -41,7 +41,7 @@ class Game:
         for event in pg.event.get():
             if event.type==pg.QUIT :
                 pg.quit() 
-            if self.player.stats.IsDead and pg.key.get_pressed()[pg.K_TAB]:
+            if self.player.vitalitystats.IsDead and pg.key.get_pressed()[pg.K_TAB]:
                 self.running=False
 
     def Cycle(self): 
