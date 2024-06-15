@@ -23,12 +23,12 @@ class Game:
 
     def Game_Objects(self):
         self.map = Map(self,MAP)
-        self.player = Player(self)
+        self.player = PlayerMovement(self)
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
         self.Sprites=SpriteLoader(self)
-        self.sprite=Sprite(self,'Assets/Sprites/test.png')
+        self.Stats=PlayerStats(self,100,100,100)
     
     def Run(self):
         self.Game_Objects()
@@ -63,7 +63,7 @@ class Game:
         self.player.Update()
         self.Raycaster.Update()
         self.Sprites.Update()
-        #self.sprite.Update()
+        self.Stats.Update()
         self.Cycle()
 
 
