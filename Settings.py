@@ -1,8 +1,15 @@
+import pygame as pg
 import math
+
+pg.font.init()
 
 RES = WIDTH, HEIGHT = 1600, 900
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
+
+#FONT
+FONT_RPG="Assets\Fonts\AncientModernTales-a7Po.ttf"
+FONT_BASIC=pg.font.Font(FONT_RPG,15)
 
 FOV = math.pi / 3
 HALF_FOV = FOV / 2

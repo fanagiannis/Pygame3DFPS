@@ -48,14 +48,25 @@ class PlayerStats():
         if self.Mana<0: self.Mana=0
         if self.Mana>100: self.Mana=100
     
+    def Fonts(self):
+        text_HP = FONT_BASIC.render("HP", False, 'yellow')
+        self.game.DISPLAY.blit(text_HP,(0,0))
+        text_STAMINA = FONT_BASIC.render("STAMINA", False, 'yellow')
+        self.game.DISPLAY.blit(text_STAMINA,(0,18))
+        text_MANA = FONT_BASIC.render("MANA", False, 'yellow')
+        self.game.DISPLAY.blit(text_MANA,(0,36))
+    
     def Bars(self):
-        pg.draw.line(self.game.DISPLAY,'red',(10,self.game.SCREEN_HEIGHT-10),(10,self.game.SCREEN_HEIGHT-10-self.HP),5) #HP BAR
-        pg.draw.line(self.game.DISPLAY,'green',(25,self.game.SCREEN_HEIGHT-10),(25,self.game.SCREEN_HEIGHT-10-self.Stamina),5) #STAMINA
-        pg.draw.line(self.game.DISPLAY,'blue',(40,self.game.SCREEN_HEIGHT-10),(40,self.game.SCREEN_HEIGHT-10-self.Mana),5) #MANA
+        pg.draw.rect(self.game.DISPLAY,'red',(20,3,self.HP,10),self.HP) #HP BAR
+        pg.draw.rect(self.game.DISPLAY,'green',(60,20,self.Stamina,10),self.Stamina) #STAMINA BAR
+        pg.draw.rect(self.game.DISPLAY,'blue',(40,38,self.Mana,10),self.Mana) #MANA BAR
+        #pg.draw.line(self.game.DISPLAY,'green',(25,self.game.SCREEN_HEIGHT-10),(25,self.game.SCREEN_HEIGHT-10-self.Stamina),5) #STAMINA
+        #pg.draw.line(self.game.DISPLAY,'blue',(40,self.game.SCREEN_HEIGHT-10),(40,self.game.SCREEN_HEIGHT-10-self.Mana),5) #MANA
 
     def Update(self):
         self.Bars()
         self.StatsReset()
+        self.Fonts()
         #DEBUG
         keys=pg.key.get_pressed()
         if keys[pg.K_1]: self.Heal(1)
