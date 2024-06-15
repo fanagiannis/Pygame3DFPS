@@ -62,7 +62,7 @@ class Sprite:
         if -self.IMAGE_HALF_WIDTH < self.screen_x < (WIDTH + self.IMAGE_HALF_WIDTH) and self.norm_dist > 0.5:
             self.get_sprite_projection()
 
-    def update(self):
+    def Update(self):
         self.get_sprite()
     
 class AnimatedSprite(Sprite):
@@ -75,8 +75,8 @@ class AnimatedSprite(Sprite):
         self.animation_time_prev = pg.time.get_ticks()
         self.animation_trigger = False
 
-    def update(self):
-        super().update()
+    def Update(self):
+        super().Update()
         self.check_animation_time()
         self.animate(self.images)
 
@@ -103,5 +103,5 @@ class AnimatedSprite(Sprite):
 class LightSource(Sprite):
     def __init__(self, game, path='resources/sprites/static_sprites/candlebra.png', pos=(10.5, 3.5), scale=0.7, shift=0.27, castlight=True):
         super().__init__(game, path, pos, scale, shift, castlight)
-    def update(self):
-        return super().update()
+    def Update(self):
+        return super().Update()

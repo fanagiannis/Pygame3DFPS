@@ -6,7 +6,7 @@ from Player import *
 from Raycaster import *
 from TextureRenderer import*
 from Floorcaster import * 
-from SpriteRenderer import *
+from SpriteLoader import *
 
 
 class Game:
@@ -27,9 +27,8 @@ class Game:
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
-        self.Sprite1=Sprite(self,'Assets/Sprites/test.png')#,(5,5))
-        self.Sprite2=LightSource(self,'Assets/Sprites/test.png',(5,5))
-        self.Sprite3=AnimatedSprite(self,'Assets/Sprites/Animated/1.png',(10,10))
+        self.Sprites=SpriteLoader(self)
+        self.sprite=Sprite(self,'Assets/Sprites/test.png')
     
     def Run(self):
         self.Game_Objects()
@@ -62,10 +61,9 @@ class Game:
         self.Floorcaster.Update()
         self.Texturerenderer.Update()
         self.player.Update()
-        self.Raycaster.update()
-        self.Sprite1.update()
-        self.Sprite2.update()
-        self.Sprite3.update()
+        self.Raycaster.Update()
+        self.Sprites.Update()
+        #self.sprite.Update()
         self.Cycle()
 
 
