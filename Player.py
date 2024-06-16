@@ -14,6 +14,16 @@ class Player():
         self.vitalitystats.Update()
         self.stats.Update()
 
+    @property
+    def GetHP(self): return self.vitalitystats.vitality_stats['HP']['value']
+    @property
+    def GetStamina(self): return self.vitalitystats.vitality_stats['STAMINA']['value']
+    @property
+    def GetMana(self): return self.vitalitystats.vitality_stats['MANA']['value']
+    @property 
+    def DealDamage(self):
+        return 10+10*self.stats.stats['Level']['value']
+
 
 class PlayerMovement:
     def __init__(self, game):
@@ -171,13 +181,6 @@ class PlayerVitality():
         if keys[pg.K_5]: self.IncMana(1)
         if keys[pg.K_6]: self.DecMana(1)
         #DEBUG
-
-    @property
-    def GetHP(self): return self.vitality_stats['HP']['value']
-    @property
-    def GetStamina(self): return self.vitality_stats['STAMINA']['value']
-    @property
-    def GetMana(self): return self.vitality_stats['MANA']['value']
     
 class PlayerStats():
     def __init__(self,game,STR,END,DEX,MIND,INT):
@@ -199,7 +202,7 @@ class PlayerStats():
             self.stats[stat]['value']+=1
             self.stats['Token']['value']-=1
 
-    def GetXP(self,value):
+    def GainXP(self,value):
         self.stats['XP']['value']+=value
 
     def LevelUP(self):
@@ -229,4 +232,4 @@ class PlayerStats():
     def Update(self):
         self.DisplayStats()
         self.StatUpgrade()
-        if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GetXP(1)
+        if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GainXP(1)

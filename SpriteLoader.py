@@ -1,6 +1,7 @@
 import pygame as pg
 
 from SpriteRenderer import*
+from Enemy import*
 
 class SpriteLoader():
     def __init__(self,game):
@@ -9,11 +10,13 @@ class SpriteLoader():
         self.sprites=[]
         self.light_sprites=[]
         self.animated_sprites=[]
+        self.enemies=[]
 
         #CREATE SPRITES
-        self.StaticSprites()
-        self.LightSprites()
-        self.AnimatedSprites()
+        #self.StaticSprites()
+        #self.LightSprites()
+        #self.AnimatedSprites()
+        self.Enemies()
 
     def Create_Sprite(self,Sprite):
         self.sprites.append(Sprite)
@@ -29,9 +32,17 @@ class SpriteLoader():
     def AnimatedSprites(self):
         Rat=AnimatedSprite(self.game,'Assets/Sprites/Animated/1.png',(10,10))
         self.animated_sprites.append(Rat)
+    
+    def Enemies(self):
+        enemy=Enemy(self.game,path='Assets/Sprites/Animated/1.png',pos=(5,5),Level=1,Value=20)
+        self.enemies.append(enemy)
+        enemy2=Enemy(self.game,path='Assets/Sprites/Animated/1.png',pos=(10,10),Level=1,Value=20)
+        self.enemies.append(enemy2)
+
 
     def Update(self):
         [staticsprite.Update() for staticsprite in self.sprites]
         [lightsprite.Update() for lightsprite in self.light_sprites]
         [animsprite.Update() for animsprite in self.animated_sprites]
+        [enemy.Update() for enemy in self.enemies]
        
