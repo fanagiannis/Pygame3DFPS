@@ -170,28 +170,33 @@ class PlayerVitality():
         if keys[pg.K_5]: self.IncMana(1)
         if keys[pg.K_6]: self.DecMana(1)
         #DEBUG
+
+    @property
+    def GetHP(self): return self.vitality_stats['HP']['value']
+    @property
+    def GetStamina(self): return self.vitality_stats['STAMINA']['value']
+    @property
+    def GetMana(self): return self.vitality_stats['MANA']['value']
     
 class PlayerStats():
     def __init__(self,game,STR,END,DEX,MIND,INT):
         self.game = game
         self.stats = {
-            'Level': {'value': 0, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 10)},
-            'XP': {'value': 0, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 40)},
-            'Strength': {'value': STR, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 80)},
-            'Endurance': {'value': END, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 110)},
-            'Dexterity': {'value': DEX, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 140)},
-            'Mind': {'value': MIND, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 170)},
-            'Intelligence': {'value': INT, 'color': 'yellow', 'pos': (game.SCREEN_WIDTH - 150, 200)},
-            'Token': {'value': 0, 'color': 'orange', 'pos': (game.SCREEN_WIDTH - 150, 250)},
+            'Level': {'value': 0, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 10)},
+            'XP': {'value': 0, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 40)},
+            'Strength': {'value': STR, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 80)},
+            'Endurance': {'value': END, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 110)},
+            'Dexterity': {'value': DEX, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 140)},
+            'Mind': {'value': MIND, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 170)},
+            'Intelligence': {'value': INT, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 200)},
+            'Token': {'value': 0, 'color': 'orange', 'pos': (self.game.SCREEN_WIDTH - 150, 280)},
         }
         self.XPthreshhold=100
 
     def UpgradeStat(self,stat):
-        if self.stats['Tokens']['value']>0 and stat in self.stats:
+        if self.stats['Token']['value']>0 and stat in self.stats:
             self.stats[stat]['value']+=1
-            self.stats['Tokens']['value']-=1
-        else:
-            print("Cant level up!")
+            self.stats['Token']['value']-=1
 
     def GetXP(self,value):
         self.stats['XP']['value']+=value
@@ -204,11 +209,22 @@ class PlayerStats():
     
     def DisplayStats(self):
         for stat,values in self.stats.items():
-            if stat == 'Token' and values['value'] == 0:
-                continue
+            if stat == 'Token' and values['value'] == 0: continue
+            if self.stats['Token']['value']>0: self.game.DISPLAY.blit(FONT_STATS.render("LEVEL UP!", False, 'red'),(self.game.SCREEN_WIDTH-150,250))
             text = FONT_STATS.render(f"{stat} : {values['value']}", False, 'orange')
             self.game.DISPLAY.blit(text, values['pos'])
 
+    def StatUpgrade(self):
+        if self.stats['Token']['value']>0:
+            for stat,values in self.stats.items():
+                if stat in ['Token','Level','XP']: continue
+                stat_btn=FONT_STATS.render(f"{stat} : {values['value']}", False, values['color'])
+                text = stat_btn.get_rect(topleft=values['pos'])
+                if text.collidepoint(pg.mouse.get_pos()) and pg.mouse.get_pressed()[0]:
+                    self.UpgradeStat(stat)
+                    break
+
     def Update(self):
         self.DisplayStats()
+        self.StatUpgrade()
         if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GetXP(1)
