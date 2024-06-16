@@ -1,6 +1,7 @@
 from Settings import *
 import pygame as pg
 import math
+import time
 
 class Player():
     def __init__(self,game):
@@ -184,11 +185,11 @@ class PlayerStats():
         self.stats = {
             'Level': {'value': 0, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 10)},
             'XP': {'value': 0, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 40)},
-            'Strength': {'value': STR, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 80)},
-            'Endurance': {'value': END, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 110)},
-            'Dexterity': {'value': DEX, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 140)},
-            'Mind': {'value': MIND, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 170)},
-            'Intelligence': {'value': INT, 'color': 'yellow', 'pos': (self.game.SCREEN_WIDTH - 150, 200)},
+            'Strength': {'value': STR, 'color': 'orange', 'pos': (self.game.SCREEN_WIDTH - 150, 80)},
+            'Endurance': {'value': END, 'color': 'orange', 'pos': (self.game.SCREEN_WIDTH - 150, 110)},
+            'Dexterity': {'value': DEX, 'color': 'orange', 'pos': (self.game.SCREEN_WIDTH - 150, 140)},
+            'Mind': {'value': MIND, 'color': 'orange', 'pos': (self.game.SCREEN_WIDTH - 150, 170)},
+            'Intelligence': {'value': INT, 'color': 'orange', 'pos': (self.game.SCREEN_WIDTH - 150, 200)},
             'Token': {'value': 0, 'color': 'orange', 'pos': (self.game.SCREEN_WIDTH - 150, 280)},
         }
         self.XPthreshhold=100
@@ -211,7 +212,7 @@ class PlayerStats():
         for stat,values in self.stats.items():
             if stat == 'Token' and values['value'] == 0: continue
             if self.stats['Token']['value']>0: self.game.DISPLAY.blit(FONT_STATS.render("LEVEL UP!", False, 'red'),(self.game.SCREEN_WIDTH-150,250))
-            text = FONT_STATS.render(f"{stat} : {values['value']}", False, 'orange')
+            text = FONT_STATS.render(f"{stat} : {values['value']}", False, values['color'])
             self.game.DISPLAY.blit(text, values['pos'])
 
     def StatUpgrade(self):
@@ -222,6 +223,7 @@ class PlayerStats():
                 text = stat_btn.get_rect(topleft=values['pos'])
                 if text.collidepoint(pg.mouse.get_pos()) and pg.mouse.get_pressed()[0]:
                     self.UpgradeStat(stat)
+                    time.sleep(0.1)
                     break
 
     def Update(self):
