@@ -33,6 +33,7 @@ class Enemy(AnimatedSprite):
         if self.hitbox.colliderect(self.game.player.collisionbox):
            self.game.player.vitalitystats.TakeDamage(self.Damage)
         if self.game.player.hitbox.IsActive and self.hitbox.colliderect(self.game.player.hitbox.rect) :
+            print(self.Damage)
             self.TakeDamage()
 
     def Update(self):
