@@ -9,19 +9,25 @@ class Player():
         self.movement=PlayerMovement(self.game)
         self.vitalitystats=PlayerVitality(self.game,100,100,100)
         self.stats=PlayerStats(self.game,1,1,1,1,1)
-        self.hitbox=pg.Rect(((self.movement.posx+0.1)*100,(self.movement.posy-0.3)*100,self.movement.posx+80,self.movement.posy+50))
+        self.hitbox=pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
+        self.hitcollision=pg.Rect(((self.movement.posx+0.1)*100,(self.movement.posy-0.3)*100,self.movement.posx+80,self.movement.posy+50))
 
+    def Draw(self):
+        self.hitbox=pg.Rect(((self.movement.posx-0.25)*100,(self.movement.posy-0.25)*100,50,50))
+        pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)
+    
     def Input(self):
         mouse_input=pg.mouse.get_pressed()
         if mouse_input[0]:
-            self.Hitbox()
+            self.Hitcollision()
             pass
 
-    def Hitbox(self):
-        self.hitbox=pg.Rect(((self.movement.posx+math.cos(self.movement.angle)-0.25)*100,(self.movement.posy+math.sin(self.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
-        pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)
+    def Hitcollision(self):
+        self.hitcollision=pg.Rect(((self.movement.posx+math.cos(self.movement.angle)-0.25)*100,(self.movement.posy+math.sin(self.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
+        pg.draw.rect(self.game.DISPLAY,'blue',self.hitcollision,1)
     
     def Update(self):
+        self.Draw()
         self.Input()
         self.movement.Update()
         self.vitalitystats.Update()
@@ -130,7 +136,9 @@ class PlayerVitality():
 
     #HEALTH
     def TakeDamage(self,dmg): 
-        if self.vitality_stats['HP']['value']<=self.maxhp: self.vitality_stats['HP']['value']-=dmg
+        if self.vitality_stats['HP']['value']<=self.maxhp: 
+            self.vitality_stats['HP']['value']-=dmg 
+            print(dmg)
         
     def Heal(self,value): 
         if self.vitality_stats['HP']['value']<=self.maxhp and self.vitality_stats['HP']['value']>=0: self.vitality_stats['HP']['value']+=value
