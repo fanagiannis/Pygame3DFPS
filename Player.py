@@ -1,7 +1,10 @@
 from Settings import *
+from Hitbox import*
 import pygame as pg
 import math
 import time
+
+
 
 class Player():
     def __init__(self,game):
@@ -11,6 +14,8 @@ class Player():
         self.stats=PlayerStats(self.game,1,1,1,1,1)
         self.hitbox=pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
         self.hitcollision=pg.Rect(((self.movement.posx+0.1)*100,(self.movement.posy-0.3)*100,self.movement.posx+80,self.movement.posy+50))
+    
+    #HITBOXES MANIPULATION 
 
     def Draw(self):
         self.hitbox=pg.Rect(((self.movement.posx-0.25)*100,(self.movement.posy-0.25)*100,50,50))
@@ -43,6 +48,8 @@ class Player():
     def DealDamage(self):
         return 10+10*self.stats.stats['Level']['value']
 
+class PlayerHitbox():
+    pass
 
 class PlayerMovement:
     def __init__(self, game):
