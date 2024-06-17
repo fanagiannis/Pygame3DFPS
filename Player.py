@@ -20,8 +20,8 @@ class Player():
         pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
     
     def Input(self):
-        mouse_input=pg.mouse.get_pressed()
-        if mouse_input[0]:
+        key=pg.key.get_pressed()
+        if key[pg.K_SPACE]:
             self.hitbox.Activate()
             pass
     
