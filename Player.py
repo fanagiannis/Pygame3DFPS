@@ -1,5 +1,4 @@
 from Settings import *
-from Hitbox import*
 import pygame as pg
 import math
 import time
@@ -12,27 +11,23 @@ class Player():
         self.movement=PlayerMovement(self.game)
         self.vitalitystats=PlayerVitality(self.game,100,100,100)
         self.stats=PlayerStats(self.game,1,1,1,1,1)
-        self.hitbox=pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
-        self.hitcollision=pg.Rect(((self.movement.posx+0.1)*100,(self.movement.posy-0.3)*100,self.movement.posx+80,self.movement.posy+50))
-    
-    #HITBOXES MANIPULATION 
+        self.collisionbox=pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
+        self.hitbox=PlayerHitbox(self)#pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
+        # self.hitcollision=pg.Rect(((self.movement.posx+0.1)*100,(self.movement.posy-0.3)*100,self.movement.posx+80,self.movement.posy+50))
 
     def Draw(self):
-        self.hitbox=pg.Rect(((self.movement.posx-0.25)*100,(self.movement.posy-0.25)*100,50,50))
-        pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)
+        self.collisionbox=pg.Rect(((self.movement.posx-0.2)*100,(self.movement.posy-0.2)*100,40,40))
+        pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
     
     def Input(self):
         mouse_input=pg.mouse.get_pressed()
         if mouse_input[0]:
-            self.Hitcollision()
+            self.hitbox.Activate()
             pass
-
-    def Hitcollision(self):
-        self.hitcollision=pg.Rect(((self.movement.posx+math.cos(self.movement.angle)-0.25)*100,(self.movement.posy+math.sin(self.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
-        pg.draw.rect(self.game.DISPLAY,'blue',self.hitcollision,1)
     
     def Update(self):
         self.Draw()
+        self.hitbox.Update()
         self.Input()
         self.movement.Update()
         self.vitalitystats.Update()
@@ -49,7 +44,33 @@ class Player():
         return 10+10*self.stats.stats['Level']['value']
 
 class PlayerHitbox():
-    pass
+    def __init__(self, player):
+        self.player = player
+        self.active = False
+        self.duration = 50  # duration of hitbox life
+        self.timer = 0
+        self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))
+
+    def Activate(self):
+        self.active = True
+        self.timer = pg.time.get_ticks()
+
+    def Draw(self):
+        self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
+        pg.draw.rect(self.player.game.DISPLAY,'blue',self.hitcollision,1)
+
+    def Update(self):
+        if self.active:
+            current_time = pg.time.get_ticks()
+            if current_time - self.timer > self.duration:
+                self.active = False
+            else:
+                self.Draw()
+
+    @property
+    def IsActive(self): return self.active
+    @property
+    def rect(self): return self.hitcollision
 
 class PlayerMovement:
     def __init__(self, game):

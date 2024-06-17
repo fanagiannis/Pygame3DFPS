@@ -30,10 +30,10 @@ class Enemy(AnimatedSprite):
         pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)
        
     def Hit(self):
-        if self.hitbox.colliderect(self.game.player.hitcollision):
+        if self.hitbox.colliderect(self.game.player.collisionbox):
+           self.game.player.vitalitystats.TakeDamage(self.Damage)
+        if self.game.player.hitbox.IsActive and self.hitbox.colliderect(self.game.player.hitbox.rect) :
             self.TakeDamage()
-        if self.hitbox.colliderect(self.game.player.hitbox):
-            self.game.player.vitalitystats.TakeDamage(self.Damage)
 
     def Update(self):
         super().Update()
