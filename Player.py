@@ -9,7 +9,20 @@ class Player():
         self.movement=PlayerMovement(self.game)
         self.vitalitystats=PlayerVitality(self.game,100,100,100)
         self.stats=PlayerStats(self.game,1,1,1,1,1)
+        self.hitbox=pg.Rect(((self.movement.posx+0.1)*100,(self.movement.posy-0.3)*100,self.movement.posx+80,self.movement.posy+50))
+
+    def Input(self):
+        mouse_input=pg.mouse.get_pressed()
+        if mouse_input[0]:
+            self.Hitbox()
+            pass
+
+    def Hitbox(self):
+        self.hitbox=pg.Rect(((self.movement.posx+0.1)*100,(self.movement.posy-0.3)*100,self.movement.posx+80,self.movement.posy+50))
+        pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)
+    
     def Update(self):
+        self.Input()
         self.movement.Update()
         self.vitalitystats.Update()
         self.stats.Update()
@@ -79,12 +92,12 @@ class PlayerMovement:
 
     def draw(self):
         pg.draw.line(self.game.DISPLAY, 'yellow', (self.posx * 100, self.posy * 100),
-                    (self.x * 100 + WIDTH * math.cos(self.angle),
-                     self.y * 100 + WIDTH * math. sin(self.angle)), 2)
+                    (self.posx * 100 + WIDTH * math.cos(self.angle),
+                     self.posy * 100 + WIDTH * math. sin(self.angle)), 2)
         pg.draw.circle(self.game.DISPLAY, 'green', (self.posx * 100, self.posy * 100), 15)
 
     def Update(self):
-        #self.draw()
+        self.draw()
         if not self.game.player.vitalitystats.Death(): self.movement()
         else: 
             text_Death=FONT_DEATH.render("YOU DIED",False,'red') 

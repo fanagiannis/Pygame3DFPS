@@ -64,12 +64,13 @@ class Game:
 
     def Update(self):
         self.DISPLAY.fill('black')
-        #self.map.draw()
+        
         self.Floorcaster.Update()
         self.Texturerenderer.Update()
         self.player.Update()
         self.Raycaster.Update()
         self.Sprites.Update()
+        self.map.draw()
         self.Cycle()
 
 
