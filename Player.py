@@ -18,7 +18,7 @@ class Player():
             pass
 
     def Hitbox(self):
-        self.hitbox=pg.Rect(((self.movement.posx+0.1)*100,(self.movement.posy-0.3)*100,self.movement.posx+80,self.movement.posy+50))
+        self.hitbox=pg.Rect(((self.movement.posx+math.cos(self.movement.angle)-0.25)*100,(self.movement.posy+math.sin(self.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
         pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)
     
     def Update(self):

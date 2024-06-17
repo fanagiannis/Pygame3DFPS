@@ -28,7 +28,7 @@ class Enemy(AnimatedSprite):
     def Draw(self):
         pg.draw.circle(self.game.DISPLAY, 'red', (self.posx*100,self.posy*100), 15)
         pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)
-
+       
     def Hit(self):
         if self.hitbox.colliderect(self.game.player.hitbox):
             self.TakeDamage()
