@@ -36,7 +36,7 @@ class Player():
     def GetMana(self): return self.vitalitystats.vitality_stats['MANA']['value']
     @property 
     def DealDamage(self):
-        return 10+10*self.stats.stats['Level']['value']
+        return 30+10*self.stats.stats['Level']['value']
 
 class PlayerHitbox():
     def __init__(self, player):
@@ -48,8 +48,9 @@ class PlayerHitbox():
 
     def Activate(self):
         timer=pg.time.get_ticks()
-        if timer-self.player.playerattacktime>=self.player.attackcooldown:
+        if timer-self.player.playerattacktime>=self.player.attackcooldown and self.player.GetStamina>10:
             self.active = True
+            self.player.vitalitystats.DecStamina(20)
             self.timer=timer
             self.player.playerattacktime=timer
 
@@ -154,9 +155,11 @@ class PlayerVitality():
         self.maxhp=maxhp
         self.maxstamina=maxstamina
         self.maxmana=mana
-        #self.HP=self.maxhp
-        self.Stamina=self.maxstamina
         self.Mana=self.maxmana
+
+        #STAMINA 
+        self.Stamina=self.maxstamina
+        self.Staminaregentime=0
 
         self.vitality_stats={
             'HP': {'value':self.maxhp,'color':'orange','pos':(0,0)},
@@ -190,6 +193,13 @@ class PlayerVitality():
     
     def IncStamina(self,value):
         if self.vitality_stats['STAMINA']['value']<=self.maxstamina and self.vitality_stats['STAMINA']['value']>=0: self.vitality_stats['STAMINA']['value']+=value
+    
+    def StaminaRegen(self):
+        timer=pg.time.get_ticks()
+        if timer-self.Staminaregentime>=1000:
+            self.Staminaregentime=timer
+            if self.vitality_stats['STAMINA']['value']<100: 
+                self.IncStamina(1)
 
     #MANA
     def DecMana(self,value): 
@@ -222,7 +232,9 @@ class PlayerVitality():
         pg.draw.rect(self.game.DISPLAY,'blue',(40,38,self.vitality_stats['MANA']['value'],10),self.vitality_stats['MANA']['value']) #MANA BAR
 
     def Update(self):
+        
         self.Bars()
+        self.StaminaRegen()
         self.StatsReset()
         self.Fonts()
         #DEBUG
