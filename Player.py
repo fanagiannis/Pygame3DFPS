@@ -19,9 +19,11 @@ class Player():
 
     def Draw(self):
         self.collisionbox=pg.Rect(((self.movement.posx-0.2)*100,(self.movement.posy-0.2)*100,40,40))
-        pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
-    
+        #DEBUG pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
+    def Hitbox(self):
+        pass#DEBUG pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
     def Update(self):
+        self.Hitbox()
         self.Draw()
         self.hitbox.Update()
         self.movement.Update()
@@ -56,7 +58,7 @@ class PlayerHitbox():
 
     def Draw(self):
         self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
-        pg.draw.rect(self.player.game.DISPLAY,'blue',self.hitcollision,1)
+        #pg.draw.rect(self.player.game.DISPLAY,'blue',self.hitcollision,1)
 
     def Update(self):
         if self.active:
@@ -135,7 +137,7 @@ class PlayerMovement:
         pg.draw.circle(self.game.DISPLAY, 'green', (self.posx * 100, self.posy * 100), 15)
 
     def Update(self):
-        self.draw()
+        #self.draw()
         if not self.game.player.vitalitystats.Death(): self.Movement()
         else: 
             text_Death=FONT_DEATH.render("YOU DIED",False,'red') 
@@ -196,7 +198,7 @@ class PlayerVitality():
     
     def StaminaRegen(self):
         timer=pg.time.get_ticks()
-        if timer-self.Staminaregentime>=1000:
+        if timer-self.Staminaregentime>=250:
             self.Staminaregentime=timer
             if self.vitality_stats['STAMINA']['value']<100: 
                 self.IncStamina(1)

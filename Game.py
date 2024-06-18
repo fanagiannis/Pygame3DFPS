@@ -13,7 +13,7 @@ class Game:
     def __init__(self):
         self.SCREEN_WIDTH=1600
         self.SCREEN_HEIGHT=900
-        self.DISPLAY=pg.display.set_mode((self.SCREEN_WIDTH,self.SCREEN_HEIGHT))
+        self.DISPLAY=pg.display.set_mode((self.SCREEN_WIDTH,self.SCREEN_HEIGHT),pg.SRCALPHA)
         self.CLOCK=pg.time.Clock()
         self.FPS=60
         self.DELTA_TIME=1
@@ -48,9 +48,9 @@ class Game:
 
     def Cycle(self): 
         self.ShowFPS()
-        pg.display.update()
+        #pg.display.update()
         pg.display.flip()
-        self.DISPLAY.fill((0,0,0))
+        #self.DISPLAY.fill((0,0,0,0))
         self.DELTA_TIME=self.CLOCK.tick(self.FPS)
         
     def ShowFPS(self):
@@ -65,14 +65,15 @@ class Game:
         self.Run()
 
     def Update(self):
-        self.DISPLAY.fill('black')
+        self.DISPLAY.fill((0,0,0,0))
         
         self.Floorcaster.Update()
         self.Texturerenderer.Update()
         self.player.Update()
         self.Raycaster.Update()
         self.Sprites.Update()
-        self.map.draw()
+        
+        #self.map.draw()
         self.Cycle()
 
 

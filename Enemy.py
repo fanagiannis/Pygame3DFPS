@@ -34,15 +34,17 @@ class Enemy(AnimatedSprite):
     
     def Draw(self):
         pg.draw.circle(self.game.DISPLAY, 'yellow', (self.posx*100,self.posy*100), 15)
+    
+    def Hitbox(self):
         pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)
     
     def Vision(self):
-        self.vision=pg.draw.circle(self.game.DISPLAY, 'orange', (self.posx*100,self.posy*100), radius=self.visionradius,width=1) 
-        if self.vision.colliderect(self.game.player.collisionbox): pass #DEBUG print("Spotted")
+        self.vision=pg.draw.circle(self.game.DISPLAY, color=(0,0,0,0), center=(self.posx*100,self.posy*100), radius=self.visionradius,width=1) 
+        if self.vision.colliderect(self.game.player.collisionbox): print("Spotted")
 
     def Attack(self):
         timer=pg.time.get_ticks()
-        self.attackvision=pg.draw.circle(self.game.DISPLAY, 'red', (self.posx*100,self.posy*100), radius=self.attackradius,width=1) 
+        self.attackvision=pg.draw.circle(self.game.DISPLAY, (0,0,0,0), (self.posx*100,self.posy*100), radius=self.attackradius,width=1) 
         if self.attackvision.colliderect(self.game.player.collisionbox): 
             if timer-self.attacktime>=self.attackcooldown and not self.game.player.vitalitystats.Death():
                 self.game.player.vitalitystats.TakeDamage(self.Damage)
@@ -59,7 +61,8 @@ class Enemy(AnimatedSprite):
         self.Vision()    #USED TO DETECT PLAYER
         self.Attack()
         self.Hit()
-        self.Draw()
+        
+        #self.Draw()
        
         keys=pg.key.get_pressed()
         if keys[pg.K_r]:
