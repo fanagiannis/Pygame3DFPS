@@ -49,9 +49,7 @@ class Enemy(AnimatedSprite):
                 self.attacktime = timer
                 print("Attack")
 
-
     def Hit(self):
-        
         if self.game.player.hitbox.IsActive and self.hitbox.colliderect(self.game.player.hitbox.rect) :#and not self.damaged:
             self.TakeDamage()
 

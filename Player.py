@@ -14,6 +14,8 @@ class Player():
         self.collisionbox=pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
         self.hitbox=PlayerHitbox(self)#pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
         # self.hitcollision=pg.Rect(((self.movement.posx+0.1)*100,(self.movement.posy-0.3)*100,self.movement.posx+80,self.movement.posy+50))
+        self.attackcooldown=1000
+        self.playerattacktime=0
 
     def Draw(self):
         self.collisionbox=pg.Rect(((self.movement.posx-0.2)*100,(self.movement.posy-0.2)*100,40,40))
@@ -41,12 +43,15 @@ class PlayerHitbox():
         self.player = player
         self.active = False
         self.duration = 5  # hitbox life
-        self.timer = 0
+        self.timer=0
         self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))
 
     def Activate(self):
-        self.active = True
-        self.timer = pg.time.get_ticks()
+        timer=pg.time.get_ticks()
+        if timer-self.player.playerattacktime>=self.player.attackcooldown:
+            self.active = True
+            self.timer=timer
+            self.player.playerattacktime=timer
 
     def Draw(self):
         self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
@@ -254,7 +259,7 @@ class PlayerStats():
         self.stats['XP']['value']+=value
 
     def LevelUP(self):
-        if self.stats['XP']['value']>self.XPthreshhold:
+        if self.stats['XP']['value']>=self.XPthreshhold:
             self.XPthreshhold*=2
             self.stats['Level']['value']+=1
             self.stats['Token']['value']+=1
@@ -280,4 +285,5 @@ class PlayerStats():
     def Update(self):
         self.DisplayStats()
         self.StatUpgrade()
+        self.LevelUP()
         if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GainXP(1)
