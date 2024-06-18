@@ -73,13 +73,13 @@ class PlayerMovement:
         self.scale=60
         self.speed=0.004
         
-    def Knockback(self):
-        self.speed*=-1
-        self.posx-=self.speed*math.cos(self.angle)
-        self.posy-=self.speed*math.sin(self.angle)
+    # def Knockback(self):
+    #     #self.speed*=-1
+    #     self.posx-=self.speed*math.cos(self.angle)
+    #     self.posy-=self.speed*math.sin(self.angle)
 
 
-    def movement(self):
+    def Movement(self):
         sin_a = math.sin(self.angle)
         cos_a = math.cos(self.angle)
         dx, dy = 0, 0
@@ -130,7 +130,7 @@ class PlayerMovement:
 
     def Update(self):
         self.draw()
-        if not self.game.player.vitalitystats.Death(): self.movement()
+        if not self.game.player.vitalitystats.Death(): self.Movement()
         else: 
             text_Death=FONT_DEATH.render("YOU DIED",False,'red') 
             self.game.DISPLAY.blit(text_Death,(self.game.SCREEN_WIDTH//2-100,self.game.SCREEN_HEIGHT//2))
@@ -164,7 +164,7 @@ class PlayerVitality():
     def TakeDamage(self,dmg): 
         if self.vitality_stats['HP']['value']<=self.maxhp: 
             self.vitality_stats['HP']['value']-=dmg 
-            self.game.player.movement.Knockback()
+            #self.game.player.movement.Knockback()
             print(dmg)
         
     def Heal(self,value): 

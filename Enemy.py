@@ -12,10 +12,14 @@ class Enemy(AnimatedSprite):
         self.HP=50+10*self.Level
         self.Damage=20+10*self.Level
         self.visionradius=200
+        self.attackradius=100
         self.IsDead=False
 
         self.hitbox=pg.Rect((self.posx-0.15)*100,(self.posy-0.15)*100,self.posx+25,self.posy+25)
-        self.damaged=False
+
+        #ATTACK
+        self.attackcooldown=1000
+        self.attacktime=0
        
     
     def TakeDamage(self):
@@ -29,26 +33,33 @@ class Enemy(AnimatedSprite):
         return self.IsDead
     
     def Draw(self):
-        pg.draw.circle(self.game.DISPLAY, 'red', (self.posx*100,self.posy*100), 15)
+        pg.draw.circle(self.game.DISPLAY, 'yellow', (self.posx*100,self.posy*100), 15)
         pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)
     
     def Vision(self):
-        self.vision=pg.draw.circle(self.game.DISPLAY, 'orange', (self.posx*100,self.posy*100), radius=self.visionradius,width=1)
+        self.vision=pg.draw.circle(self.game.DISPLAY, 'orange', (self.posx*100,self.posy*100), radius=self.visionradius,width=1) 
         if self.vision.colliderect(self.game.player.collisionbox): pass #DEBUG print("Spotted")
 
+    def Attack(self):
+        timer=pg.time.get_ticks()
+        self.attackvision=pg.draw.circle(self.game.DISPLAY, 'red', (self.posx*100,self.posy*100), radius=self.attackradius,width=1) 
+        if self.attackvision.colliderect(self.game.player.collisionbox): 
+            if timer-self.attacktime>=self.attackcooldown and not self.game.player.vitalitystats.Death():
+                self.game.player.vitalitystats.TakeDamage(self.Damage)
+                self.attacktime = timer
+                print("Attack")
+
+
     def Hit(self):
-        if self.hitbox.colliderect(self.game.player.collisionbox):
-            self.game.player.vitalitystats.TakeDamage(self.Damage)
-        if self.game.player.hitbox.IsActive and self.hitbox.colliderect(self.game.player.hitbox.rect) and not self.damaged:
+        
+        if self.game.player.hitbox.IsActive and self.hitbox.colliderect(self.game.player.hitbox.rect) :#and not self.damaged:
             self.TakeDamage()
-            self.damage_applied = True
-        else:
-            self.damaged=False
 
     def Update(self):
         super().Update()
         #DEBUG
-        self.Vision()
+        self.Vision()    #USED TO DETECT PLAYER
+        self.Attack()
         self.Hit()
         self.Draw()
        

@@ -36,7 +36,7 @@ class SpriteLoader():
     def Enemies(self):
         enemy=Enemy(self.game,path='Assets/Sprites/Animated/1.png',pos=(5,5),Level=1,Value=20)
         self.enemies.append(enemy)
-        enemy2=Enemy(self.game,path='Assets/Sprites/Animated/1.png',pos=(10,10),Level=1,Value=20)
+        enemy2=Enemy(self.game,path='Assets/Sprites/Animated/1.png',pos=(8,8),Level=1,Value=20)
         self.enemies.append(enemy2)
 
 
