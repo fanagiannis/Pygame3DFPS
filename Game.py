@@ -43,6 +43,8 @@ class Game:
                 pg.quit() 
             if self.player.vitalitystats.IsDead and pg.key.get_pressed()[pg.K_TAB]:
                 self.running=False
+            if event.type==pg.KEYUP:
+                if event.key==pg.K_SPACE: self.player.hitbox.Activate()
 
     def Cycle(self): 
         self.ShowFPS()

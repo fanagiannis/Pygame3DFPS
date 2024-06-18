@@ -19,16 +19,9 @@ class Player():
         self.collisionbox=pg.Rect(((self.movement.posx-0.2)*100,(self.movement.posy-0.2)*100,40,40))
         pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
     
-    def Input(self):
-        key=pg.key.get_pressed()
-        if key[pg.K_SPACE]:
-            self.hitbox.Activate()
-            pass
-    
     def Update(self):
         self.Draw()
         self.hitbox.Update()
-        self.Input()
         self.movement.Update()
         self.vitalitystats.Update()
         self.stats.Update()
@@ -47,7 +40,7 @@ class PlayerHitbox():
     def __init__(self, player):
         self.player = player
         self.active = False
-        self.duration = 50  # duration of hitbox life
+        self.duration = 5  # hitbox life
         self.timer = 0
         self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))
 
@@ -80,6 +73,11 @@ class PlayerMovement:
         self.scale=60
         self.speed=0.004
         
+    def Knockback(self):
+        self.speed*=-1
+        self.posx-=self.speed*math.cos(self.angle)
+        self.posy-=self.speed*math.sin(self.angle)
+
 
     def movement(self):
         sin_a = math.sin(self.angle)
@@ -166,6 +164,7 @@ class PlayerVitality():
     def TakeDamage(self,dmg): 
         if self.vitality_stats['HP']['value']<=self.maxhp: 
             self.vitality_stats['HP']['value']-=dmg 
+            self.game.player.movement.Knockback()
             print(dmg)
         
     def Heal(self,value): 

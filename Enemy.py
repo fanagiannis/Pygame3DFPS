@@ -15,10 +15,12 @@ class Enemy(AnimatedSprite):
         self.IsDead=False
 
         self.hitbox=pg.Rect((self.posx-0.15)*100,(self.posy-0.15)*100,self.posx+25,self.posy+25)
+        self.damaged=False
        
     
     def TakeDamage(self):
         self.HP=self.HP-(self.game.player.DealDamage-2*self.Level)
+        print(self.Damage)
         return (self.game.player.DealDamage-2*self.Level)
     
     def Death(self):
@@ -32,14 +34,16 @@ class Enemy(AnimatedSprite):
     
     def Vision(self):
         self.vision=pg.draw.circle(self.game.DISPLAY, 'orange', (self.posx*100,self.posy*100), radius=self.visionradius,width=1)
-        if self.vision.colliderect(self.game.player.collisionbox): print("Spotted")
+        if self.vision.colliderect(self.game.player.collisionbox): pass #DEBUG print("Spotted")
 
     def Hit(self):
         if self.hitbox.colliderect(self.game.player.collisionbox):
-           self.game.player.vitalitystats.TakeDamage(self.Damage)
-        if self.game.player.hitbox.IsActive and self.hitbox.colliderect(self.game.player.hitbox.rect) :
-            print(self.Damage)
+            self.game.player.vitalitystats.TakeDamage(self.Damage)
+        if self.game.player.hitbox.IsActive and self.hitbox.colliderect(self.game.player.hitbox.rect) and not self.damaged:
             self.TakeDamage()
+            self.damage_applied = True
+        else:
+            self.damaged=False
 
     def Update(self):
         super().Update()
