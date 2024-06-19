@@ -24,6 +24,7 @@ class Enemy(AnimatedSprite):
     
     def TakeDamage(self):
         self.HP=self.HP-(self.game.player.DealDamage-2*self.Level)
+        self.game.Soundmixer.PlaySound(self.game.Soundmixer.Hitsound)
         print(self.Damage)
         return (self.game.player.DealDamage-2*self.Level)
     

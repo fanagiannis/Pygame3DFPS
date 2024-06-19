@@ -169,7 +169,7 @@ class PlayerVitality():
         if self.vitality_stats['HP']['value']<=self.maxhp: 
             self.game.DISPLAY.fill('red')
             self.vitality_stats['HP']['value']-=dmg 
-            self.game.Soundmixer.PlaySound(self.game.Soundmixer.Hitsound)
+            self.game.Soundmixer.PlaySound(self.game.Soundmixer.Hurtsound)
             #self.game.player.movement.Knockback()
             print(dmg)
         
