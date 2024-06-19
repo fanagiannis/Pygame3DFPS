@@ -65,7 +65,7 @@ class Enemy(AnimatedSprite):
         self.Attack()
         self.Hit()
         
-        self.Draw()
+        #self.Draw()
        
         keys=pg.key.get_pressed()
         if keys[pg.K_r]:
