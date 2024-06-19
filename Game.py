@@ -7,6 +7,7 @@ from Raycaster import *
 from TextureRenderer import*
 from Floorcaster import * 
 from SpriteLoader import *
+from SoundMixer import *
 
 
 class Game:
@@ -29,6 +30,7 @@ class Game:
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
         self.Sprites=SpriteLoader(self)
+        self.Soundmixer=SoundMixer()
     
     def Run(self):
         self.Game_Objects()
@@ -66,7 +68,6 @@ class Game:
 
     def Update(self):
         self.DISPLAY.fill((0,0,0,0))
-        
         self.Floorcaster.Update()
         self.Texturerenderer.Update()
         self.player.Update()

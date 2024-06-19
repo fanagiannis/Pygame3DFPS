@@ -167,7 +167,9 @@ class PlayerVitality():
     #HEALTH
     def TakeDamage(self,dmg): 
         if self.vitality_stats['HP']['value']<=self.maxhp: 
+            self.game.DISPLAY.fill('red')
             self.vitality_stats['HP']['value']-=dmg 
+            self.game.Soundmixer.PlaySound(self.game.Soundmixer.Hitsound)
             #self.game.player.movement.Knockback()
             print(dmg)
         
@@ -179,7 +181,9 @@ class PlayerVitality():
         else: self.maxhp=1000
         
     def Death(self):
-        if self.vitality_stats['HP']['value']<=0: self.IsDead=True
+        if self.vitality_stats['HP']['value']<=0: 
+            self.game.Soundmixer.PlayDeathSound()
+            self.IsDead=True
         else: self.IsDead=False
         return self.IsDead
     
@@ -295,3 +299,4 @@ class PlayerStats():
         self.StatUpgrade()
         self.LevelUP()
         if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GainXP(1)
+    
