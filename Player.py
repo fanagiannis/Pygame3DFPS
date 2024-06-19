@@ -12,19 +12,26 @@ class Player():
         self.vitalitystats=PlayerVitality(self.game,100,100,100)
         self.stats=PlayerStats(self.game,1,1,1,1,1)
         self.collisionbox=pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
-        self.hitbox=PlayerHitbox(self)#pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
-        # self.hitcollision=pg.Rect(((self.movement.posx+0.1)*100,(self.movement.posy-0.3)*100,self.movement.posx+80,self.movement.posy+50))
+        self.hitbox=PlayerHitbox(self)
         self.attackcooldown=1000
         self.playerattacktime=0
 
     def Draw(self):
+        #COLLISION BOX
+        pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
+
+        #BODY
+        pg.draw.line(self.game.DISPLAY, 'yellow', (self.movement.posx * 100, self.movement.posy * 100),
+                    (self.movement.posx * 100 + WIDTH * math.cos(self.movement.angle),
+                     self.movement.posy * 100 + WIDTH * math. sin(self.movement.angle)), 2)
+        pg.draw.circle(self.game.DISPLAY, 'green', (self.movement.posx * 100, self.movement.posy * 100), 15)
+
+    def Hitbox(self): 
         self.collisionbox=pg.Rect(((self.movement.posx-0.2)*100,(self.movement.posy-0.2)*100,40,40))
-        #DEBUG pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
-    def Hitbox(self):
-        pass#DEBUG pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
+      
     def Update(self):
         self.Hitbox()
-        self.Draw()
+        #self.Draw()
         self.hitbox.Update()
         self.movement.Update()
         self.vitalitystats.Update()
@@ -58,7 +65,7 @@ class PlayerHitbox():
 
     def Draw(self):
         self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
-        #pg.draw.rect(self.player.game.DISPLAY,'blue',self.hitcollision,1)
+        #pg.draw.rect(self.player.game.DISPLAY,'blue',self.hitcollision,1) #DEBUG
 
     def Update(self):
         if self.active:
@@ -80,12 +87,6 @@ class PlayerMovement:
         self.angle = 0
         self.scale=60
         self.speed=0.004
-        
-    # def Knockback(self):
-    #     #self.speed*=-1
-    #     self.posx-=self.speed*math.cos(self.angle)
-    #     self.posy-=self.speed*math.sin(self.angle)
-
 
     def Movement(self):
         sin_a = math.sin(self.angle)
@@ -130,14 +131,7 @@ class PlayerMovement:
         if self.check_wall(int(self.posx), int(self.posy + dy * scale)):
             self.posy += dy
 
-    def draw(self):
-        pg.draw.line(self.game.DISPLAY, 'yellow', (self.posx * 100, self.posy * 100),
-                    (self.posx * 100 + WIDTH * math.cos(self.angle),
-                     self.posy * 100 + WIDTH * math. sin(self.angle)), 2)
-        pg.draw.circle(self.game.DISPLAY, 'green', (self.posx * 100, self.posy * 100), 15)
-
     def Update(self):
-        #self.draw()
         if not self.game.player.vitalitystats.Death(): self.Movement()
         else: 
             text_Death=FONT_DEATH.render("YOU DIED",False,'red') 
