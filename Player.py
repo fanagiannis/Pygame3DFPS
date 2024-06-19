@@ -13,6 +13,7 @@ class Player():
         self.stats=PlayerStats(self.game,1,1,1,1,1)
         self.collisionbox=pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
         self.hitbox=PlayerHitbox(self)
+        self.crosshair=pg.image.load("Assets/Crosshair/Crosshair.png").convert_alpha()
         self.attackcooldown=1000
         self.playerattacktime=0
 
@@ -28,12 +29,16 @@ class Player():
 
     def Hitbox(self): 
         self.collisionbox=pg.Rect(((self.movement.posx-0.2)*100,(self.movement.posy-0.2)*100,40,40))
+    
+    def Crosshair(self):
+        self.game.DISPLAY.blit(self.crosshair,(self.game.SCREEN_WIDTH//2-self.crosshair.get_width()//2,self.game.SCREEN_HEIGHT//2-self.crosshair.get_height()//2))
       
     def Update(self):
         self.Hitbox()
         #self.Draw()
         self.hitbox.Update()
         self.movement.Update()
+        self.Crosshair()
         self.vitalitystats.Update()
         self.stats.Update()
 
