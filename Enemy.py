@@ -33,18 +33,21 @@ class Enemy(AnimatedSprite):
         return self.IsDead
     
     def Draw(self):
-        pg.draw.circle(self.game.DISPLAY, 'yellow', (self.posx*100,self.posy*100), 15)
-    
-    def Hitbox(self):
-        pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)
+        pg.draw.circle(self.game.DISPLAY, 'yellow', (self.posx*100,self.posy*100), 15)       #BODY
+        self.attackvision=pg.Rect(((self.posx-0.625)*100,(self.posy-0.625)*100,125,125))
+        pg.draw.rect(self.game.DISPLAY,'blue',self.attackvision,2)          #ATTACK RANGE
+        pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)              #HITBOX
+        pg.draw.rect(self.game.DISPLAY,'blue',self.vision,2)             #VISION
     
     def Vision(self):
-        self.vision=pg.draw.circle(self.game.DISPLAY, color=(0,0,0,0), center=(self.posx*100,self.posy*100), radius=self.visionradius,width=1) 
+        self.vision=pg.Rect(((self.posx-2.5)*100,(self.posy-2.5)*100,500,500))
         if self.vision.colliderect(self.game.player.collisionbox): print("Spotted")
 
     def Attack(self):
         timer=pg.time.get_ticks()
-        self.attackvision=pg.draw.circle(self.game.DISPLAY, (0,0,0,0), (self.posx*100,self.posy*100), radius=self.attackradius,width=1) 
+        #self.attackvision=pg.draw.circle(self.game.DISPLAY, (0,0,0,0), (self.posx*100,self.posy*100), radius=self.attackradius,width=1) 
+        self.attackvision=pg.Rect(((self.posx-0.7)*100,(self.posy-0.7)*100,125,125))
+        
         if self.attackvision.colliderect(self.game.player.collisionbox): 
             if timer-self.attacktime>=self.attackcooldown and not self.game.player.vitalitystats.Death():
                 self.game.player.vitalitystats.TakeDamage(self.Damage)
@@ -62,7 +65,7 @@ class Enemy(AnimatedSprite):
         self.Attack()
         self.Hit()
         
-        #self.Draw()
+        self.Draw()
        
         keys=pg.key.get_pressed()
         if keys[pg.K_r]:
