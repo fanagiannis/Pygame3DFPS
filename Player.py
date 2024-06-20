@@ -9,8 +9,9 @@ class Player():
     def __init__(self,game):
         self.game=game
         self.movement=PlayerMovement(self.game)
-        self.vitalitystats=PlayerVitality(self.game,100,100,100,20)
         self.stats=PlayerStats(self.game,1,1,1,1,1)
+        self.vitalitystats=PlayerVitality(self.game,100,100,100,20,self)
+        
         self.collisionbox=pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
         self.hitbox=PlayerHitbox(self)
         self.crosshair=pg.image.load("Assets/Crosshair/Crosshair.png").convert_alpha()
@@ -18,6 +19,7 @@ class Player():
         self.crosshair=pg.image.load("Assets/Crosshair/Crosshair.png").convert_alpha()
         self.attackcooldown=1000
         self.playerattacktime=0
+        self.UpdateStats()
 
     def Draw(self):
         #COLLISION BOX
@@ -166,31 +168,29 @@ class PlayerMovement:
         return int(self.posx), int(self.posy)
     
 class PlayerVitality():
-    def __init__(self,game,maxhp,maxstamina,maxmana,maxmp):
+    def __init__(self,game,maxhp,maxstamina,maxmana,maxmp,player):
         self.game=game
+        self.player=player
         self.maxhp=maxhp
         self.maxstamina=maxstamina
         self.maxmana=maxmana
-        self.Mana=self.maxmana
-        self.MagicPower=maxmp
-        self.basehp=maxhp
-        self.basestamina=maxstamina
-        self.basemana=maxmana
-        self.basemp=maxmp
+        self.maxmp=maxmp
         
+        self.basehp=self.maxhp#+50*self.player.stats.Get_Endurance
+        self.basestamina=self.maxstamina#+50*self.player.stats.Get_Dexterity
+        self.basemana=self.maxmana#+50*self.player.stats.Get_Mind
+        self.basemp=self.maxmp#+20*self.player.stats.Get_Intelligence
+
+        self.MagicPower=self.maxmp
 
         #STAMINA 
-        self.Stamina=self.maxstamina
-        self.Staminaregentime=0
-
-        #STAMINA 
-        self.Stamina=self.maxstamina
+        #self.Stamina=self.maxstamina
         self.Staminaregentime=0
 
         self.vitality_stats={
-            'HP': {'value':self.maxhp,'color':'orange','pos':(0,0)},
-            'STAMINA': {'value':self.maxstamina,'color':'orange','pos':(0,18)},
-            'MANA': {'value':self.maxmana,'color':'orange','pos':(0,36)}
+            'HP': {'value':self.basehp,'color':'orange','pos':(0,0)},
+            'STAMINA': {'value':self.basestamina,'color':'orange','pos':(0,18)},
+            'MANA': {'value':self.basemana,'color':'orange','pos':(0,36)}
         }
         self.IsDead=False
 
