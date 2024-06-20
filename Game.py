@@ -11,7 +11,7 @@ from SoundMixer import *
 from Pathfinding import *
 from Weapon import*
 
-
+from MainMenu import *
 
 class Game:
     def __init__(self):
@@ -23,6 +23,7 @@ class Game:
         self.DELTA_TIME=1
         self.running=True
         print("Game Created!")
+        self.menu=MainMenu(self)
         pass
 
     def Game_Objects(self):
@@ -37,9 +38,15 @@ class Game:
         self.Pathfinding=PathFinding(self)
         self.Weapon=Weapon(self,path='Assets/Sprites/Weapons/Unarmed/Idle.png',scale=0.4)
         self.sword=Weapon(self,path='Assets/Sprites/Weapons/SteelSword/Idle.png',scale=0.5)
-    
-    def Run(self):
+
+    def MainMenu(self):
         self.Game_Objects()
+        self.Soundmixer.PlayTheme('Assets/Sounds/MainMenu/MainMenuTheme.mp3')
+        self.menu.Update()
+        pass
+
+    def Run(self):
+        
         while self.running:
             self.Events()
             self.Update()
@@ -76,7 +83,6 @@ class Game:
 
     def Update(self):
         self.DISPLAY.fill((0,0,0,0))
-        
         self.Floorcaster.Update()
         self.Texturerenderer.Update()
         self.sword.Update()
@@ -87,9 +93,12 @@ class Game:
         
         #self.map.draw()
         self.Cycle()
-        
+
 if __name__ == '__main__':
+
+    pg.init()
     game = Game()
-    game.Run() 
+    #game.MainMenu()
+    game.MainMenu() 
 
 
