@@ -31,6 +31,8 @@ class Enemy(AnimatedSprite):
         self.images_idle=self.get_images('Assets/Sprites/Animated/Rat/Idle')  
         self.images_walking=self.get_images('Assets/Sprites/Animated/Rat/Walk')
         self.images_attack=self.get_images('Assets/Sprites/Animated/Rat/Attack')
+        self.images_death=self.get_images('Assets/Sprites/Animated/Rat/Death')
+        self.images_hit=self.get_images('Assets/Sprites/Animated/Rat/Hit')
        
     
     def TakeDamage(self):
