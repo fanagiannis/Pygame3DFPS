@@ -19,7 +19,7 @@ class Player():
         self.crosshair=pg.image.load("Assets/Crosshair/Crosshair.png").convert_alpha()
         self.attackcooldown=1000
         self.playerattacktime=0
-        self.UpdateStats()
+        #self.UpdateStats()
 
     def Draw(self):
         #COLLISION BOX
@@ -171,7 +171,7 @@ class PlayerVitality():
     def __init__(self,game,maxhp,maxstamina,maxmana,maxmp,player):
         self.game=game
         self.player=player
-        self.maxhp=maxhp
+        self.maxhp=maxhp+50*self.player.stats.Get_Endurance
         self.maxstamina=maxstamina
         self.maxmana=maxmana
         self.maxmp=maxmp
