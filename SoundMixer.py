@@ -21,10 +21,12 @@ class SoundMixer():
         ]
         self.Deathsound=pg.mixer.Sound(self.assetpath+"Death.wav")
     def PlaySound(self,soundarray):
-        sound=random.choice(soundarray)
-        sound.play()
+        pass
+        # sound=random.choice(soundarray)
+        # sound.play()
 
     def PlayDeathSound(self):
-        if self.deathsound_played:
-            self.Deathsound.play()#self.PlaySound(self.Deathsound)
-            self.deathsound_played=False
+        pass
+        # if self.deathsound_played:
+        #     self.Deathsound.play()#self.PlaySound(self.Deathsound)
+        #     self.deathsound_played=False

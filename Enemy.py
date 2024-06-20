@@ -55,7 +55,7 @@ class Enemy(AnimatedSprite):
         
         if self.attackvision.colliderect(self.game.player.collisionbox): 
             if timer-self.attacktime>=self.attackcooldown and not self.game.player.vitalitystats.Death():
-                #self.game.player.vitalitystats.TakeDamage(self.Damage)
+                self.game.player.vitalitystats.TakeDamage(self.Damage)
                 self.attacktime = timer
                 print("Attack")
        
