@@ -6,13 +6,13 @@ from Settings import*
 from Pathfinding import * 
 
 class Enemy(AnimatedSprite):
-    def __init__(self, game, Level, Value, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
+    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
         super().__init__(game, path, pos, scale, shift, animation_time)
         self.Level=Level
         self.x,self.y=pos
         self.size=100
         self.Value=Value+10*self.Level
-        self.HP=50+10*self.Level
+        self.HP=HP+20*self.Level
         self.Damage=20+10*self.Level
         self.visionradius=200
         self.attackradius=100
@@ -160,4 +160,20 @@ class Enemy(AnimatedSprite):
         if self.check_wall(int(self.x), int(self.y + dy*self.size)):
             self.y += dy
     
-   
+class Rat(Enemy):
+    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
+        super().__init__(game, Level, Value, HP, path, pos, scale, shift, animation_time)
+    def Update(self):
+        return super().Update()
+
+class Skeleton(Enemy):
+    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
+        super().__init__(game, Level, Value, HP, path, pos, scale, shift, animation_time)
+        #ANIMATIONS
+        self.images_idle=self.get_images('Assets/Sprites/Animated/Skeleton/Idle')  
+        self.images_walking=self.get_images('Assets/Sprites/Animated/Skeleton/Walk')
+        self.images_attack=self.get_images('Assets/Sprites/Animated/Skeleton/Attack')
+        self.images_death=self.get_images('Assets/Sprites/Animated/Skeleton/Death')
+        self.images_hit=self.get_images('Assets/Sprites/Animated/Skeleton/Hit')
+    def Update(self):
+        return super().Update()
