@@ -30,7 +30,7 @@ class Sprite:
         image = pg.transform.scale(self.image, (proj_width, proj_height))
 
         if not self.castlight:
-            shading = max(0.1, min(1, 1 / (self.norm_dist * 0.9)))
+            shading =1# max(0.1, min(1, 1 / (self.norm_dist * 0.9)))
             #shade_image=image.copy()
             shaded_surface = pg.Surface(image.get_size(), flags=pg.SRCALPHA)
             shaded_surface.fill((0, 0, 0, int((1 - shading) * 255)))
