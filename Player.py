@@ -14,10 +14,22 @@ class Player():
         self.collisionbox=pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
         self.hitbox=PlayerHitbox(self)
         self.crosshair=pg.image.load("Assets/Crosshair/Crosshair.png").convert_alpha()
+        self.hitbox=PlayerHitbox(self)
+        self.crosshair=pg.image.load("Assets/Crosshair/Crosshair.png").convert_alpha()
         self.attackcooldown=1000
         self.playerattacktime=0
 
     def Draw(self):
+        #COLLISION BOX
+        pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
+
+        #BODY
+        pg.draw.line(self.game.DISPLAY, 'yellow', (self.movement.posx * 100, self.movement.posy * 100),
+                    (self.movement.posx * 100 + WIDTH * math.cos(self.movement.angle),
+                     self.movement.posy * 100 + WIDTH * math. sin(self.movement.angle)), 2)
+        pg.draw.circle(self.game.DISPLAY, 'green', (self.movement.posx * 100, self.movement.posy * 100), 15)
+
+    def Hitbox(self): 
         #COLLISION BOX
         pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
 
@@ -33,9 +45,14 @@ class Player():
     def Crosshair(self):
         self.game.DISPLAY.blit(self.crosshair,(self.game.SCREEN_WIDTH//2-self.crosshair.get_width()//2,self.game.SCREEN_HEIGHT//2-self.crosshair.get_height()//2))
       
+    
+    def Crosshair(self):
+        self.game.DISPLAY.blit(self.crosshair,(self.game.SCREEN_WIDTH//2-self.crosshair.get_width()//2,self.game.SCREEN_HEIGHT//2-self.crosshair.get_height()//2))
+      
     def Update(self):
         self.Hitbox()
-        self.Draw()
+        self.Hitbox()
+        #self.Draw()
         self.hitbox.Update()
         self.movement.Update()
         if not self.vitalitystats.IsDead:
@@ -52,6 +69,7 @@ class Player():
     @property 
     def DealDamage(self):
         return 30+10*self.stats.stats['Level']['value']
+        return 30+10*self.stats.stats['Level']['value']
 
 class PlayerHitbox():
     def __init__(self, player):
@@ -63,15 +81,16 @@ class PlayerHitbox():
 
     def Activate(self):
         timer=pg.time.get_ticks()
-        if timer-self.player.playerattacktime>=self.player.attackcooldown and self.player.GetStamina>10:
+        if timer-self.player.playerattacktime>=self.player.attackcooldown and self.player.GetStamina>10 and self.player.GetStamina>10:
             self.active = True
+            self.player.vitalitystats.DecStamina(20)
             self.player.vitalitystats.DecStamina(20)
             self.timer=timer
             self.player.playerattacktime=timer
 
     def Draw(self):
         self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
-        #pg.draw.rect(self.player.game.DISPLAY,'blue',self.hitcollision,1) #DEBUG
+        ##pg.draw.rect(self.player.game.DISPLAY,'blue',self.hitcollision,1) #DEBUG #DEBUG
 
     def Update(self):
         if self.active:
@@ -163,6 +182,10 @@ class PlayerVitality():
         self.Stamina=self.maxstamina
         self.Staminaregentime=0
 
+        #STAMINA 
+        self.Stamina=self.maxstamina
+        self.Staminaregentime=0
+
         self.vitality_stats={
             'HP': {'value':self.maxhp,'color':'orange','pos':(0,0)},
             'STAMINA': {'value':self.maxstamina,'color':'orange','pos':(0,18)},
@@ -174,7 +197,9 @@ class PlayerVitality():
     def TakeDamage(self,dmg): 
         if self.vitality_stats['HP']['value']<=self.maxhp: 
             self.game.DISPLAY.fill('red')
+            self.game.DISPLAY.fill('red')
             self.vitality_stats['HP']['value']-=dmg 
+            self.game.Soundmixer.PlaySound(self.game.Soundmixer.Hurtsound)
             self.game.Soundmixer.PlaySound(self.game.Soundmixer.Hurtsound)
             #self.game.player.movement.Knockback()
             print(dmg)
@@ -190,6 +215,9 @@ class PlayerVitality():
         if self.vitality_stats['HP']['value']<=0: 
             self.game.Soundmixer.PlayDeathSound()
             self.IsDead=True
+        if self.vitality_stats['HP']['value']<=0: 
+            self.game.Soundmixer.PlayDeathSound()
+            self.IsDead=True
         else: self.IsDead=False
         return self.IsDead
     
@@ -199,6 +227,13 @@ class PlayerVitality():
     
     def IncStamina(self,value):
         if self.vitality_stats['STAMINA']['value']<=self.maxstamina and self.vitality_stats['STAMINA']['value']>=0: self.vitality_stats['STAMINA']['value']+=value
+    
+    def StaminaRegen(self):
+        timer=pg.time.get_ticks()
+        if timer-self.Staminaregentime>=250:
+            self.Staminaregentime=timer
+            if self.vitality_stats['STAMINA']['value']<100: 
+                self.IncStamina(1)
     
     def StaminaRegen(self):
         timer=pg.time.get_ticks()
@@ -239,7 +274,9 @@ class PlayerVitality():
 
     def Update(self):
         
+        
         self.Bars()
+        self.StaminaRegen()
         self.StaminaRegen()
         self.StatsReset()
         self.Fonts()
@@ -305,4 +342,5 @@ class PlayerStats():
         self.StatUpgrade()
         self.LevelUP()
         if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GainXP(1)
+    
     
