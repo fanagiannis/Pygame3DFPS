@@ -18,6 +18,7 @@ class Enemy(AnimatedSprite):
         self.attackradius=100
         self.IsDead=False
         self.player_spotted=False
+        self.attacking=False
         self.speed=0.01
 
         self.hitbox=pg.Rect((self.x-0.15)*100,(self.y-0.15)*100,self.x+25,self.y+25)
@@ -25,6 +26,11 @@ class Enemy(AnimatedSprite):
         #ATTACK
         self.attackcooldown=1000
         self.attacktime=0
+
+        #ANIMATIONS
+        self.images_idle=self.get_images('Assets/Sprites/Animated/Rat/Idle')  
+        self.images_walking=self.get_images('Assets/Sprites/Animated/Rat/Walk')
+        self.images_attack=self.get_images('Assets/Sprites/Animated/Rat/Attack')
        
     
     def TakeDamage(self):
@@ -56,10 +62,13 @@ class Enemy(AnimatedSprite):
         self.attackvision=pg.Rect(((self.x-0.7)*100,(self.y-0.7)*100,125,125))
         
         if self.attackvision.colliderect(self.game.player.collisionbox): 
+            self.attacking=True
             if timer-self.attacktime>=self.attackcooldown and not self.game.player.vitalitystats.Death():
                 self.game.player.vitalitystats.TakeDamage(self.Damage)
-                self.attacktime = timer
+                self.attacktime = timer  
                 print("Attack")
+        else:
+            self.attacking=False
        
 
     def Hit(self):
@@ -68,18 +77,26 @@ class Enemy(AnimatedSprite):
     
     def Update(self):
         self.hitbox=pg.Rect((self.x-0.15)*100,(self.y-0.15)*100,self.x+25,self.y+25)
-        self.images=self.get_images('Assets/Sprites/Animated/Rat/Idle')  
+        self.images=self.images_walking
         if self.Death(): 
             self.game.player.stats.GainXP(self.Value) 
             print("dead")
             self.game.Sprites.enemies.remove(self)
         self.check_animation_time()
         self.get_sprite()
+
+        if not self.IsDead:
+            self.animate(self.images_idle)
+            if self.player_spotted and not self.attacking:
+                self.animate(self.images_walking)
+            if self.attacking:
+                self.animate(self.images_attack)
+                
         #self.draw_ray_cast()
         #self.ray_cast_value=self.ray_cast_player_npc()
         if self.Vision():#ray_cast_value:
             self.player_spotted=True
-        if self.player_spotted:
+        if self.player_spotted and not self.attacking:
             self.Movement()
          #DEBUG
         self.Vision()    #USED TO DETECT PLAYER
