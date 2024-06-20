@@ -29,30 +29,14 @@ class Player():
                      self.movement.posy * 100 + WIDTH * math. sin(self.movement.angle)), 2)
         pg.draw.circle(self.game.DISPLAY, 'green', (self.movement.posx * 100, self.movement.posy * 100), 15)
 
-    def DrawHitbox(self): 
-        #COLLISION BOX
-        pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
-
-        #BODY
-        pg.draw.line(self.game.DISPLAY, 'yellow', (self.movement.posx * 100, self.movement.posy * 100),
-                    (self.movement.posx * 100 + WIDTH * math.cos(self.movement.angle),
-                     self.movement.posy * 100 + WIDTH * math. sin(self.movement.angle)), 2)
-        pg.draw.circle(self.game.DISPLAY, 'green', (self.movement.posx * 100, self.movement.posy * 100), 15)
-
     def Hitbox(self): 
         self.collisionbox=pg.Rect(((self.movement.posx-0.2)*100,(self.movement.posy-0.2)*100,40,40))
     
     def Crosshair(self):
         self.game.DISPLAY.blit(self.crosshair,(self.game.SCREEN_WIDTH//2-self.crosshair.get_width()//2,self.game.SCREEN_HEIGHT//2-self.crosshair.get_height()//2))
       
-    
-    def Crosshair(self):
-        self.game.DISPLAY.blit(self.crosshair,(self.game.SCREEN_WIDTH//2-self.crosshair.get_width()//2,self.game.SCREEN_HEIGHT//2-self.crosshair.get_height()//2))
-      
     def Update(self):
         self.Hitbox()
-        self.DrawHitbox()
-        
         #self.Draw()
         self.hitbox.Update()
         self.movement.Update()
@@ -70,7 +54,6 @@ class Player():
     @property 
     def DealDamage(self):
         return 30+10*self.stats.stats['Level']['value']
-        return 30+10*self.stats.stats['Level']['value']
 
 class PlayerHitbox():
     def __init__(self, player):
@@ -85,9 +68,9 @@ class PlayerHitbox():
         if timer-self.player.playerattacktime>=self.player.attackcooldown and self.player.GetStamina>10 and self.player.GetStamina>10:
             self.active = True
             self.player.vitalitystats.DecStamina(20)
-            self.player.vitalitystats.DecStamina(20)
             self.timer=timer
             self.player.playerattacktime=timer
+            self.player.game.sword.attack=True
 
     def Draw(self):
         self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)

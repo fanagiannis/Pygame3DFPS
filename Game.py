@@ -52,7 +52,7 @@ class Game:
             if event.type==pg.KEYUP and not self.player.vitalitystats.IsDead:
                 if event.key==pg.K_SPACE: 
                     self.player.hitbox.Activate()
-                    self.sword.attack=True
+                    
 
     def Cycle(self): 
         self.ShowFPS()

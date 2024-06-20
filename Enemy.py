@@ -65,10 +65,8 @@ class Enemy(AnimatedSprite):
             self.TakeDamage()
     
     def Update(self):
-        #super().Update()
         self.hitbox=pg.Rect((self.x-0.15)*100,(self.y-0.15)*100,self.x+25,self.y+25)
-        self.images=self.get_images('Assets/Sprites/Animated/Rat/Idle')
-        #player_spotted = self.Vision()  
+        self.images=self.get_images('Assets/Sprites/Animated/Rat/Idle')  
         if self.Death(): 
             self.game.player.stats.GainXP(self.Value) 
             print("dead")
@@ -94,7 +92,7 @@ class Enemy(AnimatedSprite):
             print(self.TakeDamage())
             time.sleep(0.1)
         
-        self.Draw()
+        #self.Draw()
     
         #DEBUG
         
