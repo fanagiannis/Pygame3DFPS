@@ -29,7 +29,7 @@ class Player():
                      self.movement.posy * 100 + WIDTH * math. sin(self.movement.angle)), 2)
         pg.draw.circle(self.game.DISPLAY, 'green', (self.movement.posx * 100, self.movement.posy * 100), 15)
 
-    def Hitbox(self): 
+    def DrawHitbox(self): 
         #COLLISION BOX
         pg.draw.rect(self.game.DISPLAY,'blue',self.collisionbox,1)
 
@@ -51,7 +51,8 @@ class Player():
       
     def Update(self):
         self.Hitbox()
-        self.Hitbox()
+        self.DrawHitbox()
+        
         #self.Draw()
         self.hitbox.Update()
         self.movement.Update()
@@ -197,11 +198,8 @@ class PlayerVitality():
     def TakeDamage(self,dmg): 
         if self.vitality_stats['HP']['value']<=self.maxhp: 
             self.game.DISPLAY.fill('red')
-            self.game.DISPLAY.fill('red')
             self.vitality_stats['HP']['value']-=dmg 
             self.game.Soundmixer.PlaySound(self.game.Soundmixer.Hurtsound)
-            self.game.Soundmixer.PlaySound(self.game.Soundmixer.Hurtsound)
-            #self.game.player.movement.Knockback()
             print(dmg)
         
     def Heal(self,value): 
