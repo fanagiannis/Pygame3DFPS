@@ -44,6 +44,13 @@ class Player():
             self.Crosshair()
             self.vitalitystats.Update()
             self.stats.Update()
+            self.UpdateStats()
+        
+    
+    def UpdateStats(self):
+        self.vitalitystats.maxhp=self.vitalitystats.basehp+50*self.stats.Get_Endurance
+        self.vitalitystats.maxstamina=self.vitalitystats.basestamina+50*self.stats.Get_Dexterity
+        self.vitalitystats.maxmana=self.vitalitystats.basemana+50*self.stats.Get_Mind
 
     @property
     def GetHP(self): return self.vitalitystats.vitality_stats['HP']['value']
@@ -53,7 +60,10 @@ class Player():
     def GetMana(self): return self.vitalitystats.vitality_stats['MANA']['value']
     @property 
     def DealDamage(self):
-        return 30+10*self.stats.stats['Level']['value']
+        return 30+10*self.stats.stats['Level']['value']+10*self.stats.Get_Strength
+    @property 
+    def DealMagicDamage(self):
+        return 30+10*self.stats.stats['Level']['value']+10*self.stats.Get_Intelligence
 
 class PlayerHitbox():
     def __init__(self, player):
@@ -161,6 +171,9 @@ class PlayerVitality():
         self.maxstamina=maxstamina
         self.maxmana=mana
         self.Mana=self.maxmana
+        self.basehp=maxhp
+        self.basestamina=maxstamina
+        self.basemana=mana
 
         #STAMINA 
         self.Stamina=self.maxstamina
@@ -254,8 +267,6 @@ class PlayerVitality():
         pg.draw.rect(self.game.DISPLAY,'blue',(40,38,self.vitality_stats['MANA']['value'],10),self.vitality_stats['MANA']['value']) #MANA BAR
 
     def Update(self):
-        
-        
         self.Bars()
         self.StaminaRegen()
         self.StaminaRegen()
@@ -284,6 +295,7 @@ class PlayerStats():
             'Intelligence': {'value': INT, 'color': 'orange', 'pos': (self.game.SCREEN_WIDTH - 150, 200)},
             'Token': {'value': 0, 'color': 'orange', 'pos': (self.game.SCREEN_WIDTH - 150, 280)},
         }
+        
         self.XPthreshhold=100
 
     def UpgradeStat(self,stat):
@@ -323,5 +335,16 @@ class PlayerStats():
         self.StatUpgrade()
         self.LevelUP()
         if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GainXP(1)
+    
+    @property
+    def Get_Strength(self): return self.stats['Strength']['value']
+    @property
+    def Get_Endurance(self): return self.stats['Endurance']['value']
+    @property
+    def Get_Dexterity(self): return self.stats['Dexterity']['value']
+    @property
+    def Get_Mind(self): return self.stats['Mind']['value']
+    @property
+    def Get_Intelligence(self): return self.stats['Intelligence']['value']
     
     
