@@ -11,7 +11,6 @@ class SpriteLoader():
         self.light_sprites=[]
         self.animated_sprites=[]
         self.enemies=[]
-
         #CREATE SPRITES
         #self.StaticSprites()
         #self.LightSprites()
@@ -34,16 +33,15 @@ class SpriteLoader():
         self.animated_sprites.append(Rat)
     
     def Enemies(self):
-        enemy=Enemy(self.game,path='Assets/Sprites/Animated/1.png',pos=(5,5),Level=1,Value=100)
+        enemy=Enemy(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(5,5),Level=1,Value=100)
         self.enemies.append(enemy)
-        enemy2=Enemy(self.game,path='Assets/Sprites/Animated/1.png',pos=(8,8),Level=1,Value=80)
+        enemy2=Enemy(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(8,8),Level=1,Value=80)
         self.enemies.append(enemy2)
-        
-
 
     def Update(self):
         [staticsprite.Update() for staticsprite in self.sprites]
         [lightsprite.Update() for lightsprite in self.light_sprites]
         [animsprite.Update() for animsprite in self.animated_sprites]
         [enemy.Update() for enemy in self.enemies]
+        
        

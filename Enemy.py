@@ -2,20 +2,23 @@ import pygame as pg
 import time
 
 from SpriteRenderer import AnimatedSprite
+from Settings import*
 
 class Enemy(AnimatedSprite):
     def __init__(self, game, Level, Value, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
         super().__init__(game, path, pos, scale, shift, animation_time)
         self.Level=Level
-        self.posx,self.posy=pos
+        self.x,self.y=pos
         self.Value=Value+10*self.Level
         self.HP=50+10*self.Level
         self.Damage=20+10*self.Level
         self.visionradius=200
         self.attackradius=100
         self.IsDead=False
+        self.player_spotted=False
+        self.speed=0.01
 
-        self.hitbox=pg.Rect((self.posx-0.15)*100,(self.posy-0.15)*100,self.posx+25,self.posy+25)
+        self.hitbox=pg.Rect((self.x-0.15)*100,(self.y-0.15)*100,self.x+25,self.y+25)
 
         #ATTACK
         self.attackcooldown=1000
@@ -24,6 +27,7 @@ class Enemy(AnimatedSprite):
     
     def TakeDamage(self):
         self.HP=self.HP-(self.game.player.DealDamage-2*self.Level)
+        self.game.Soundmixer.PlaySound(self.game.Soundmixer.Hitsound)
         print(self.Damage)
         return (self.game.player.DealDamage-2*self.Level)
     
@@ -33,42 +37,89 @@ class Enemy(AnimatedSprite):
         return self.IsDead
     
     def Draw(self):
-        pg.draw.circle(self.game.DISPLAY, 'yellow', (self.posx*100,self.posy*100), 15)
-        pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)
+        pg.draw.circle(self.game.DISPLAY, 'yellow', (self.x*100,self.y*100), 15)       #BODY
+        self.attackvision=pg.Rect(((self.x-0.625)*100,(self.y-0.625)*100,125,125))
+        pg.draw.rect(self.game.DISPLAY,'blue',self.attackvision,2)          #ATTACK RANGE
+        pg.draw.rect(self.game.DISPLAY,'blue',self.hitbox,1)              #HITBOX
+        pg.draw.rect(self.game.DISPLAY,'blue',self.vision,2)             #VISION
     
     def Vision(self):
-        self.vision=pg.draw.circle(self.game.DISPLAY, 'orange', (self.posx*100,self.posy*100), radius=self.visionradius,width=1) 
-        if self.vision.colliderect(self.game.player.collisionbox): pass #DEBUG print("Spotted")
+        self.vision=pg.Rect(((self.x-2.5)*100,(self.y-2.5)*100,500,500))
+        if self.vision.colliderect(self.game.player.collisionbox): return True
+        return False
 
     def Attack(self):
         timer=pg.time.get_ticks()
-        self.attackvision=pg.draw.circle(self.game.DISPLAY, 'red', (self.posx*100,self.posy*100), radius=self.attackradius,width=1) 
+        #self.attackvision=pg.draw.circle(self.game.DISPLAY, (0,0,0,0), (self.posx*100,self.posy*100), radius=self.attackradius,width=1) 
+        self.attackvision=pg.Rect(((self.x-0.7)*100,(self.y-0.7)*100,125,125))
+        
         if self.attackvision.colliderect(self.game.player.collisionbox): 
             if timer-self.attacktime>=self.attackcooldown and not self.game.player.vitalitystats.Death():
-                self.game.player.vitalitystats.TakeDamage(self.Damage)
+                #self.game.player.vitalitystats.TakeDamage(self.Damage)
                 self.attacktime = timer
                 print("Attack")
+       
 
     def Hit(self):
         if self.game.player.hitbox.IsActive and self.hitbox.colliderect(self.game.player.hitbox.rect) :#and not self.damaged:
             self.TakeDamage()
-
+    
     def Update(self):
-        super().Update()
-        #DEBUG
+        #super().Update()
+        self.hitbox=pg.Rect((self.x-0.15)*100,(self.y-0.15)*100,self.x+25,self.y+25)
+        self.images=self.get_images('Assets/Sprites/Animated/Rat/Idle')
+        #player_spotted = self.Vision()  
+        if self.Death(): 
+            self.game.player.stats.GainXP(self.Value) 
+            print("dead")
+            self.game.Sprites.enemies.remove(self)
+        self.check_animation_time()
+        self.get_sprite()
+        #self.draw_ray_cast()
+        #self.ray_cast_value=self.ray_cast_player_npc()
+        if self.Vision():#ray_cast_value:
+            self.player_spotted=True
+        if self.player_spotted:
+            self.Movement()
+         #DEBUG
         self.Vision()    #USED TO DETECT PLAYER
         self.Attack()
         self.Hit()
-        self.Draw()
+        
+        
        
         keys=pg.key.get_pressed()
         if keys[pg.K_r]:
             self.TakeDamage()
             print(self.TakeDamage())
             time.sleep(0.1)
+        
+        self.Draw()
+    
         #DEBUG
-        if self.Death(): 
-            self.game.player.stats.GainXP(self.Value) 
-            print("dead")
-            self.game.Sprites.enemies.remove(self)
+        
+    #MOVEMENT
+    @property
+    def map_pos(self):
+        return int(self.x),int(self.y)
+    
+    def Movement(self):
+        next_pos=self.game.player.movement.map_pos
+        next_x,next_y=next_pos
+        angle=math.atan2(next_y+0.5-self.y,next_x+0.5-self.x)
+        dx=math.cos(angle)*self.speed
+        dy=math.sin(angle)*self.speed
+        self.check_wall_collision(dx,dy)
+        self.get_sprite()
         pass
+    
+    def check_wall(self, x, y):
+        return (x, y) not in self.game.map.world_map
+
+    def check_wall_collision(self, dx, dy):
+        if self.check_wall(int(self.x + dx ), int(self.y)):
+            self.x += dx
+        if self.check_wall(int(self.x), int(self.y + dy)):
+            self.y += dy
+    
+   

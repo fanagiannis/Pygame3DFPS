@@ -7,13 +7,16 @@ from Raycaster import *
 from TextureRenderer import*
 from Floorcaster import * 
 from SpriteLoader import *
+from SoundMixer import *
+from Weapon import*
+
 
 
 class Game:
     def __init__(self):
         self.SCREEN_WIDTH=1600
         self.SCREEN_HEIGHT=900
-        self.DISPLAY=pg.display.set_mode((self.SCREEN_WIDTH,self.SCREEN_HEIGHT))
+        self.DISPLAY=pg.display.set_mode((self.SCREEN_WIDTH,self.SCREEN_HEIGHT),pg.SRCALPHA)
         self.CLOCK=pg.time.Clock()
         self.FPS=60
         self.DELTA_TIME=1
@@ -29,6 +32,9 @@ class Game:
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
         self.Sprites=SpriteLoader(self)
+        self.Soundmixer=SoundMixer()
+        self.Weapon=Weapon(self,path='Assets/Sprites/Weapons/Unarmed/Idle.png',scale=0.4)
+        self.sword=Weapon(self,path='Assets/Sprites/Weapons/SteelSword/Idle.png',scale=0.5)
     
     def Run(self):
         self.Game_Objects()
@@ -44,13 +50,15 @@ class Game:
             if self.player.vitalitystats.IsDead and pg.key.get_pressed()[pg.K_TAB]:
                 self.running=False
             if event.type==pg.KEYUP and not self.player.vitalitystats.IsDead:
-                if event.key==pg.K_SPACE: self.player.hitbox.Activate()
+                if event.key==pg.K_SPACE: 
+                    self.player.hitbox.Activate()
+                    self.sword.attack=True
 
     def Cycle(self): 
         self.ShowFPS()
-        pg.display.update()
+        #pg.display.update()
         pg.display.flip()
-        self.DISPLAY.fill((0,0,0))
+        #self.DISPLAY.fill((0,0,0,0))
         self.DELTA_TIME=self.CLOCK.tick(self.FPS)
         
     def ShowFPS(self):
@@ -65,14 +73,17 @@ class Game:
         self.Run()
 
     def Update(self):
-        self.DISPLAY.fill('black')
+        self.DISPLAY.fill((0,0,0,0))
         
         self.Floorcaster.Update()
         self.Texturerenderer.Update()
+        self.sword.Update()
         self.player.Update()
         self.Raycaster.Update()
         self.Sprites.Update()
-        self.map.draw()
+        
+        
+        #self.map.draw()
         self.Cycle()
 
 
