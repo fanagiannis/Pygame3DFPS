@@ -8,6 +8,7 @@ from TextureRenderer import*
 from Floorcaster import * 
 from SpriteLoader import *
 from SoundMixer import *
+from Pathfinding import *
 from Weapon import*
 
 
@@ -33,6 +34,7 @@ class Game:
         self.Floorcaster=Floorcaster(self)
         self.Sprites=SpriteLoader(self)
         self.Soundmixer=SoundMixer()
+        self.Pathfinding=PathFinding(self)
         self.Weapon=Weapon(self,path='Assets/Sprites/Weapons/Unarmed/Idle.png',scale=0.4)
         self.sword=Weapon(self,path='Assets/Sprites/Weapons/SteelSword/Idle.png',scale=0.5)
     

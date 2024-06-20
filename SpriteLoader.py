@@ -11,6 +11,7 @@ class SpriteLoader():
         self.light_sprites=[]
         self.animated_sprites=[]
         self.enemies=[]
+        self.enemies_pos={}
         #CREATE SPRITES
         #self.StaticSprites()
         #self.LightSprites()
@@ -39,6 +40,7 @@ class SpriteLoader():
         self.enemies.append(enemy2)
 
     def Update(self):
+        self.enemies_pos= {enemy.map_pos for enemy in self.enemies if not enemy.IsDead}
         [staticsprite.Update() for staticsprite in self.sprites]
         [lightsprite.Update() for lightsprite in self.light_sprites]
         [animsprite.Update() for animsprite in self.animated_sprites]

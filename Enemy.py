@@ -3,6 +3,7 @@ import time
 
 from SpriteRenderer import AnimatedSprite
 from Settings import*
+from Pathfinding import * 
 
 class Enemy(AnimatedSprite):
     def __init__(self, game, Level, Value, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
@@ -103,7 +104,7 @@ class Enemy(AnimatedSprite):
         return int(self.x),int(self.y)
     
     def Movement(self):
-        next_pos=self.game.player.movement.map_pos
+        next_pos=self.game.Pathfinding.get_path(self.map_pos,self.game.player.movement.map_pos)
         next_x,next_y=next_pos
         angle=math.atan2(next_y+0.5-self.y,next_x+0.5-self.x)
         dx=math.cos(angle)*self.speed
