@@ -90,30 +90,31 @@ class Enemy(AnimatedSprite):
                 self.framecounter=0 
                 self.hit=False
     
+    def AnimationStates(self):
+        #self.animate(self.images_death)
+        self.animate(self.images_idle)
+        if self.player_spotted and not self.attacking : self.animate(self.images_walking)
+        if self.hit : self.animate(self.images_hit)
+        if self.attacking : self.animate(self.images_attack)
+        if self.Vision():#ray_cast_value:
+            self.player_spotted=True
+        if self.player_spotted and not self.attacking:
+            self.Movement()
+    
+    def DeathAnimation(self):
+        self.game.player.stats.GainXP(self.Value) 
+        print("dead")
+        self.game.Sprites.enemies.remove(self)
+
     def Update(self):
         self.hitbox=pg.Rect((self.x-0.15)*100,(self.y-0.15)*100,self.x+25,self.y+25)
         self.images=self.images_walking
         if self.Death(): 
-            self.game.player.stats.GainXP(self.Value) 
-            print("dead")
-            self.game.Sprites.enemies.remove(self)
+            self.DeathAnimation()
         elif not self.Death():
-            #self.animate(self.images_death)
-            self.animate(self.images_idle)
-            if self.player_spotted and not self.attacking : self.animate(self.images_walking)
-            if self.hit : self.animate(self.images_hit)
-            if self.attacking : self.animate(self.images_attack)
-            if self.Vision():#ray_cast_value:
-                self.player_spotted=True
-            if self.player_spotted and not self.attacking:
-                self.Movement()
+            self.AnimationStates()
         self.check_animation_time()
         self.get_sprite()
-
-       
-            
-            
-            
                 
         #self.draw_ray_cast()
         #self.ray_cast_value=self.ray_cast_player_npc()
