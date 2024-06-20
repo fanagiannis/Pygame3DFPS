@@ -9,7 +9,7 @@ class Player():
     def __init__(self,game):
         self.game=game
         self.movement=PlayerMovement(self.game)
-        self.vitalitystats=PlayerVitality(self.game,100,100,100)
+        self.vitalitystats=PlayerVitality(self.game,100,100,100,20)
         self.stats=PlayerStats(self.game,1,1,1,1,1)
         self.collisionbox=pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
         self.hitbox=PlayerHitbox(self)
@@ -51,6 +51,7 @@ class Player():
         self.vitalitystats.maxhp=self.vitalitystats.basehp+50*self.stats.Get_Endurance
         self.vitalitystats.maxstamina=self.vitalitystats.basestamina+50*self.stats.Get_Dexterity
         self.vitalitystats.maxmana=self.vitalitystats.basemana+50*self.stats.Get_Mind
+        self.vitalitystats.maxmp=self.vitalitystats.basemp+20*self.stats.Get_Intelligence
 
     @property
     def GetHP(self): return self.vitalitystats.vitality_stats['HP']['value']
@@ -165,15 +166,18 @@ class PlayerMovement:
         return int(self.posx), int(self.posy)
     
 class PlayerVitality():
-    def __init__(self,game,maxhp,maxstamina,mana):
+    def __init__(self,game,maxhp,maxstamina,maxmana,maxmp):
         self.game=game
         self.maxhp=maxhp
         self.maxstamina=maxstamina
-        self.maxmana=mana
+        self.maxmana=maxmana
         self.Mana=self.maxmana
+        self.MagicPower=maxmp
         self.basehp=maxhp
         self.basestamina=maxstamina
-        self.basemana=mana
+        self.basemana=maxmana
+        self.basemp=maxmp
+        
 
         #STAMINA 
         self.Stamina=self.maxstamina
