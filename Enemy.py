@@ -9,6 +9,7 @@ class Enemy(AnimatedSprite):
         super().__init__(game, path, pos, scale, shift, animation_time)
         self.Level=Level
         self.x,self.y=pos
+        self.size=100
         self.Value=Value+10*self.Level
         self.HP=50+10*self.Level
         self.Damage=20+10*self.Level
@@ -115,9 +116,9 @@ class Enemy(AnimatedSprite):
         return (x, y) not in self.game.map.world_map
 
     def check_wall_collision(self, dx, dy):
-        if self.check_wall(int(self.x + dx ), int(self.y)):
+        if self.check_wall(int(self.x + dx*self.size), int(self.y)):
             self.x += dx
-        if self.check_wall(int(self.x), int(self.y + dy)):
+        if self.check_wall(int(self.x), int(self.y + dy*self.size)):
             self.y += dy
     
    
