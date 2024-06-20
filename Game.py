@@ -87,5 +87,9 @@ class Game:
         
         #self.map.draw()
         self.Cycle()
+        
+if __name__ == '__main__':
+    game = Game()
+    game.Run() 
 
 
