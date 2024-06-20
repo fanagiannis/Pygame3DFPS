@@ -177,3 +177,7 @@ class Skeleton(Enemy):
         self.images_hit=self.get_images('Assets/Sprites/Animated/Skeleton/Hit')
     def Update(self):
         return super().Update()
+
+#CLASS WEREBOAR
+
+#CLASS ZOMBIE
