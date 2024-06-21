@@ -1,5 +1,6 @@
 import pygame as pg
 import pygame_menu 
+import random
 from pygame_menu.examples import create_example_window
 
 from Settings import *
@@ -7,9 +8,10 @@ from Settings import *
 class MainMenu():
     def __init__(self,game):
         self.game=game
+        self.BackgroundImages()
         menu_theme=pygame_menu.themes.THEME_DARK.copy()
         menu_theme.title_background_color=(0,0,0,0)
-        menu_theme.background_color=pygame_menu.BaseImage('Assets/Images/Wallpapers/CastleVillage.png')
+        menu_theme.background_color=self.bgimages[random.randrange(0,len(self.bgimages))]
        # menu_theme.background_color=pygame_menu.BaseImage(LINK_ASSETS_BACKGROUND)
         menu_theme.title_font=FONT_DEATH
         menu_theme.title_font_color='orange'
@@ -25,12 +27,23 @@ class MainMenu():
         self.button_play=self.menu.add.button(" Play ",self.DungeonSelection)                                 #LOAD MAIN MENU
         self.button_quit=self.menu.add.button(" Quit ",exit)                                 #LOAD MAIN MENU
     
+    def BackgroundImages(self):
+        self.bgimages=[
+            pygame_menu.BaseImage('Assets/Images/Wallpapers/CastleVillage.png'),
+            pygame_menu.BaseImage('Assets/Images/Wallpapers/RiverVillage.png'),
+            pygame_menu.BaseImage('Assets/Images/Wallpapers/SnowyVillage.png'),
+            pygame_menu.BaseImage('Assets/Images/Wallpapers/RockyVillage.png')
+        ]
+    
+    def DungeonImaged(self):
+        self.dungeonImages=[]
+
     def DungeonSelection(self):
         self.button_play._visible=False
         self.button_quit._visible=False
-        self.button_play=self.menu.add.button(" Play ",self.DungeonSelection) 
-        self.button_play=self.menu.add.button(" Play ",self.DungeonSelection) 
-        self.button_play=self.menu.add.button(" Play ",self.DungeonSelection) 
+        self.button_play=self.menu.add.button(" The Rat King ",self.RunGame) 
+        self.button_play=self.menu.add.button(" DUNGEON 2 ",self.game.Run) 
+        self.button_play=self.menu.add.button(" DUNGEON 3 ",self.game.Run) 
 
     def RunGame(self):
         self.game.Run()
