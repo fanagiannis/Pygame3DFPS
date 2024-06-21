@@ -6,6 +6,7 @@ class SoundMixer():
         pg.mixer.init()
         self.assetpath="Assets/Sounds/"
         self.deathsound_played=True
+        self.menutheme=pg.mixer.Sound(self.assetpath+'MainMenu/MainMenuTheme.mp3')
         self.Hitsound=[
             pg.mixer.Sound(self.assetpath+"Hit/HIT01.WAV"),
             pg.mixer.Sound(self.assetpath+"Hit/HIT02.WAV"),
@@ -29,6 +30,5 @@ class SoundMixer():
             self.Deathsound.play()#self.PlaySound(self.Deathsound)
             self.deathsound_played=False
     
-    def PlayTheme(self,theme):
-        sound=theme
-        sound.play()
+    def PlayMenuTheme(self):
+        self.menutheme.play()

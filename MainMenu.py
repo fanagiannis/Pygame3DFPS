@@ -1,12 +1,14 @@
 import pygame as pg
 import pygame_menu 
+from pygame_menu.examples import create_example_window
 
 from Settings import *
 
 class MainMenu():
     def __init__(self,game):
         self.game=game
-        menu_theme=pygame_menu.themes.THEME_DARK
+        menu_theme=pygame_menu.themes.THEME_DARK.copy()
+        menu_theme.title_background_color=(0,0,0,0)
        # menu_theme.background_color=pygame_menu.BaseImage(LINK_ASSETS_BACKGROUND)
         menu_theme.title_font=FONT_DEATH
         menu_theme.title_font_color='orange'
@@ -15,14 +17,11 @@ class MainMenu():
         menu_title="THE OLDER PAPERS"
         self.menu=pygame_menu.Menu(menu_title,self.game.SCREEN_WIDTH,self.game.SCREEN_HEIGHT,theme=menu_theme)
 
+        #menu_theme.add.Label('THE OLDER PAPERS',background_color='#333',background_inflate=(30, 0),float=True).translate()
+
         menu_theme.widget_margin=(-600,0)
-        global button_username,button_username2
         
-        button_username=self.menu.add.text_input(" Enter Username : ",default="Player",maxchar=12)
-        button_username2=self.menu.add.text_input(" Enter Username 2: ",default="Player2",maxchar=12)
-        
-        # button_startgame_solo=menu.add.button(" Singleplayer ",maingame_solo)
-        # button_startgame_multi=menu.add.button(" Multiplayer ",maingame_multiplayer)
+        self.menu.add.button(" Play ",self.game.Run())                                 #LOAD MAIN MENU
         self.menu.add.button(" Quit ",exit)                                 #LOAD MAIN MENU
 
     def Update(self):

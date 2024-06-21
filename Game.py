@@ -41,7 +41,7 @@ class Game:
 
     def MainMenu(self):
         self.Game_Objects()
-        self.Soundmixer.PlayTheme('Assets/Sounds/MainMenu/MainMenuTheme.mp3')
+        self.Soundmixer.PlayMenuTheme()
         self.menu.Update()
         pass
 
@@ -98,7 +98,6 @@ if __name__ == '__main__':
 
     pg.init()
     game = Game()
-    #game.MainMenu()
     game.MainMenu() 
 
 
