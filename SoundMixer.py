@@ -32,3 +32,5 @@ class SoundMixer():
     
     def PlayMenuTheme(self):
         self.menutheme.play()
+    def StopMenuTheme(self):
+        self.menutheme.stop()

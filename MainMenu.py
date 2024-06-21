@@ -9,6 +9,7 @@ class MainMenu():
         self.game=game
         menu_theme=pygame_menu.themes.THEME_DARK.copy()
         menu_theme.title_background_color=(0,0,0,0)
+        menu_theme.background_color=pygame_menu.BaseImage('Assets/Images/Wallpapers/CastleVillage.png')
        # menu_theme.background_color=pygame_menu.BaseImage(LINK_ASSETS_BACKGROUND)
         menu_theme.title_font=FONT_DEATH
         menu_theme.title_font_color='orange'
@@ -21,8 +22,11 @@ class MainMenu():
 
         menu_theme.widget_margin=(-600,0)
         
-        self.menu.add.button(" Play ",self.game.Run())                                 #LOAD MAIN MENU
+        self.menu.add.button(" Play ",self.RunGame)                                 #LOAD MAIN MENU
         self.menu.add.button(" Quit ",exit)                                 #LOAD MAIN MENU
+    
+    def RunGame(self):
+        self.game.Run()
 
     def Update(self):
         self.menu.mainloop(self.game.DISPLAY)   #SET MAIN MENU LOOP

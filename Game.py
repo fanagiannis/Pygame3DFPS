@@ -46,7 +46,8 @@ class Game:
         pass
 
     def Run(self):
-        
+        self.Soundmixer.StopMenuTheme()
+        self.Game_Objects()
         while self.running:
             self.Events()
             self.Update()
