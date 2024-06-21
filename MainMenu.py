@@ -22,9 +22,16 @@ class MainMenu():
 
         menu_theme.widget_margin=(-600,0)
         
-        self.menu.add.button(" Play ",self.RunGame)                                 #LOAD MAIN MENU
-        self.menu.add.button(" Quit ",exit)                                 #LOAD MAIN MENU
+        self.button_play=self.menu.add.button(" Play ",self.DungeonSelection)                                 #LOAD MAIN MENU
+        self.button_quit=self.menu.add.button(" Quit ",exit)                                 #LOAD MAIN MENU
     
+    def DungeonSelection(self):
+        self.button_play._visible=False
+        self.button_quit._visible=False
+        self.button_play=self.menu.add.button(" Play ",self.DungeonSelection) 
+        self.button_play=self.menu.add.button(" Play ",self.DungeonSelection) 
+        self.button_play=self.menu.add.button(" Play ",self.DungeonSelection) 
+
     def RunGame(self):
         self.game.Run()
 
