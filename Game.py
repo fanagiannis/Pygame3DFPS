@@ -10,6 +10,7 @@ from SpriteLoader import *
 from SoundMixer import *
 from Pathfinding import *
 from Weapon import*
+from Arsenal import*
 
 from MainMenu import *
 
@@ -36,8 +37,9 @@ class Game:
         self.Sprites=SpriteLoader(self)
         self.Soundmixer=SoundMixer()
         self.Pathfinding=PathFinding(self)
-        self.Weapon=Weapon(self,path='Assets/Sprites/Weapons/Unarmed/Idle.png',scale=0.4)
-        self.sword=Weapon(self,path='Assets/Sprites/Weapons/SteelSword/Idle.png',scale=0.5)
+        self.Arsenal=Arsenal(self)
+        # self.Weapon=Weapon(self,path='Assets/Sprites/Weapons/Unarmed/Idle.png',scale=0.4)
+        # self.sword=Weapon(self,path='Assets/Sprites/Weapons/SteelSword/Idle.png',scale=0.5)
 
     def MainMenu(self):
         self.Game_Objects()
@@ -86,7 +88,8 @@ class Game:
         self.DISPLAY.fill((0,0,0,0))
         self.Floorcaster.Update()
         self.Texturerenderer.Update()
-        self.sword.Update()
+        #self.sword.Update()
+        self.Arsenal.Update()
         self.player.Update()
         self.Raycaster.Update()
         self.Sprites.Update()

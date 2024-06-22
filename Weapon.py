@@ -30,3 +30,6 @@ class Weapon(AnimatedSprite):
     def Update(self):
         self.game.DISPLAY.blit(self.images[0],self.pos)
         self.Attack()
+    
+    @property
+    def GetAttack(self): return self.attack

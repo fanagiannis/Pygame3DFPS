@@ -83,7 +83,7 @@ class PlayerHitbox():
             self.player.vitalitystats.DecStamina(20)
             self.timer=timer
             self.player.playerattacktime=timer
-            self.player.game.sword.attack=True
+            self.player.game.Arsenal.inventory[self.player.game.Arsenal.selectedweapon].attack = True
 
     def Draw(self):
         self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
