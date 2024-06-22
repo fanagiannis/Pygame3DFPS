@@ -38,8 +38,6 @@ class Game:
         self.Soundmixer=SoundMixer()
         self.Pathfinding=PathFinding(self)
         self.Arsenal=Arsenal(self)
-        # self.Weapon=Weapon(self,path='Assets/Sprites/Weapons/Unarmed/Idle.png',scale=0.4)
-        # self.sword=Weapon(self,path='Assets/Sprites/Weapons/SteelSword/Idle.png',scale=0.5)
 
     def MainMenu(self):
         self.Game_Objects()
@@ -77,10 +75,6 @@ class Game:
         
     def ShowFPS(self):
         pg.display.set_caption(f'{self.CLOCK.get_fps():.1f}')
-        # fps = str(int(self.CLOCK.get_fps()))
-        # font = pg.font.SysFont('Monospace Regular', 30)
-        # text_surface = font.render(fps, False, 'yellow')
-        # self.DISPLAY.blit(text_surface,(0,0))
 
     def Restart(self):
         self.Game_Objects()
@@ -90,12 +84,10 @@ class Game:
         self.DISPLAY.fill((0,0,0,0))
         self.Floorcaster.Update()
         self.Texturerenderer.Update()
-        #self.sword.Update()
         self.Arsenal.Update()
         self.player.Update()
         self.Raycaster.Update()
-        self.Sprites.Update()
-        
+        self.Sprites.Update()     
         
         #self.map.draw()
         self.Cycle()

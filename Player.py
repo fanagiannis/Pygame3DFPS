@@ -180,26 +180,28 @@ class PlayerVitality():
     def __init__(self,game,maxhp,maxstamina,maxmana,maxmp,player):
         self.game=game
         self.player=player
-        self.maxhp=maxhp+50*self.player.stats.Get_Endurance
-        self.maxstamina=maxstamina
-        self.maxmana=maxmana
-        self.maxmp=maxmp
         
-        self.basehp=self.maxhp#+50*self.player.stats.Get_Endurance
-        self.basestamina=self.maxstamina#+50*self.player.stats.Get_Dexterity
-        self.basemana=self.maxmana#+50*self.player.stats.Get_Mind
-        self.basemp=self.maxmp#+20*self.player.stats.Get_Intelligence
+        
+        self.basehp=maxhp#+50*self.player.stats.Get_Endurance
+        self.basestamina=maxstamina#+50*self.player.stats.Get_Dexterity
+        self.basemana=maxmana#+50*self.player.stats.Get_Mind
+        self.basemp=maxmp#+20*self.player.stats.Get_Intelligence
+
+        self.maxhp=self.basehp+50*self.player.stats.Get_Endurance
+        self.maxstamina=self.basestamina+50*self.player.stats.Get_Dexterity
+        self.maxmana=self.basemana+50*self.player.stats.Get_Mind
+        self.maxmp=self.basemp+20*self.player.stats.Get_Intelligence
 
         self.MagicPower=self.maxmp
 
-        #STAMINA 
-        #self.Stamina=self.maxstamina
+        #REGEN   
         self.Staminaregentime=0
+        self.Manaregentime=0
 
         self.vitality_stats={
-            'HP': {'value':self.basehp,'color':'orange','pos':(0,0)},
-            'STAMINA': {'value':self.basestamina,'color':'orange','pos':(0,18)},
-            'MANA': {'value':self.basemana,'color':'orange','pos':(0,36)}
+            'HP': {'value':self.maxhp,'color':'orange','pos':(0,0)},
+            'STAMINA': {'value':self.maxstamina,'color':'orange','pos':(0,18)},
+            'MANA': {'value':self.maxmana,'color':'orange','pos':(0,36)}
         }
         self.IsDead=False
 
@@ -239,15 +241,8 @@ class PlayerVitality():
         timer=pg.time.get_ticks()
         if timer-self.Staminaregentime>=250:
             self.Staminaregentime=timer
-            if self.vitality_stats['STAMINA']['value']<100: 
-                self.IncStamina(1)
-    
-    def StaminaRegen(self):
-        timer=pg.time.get_ticks()
-        if timer-self.Staminaregentime>=250:
-            self.Staminaregentime=timer
-            if self.vitality_stats['STAMINA']['value']<100: 
-                self.IncStamina(1)
+            if self.vitality_stats['STAMINA']['value']<self.maxstamina: 
+                self.IncStamina(2)
 
     #MANA
     def DecMana(self,value): 
@@ -257,6 +252,14 @@ class PlayerVitality():
         if self.vitality_stats['MANA']['value']<=self.maxmana and self.vitality_stats['MANA']['value']>=0: self.vitality_stats['MANA']['value']+=value
         elif self.vitality_stats['MANA']['value']<0: self.vitality_stats['MANA']['value']=0
         elif self.vitality_stats['MANA']['value']>self.maxmana: self.vitality_stats['MANA']['value']=self.maxmana
+    
+    def ManaRegen(self):
+        timer=pg.time.get_ticks()
+        if timer-self.Manaregentime>=250:
+            self.Manaregentime=timer
+            if self.vitality_stats['MANA']['value']<self.maxmana: 
+                self.IncMana(1+int(0.5*self.player.stats.Get_Mind))
+                print(1+int(0.5*self.player.stats.Get_Mind))
 
     def StatsReset(self):
         if self.vitality_stats['HP']['value']<0: self.vitality_stats['HP']['value']=0
@@ -282,7 +285,7 @@ class PlayerVitality():
     def Update(self):
         self.Bars()
         self.StaminaRegen()
-        self.StaminaRegen()
+        self.ManaRegen()
         self.StatsReset()
         self.Fonts()
         #DEBUG
