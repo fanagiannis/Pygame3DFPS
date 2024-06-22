@@ -20,7 +20,21 @@ class SoundMixer():
             pg.mixer.Sound(self.assetpath+"Hurt/Hurt3.wav"),
             pg.mixer.Sound(self.assetpath+"Hurt/Hurt4.wav")
         ]
+        self.Swingsound=[
+            pg.mixer.Sound(self.assetpath+"Swing/SWING01.wav"),
+            pg.mixer.Sound(self.assetpath+"Swing/SWING02.wav"),
+            pg.mixer.Sound(self.assetpath+"Swing/SWING03.wav"),
+            pg.mixer.Sound(self.assetpath+"Swing/SWING04.wav"),
+        ]
+        self.Levelupsound=pg.mixer.Sound(self.assetpath+"Levelup.wav")
+        self.Enchantsound=pg.mixer.Sound(self.assetpath+"Enchant.wav")
+        self.Selectsound=pg.mixer.Sound(self.assetpath+"Select.wav")
+        
         self.Deathsound=pg.mixer.Sound(self.assetpath+"Death.wav")
+
+    def Play(self,sound):
+        sound.play()
+
     def PlaySound(self,soundarray):
         sound=random.choice(soundarray)
         sound.play()

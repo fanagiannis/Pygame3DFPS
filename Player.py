@@ -39,6 +39,7 @@ class Player():
     
     def Heal(self,value):
         if self.GetMana>0 and self.GetHP<self.vitalitystats.maxhp:
+            self.game.Soundmixer.Play(self.game.Soundmixer.Enchantsound)
             self.vitalitystats.Heal(value)
             self.vitalitystats.DecMana(value)
         else: 
@@ -89,6 +90,7 @@ class PlayerHitbox():
         timer=pg.time.get_ticks()
         if timer-self.player.playerattacktime>=self.player.attackcooldown and self.player.GetStamina>10 and self.player.GetStamina>10:
             self.active = True
+            self.player.game.Soundmixer.PlaySound(self.player.game.Soundmixer.Swingsound)
             self.player.vitalitystats.DecStamina(20)
             self.timer=timer
             self.player.playerattacktime=timer
@@ -316,6 +318,7 @@ class PlayerStats():
 
     def UpgradeStat(self,stat):
         if self.stats['Token']['value']>0 and stat in self.stats:
+            self.game.Soundmixer.Play(self.game.Soundmixer.Selectsound)
             self.stats[stat]['value']+=1
             self.stats['Token']['value']-=1
 
@@ -324,6 +327,7 @@ class PlayerStats():
 
     def LevelUP(self):
         if self.stats['XP']['value']>=self.XPthreshhold:
+            self.game.Soundmixer.Play(self.game.Soundmixer.Levelupsound)
             self.XPthreshhold*=2
             self.stats['Level']['value']+=1
             self.stats['Token']['value']+=1
@@ -350,7 +354,7 @@ class PlayerStats():
         self.DisplayStats()
         self.StatUpgrade()
         self.LevelUP()
-        if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GainXP(1)
+        if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GainXP(1) #DEBUG
     
     @property
     def Get_Strength(self): return self.stats['Strength']['value']
