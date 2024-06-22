@@ -34,16 +34,21 @@ class MainMenu():
             pygame_menu.BaseImage('Assets/Images/Wallpapers/SnowyVillage.png'),
             pygame_menu.BaseImage('Assets/Images/Wallpapers/RockyVillage.png')
         ]
-    
+
     def DungeonImaged(self):
         self.dungeonImages=[]
 
     def DungeonSelection(self):
         self.button_play._visible=False
         self.button_quit._visible=False
-        self.button_play=self.menu.add.button(" The Rat King ",self.RunGame) 
-        self.button_play=self.menu.add.button(" DUNGEON 2 ",self.game.Run) 
-        self.button_play=self.menu.add.button(" DUNGEON 3 ",self.game.Run) 
+        self.button_play=self.menu.add.button(" The Rat King ",self.RunGame)
+        self.button_play=self.menu.add.button(" DUNGEON 2 ",self.game.Run)
+        self.button_play=self.menu.add.button(" DUNGEON 3 ",self.game.Run)
+
+    def change_background(self, index):
+        self.current_bg = self.bgimages[index]
+        self.menu.get_theme().background_color = self.current_bg
+        self.menu.full_reset()
 
     def RunGame(self):
         self.game.Run()
