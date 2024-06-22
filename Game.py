@@ -60,10 +60,12 @@ class Game:
             if event.type==pg.QUIT :
                 pg.quit() 
             if self.player.vitalitystats.IsDead and pg.key.get_pressed()[pg.K_TAB]:
-                self.running=False
+                    self.running=False
             if event.type==pg.KEYUP and not self.player.vitalitystats.IsDead:
                 if event.key==pg.K_SPACE: 
                     self.player.hitbox.Activate()
+                if event.key==pg.K_h:
+                    self.player.Heal(self.player.vitalitystats.MagicPower)
                     
 
     def Cycle(self): 

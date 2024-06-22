@@ -36,11 +36,19 @@ class Player():
     
     def Crosshair(self):
         self.game.DISPLAY.blit(self.crosshair,(self.game.SCREEN_WIDTH//2-self.crosshair.get_width()//2,self.game.SCREEN_HEIGHT//2-self.crosshair.get_height()//2))
+    
+    def Heal(self,value):
+        if self.GetMana>0 and self.GetHP<self.vitalitystats.maxhp:
+            self.vitalitystats.Heal(value)
+            self.vitalitystats.DecMana(value)
+        else: 
+            if self.GetHP>=self.vitalitystats.maxhp:print('REACHED MAX HP')
+            if self.GetMana<=0:print('NOT ENOUGH MANA!')
       
     def Update(self):
         self.Hitbox()
         #self.Draw()
-        print(self.DealDamage)
+        #print(self.DealDamage)
         self.hitbox.Update()
         self.movement.Update()
         if not self.vitalitystats.IsDead:
@@ -48,7 +56,7 @@ class Player():
             self.vitalitystats.Update()
             self.stats.Update()
             self.UpdateStats()
-        
+    
     
     def UpdateStats(self):
         self.vitalitystats.maxhp=self.vitalitystats.basehp+50*self.stats.Get_Endurance
