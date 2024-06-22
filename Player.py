@@ -40,6 +40,7 @@ class Player():
     def Update(self):
         self.Hitbox()
         #self.Draw()
+        print(self.DealDamage)
         self.hitbox.Update()
         self.movement.Update()
         if not self.vitalitystats.IsDead:
@@ -63,7 +64,7 @@ class Player():
     def GetMana(self): return self.vitalitystats.vitality_stats['MANA']['value']
     @property 
     def DealDamage(self):
-        return 30+10*self.stats.stats['Level']['value']+10*self.stats.Get_Strength
+        return 30+10*self.stats.stats['Level']['value']+10*self.stats.Get_Strength+self.game.Arsenal.GetDamage
     @property 
     def DealMagicDamage(self):
         return 30+10*self.stats.stats['Level']['value']+10*self.stats.Get_Intelligence
@@ -277,13 +278,13 @@ class PlayerVitality():
         self.StatsReset()
         self.Fonts()
         #DEBUG
-        keys=pg.key.get_pressed()
-        if keys[pg.K_1]: self.Heal(1)
-        if keys[pg.K_2]: self.TakeDamage(1)
-        if keys[pg.K_3]: self.IncStamina(1)
-        if keys[pg.K_4]: self.DecStamina(1)
-        if keys[pg.K_5]: self.IncMana(1)
-        if keys[pg.K_6]: self.DecMana(1)
+        # keys=pg.key.get_pressed()
+        # if keys[pg.K_1]: self.Heal(1)
+        # if keys[pg.K_2]: self.TakeDamage(1)
+        # if keys[pg.K_3]: self.IncStamina(1)
+        # if keys[pg.K_4]: self.DecStamina(1)
+        # if keys[pg.K_5]: self.IncMana(1)
+        # if keys[pg.K_6]: self.DecMana(1)
         #DEBUG
     
 class PlayerStats():

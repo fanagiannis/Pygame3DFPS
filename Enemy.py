@@ -103,7 +103,7 @@ class Enemy(AnimatedSprite):
     
     def DeathAnimation(self):
         self.game.player.stats.GainXP(self.Value) 
-        print("dead")
+        #print("dead")
         self.game.Sprites.enemies.remove(self)
 
     def Update(self):
@@ -129,7 +129,7 @@ class Enemy(AnimatedSprite):
         keys=pg.key.get_pressed()
         if keys[pg.K_r]:
             self.TakeDamage()
-            print(self.TakeDamage())
+            #print(self.TakeDamage())
             time.sleep(0.1)
         
         #self.Draw()

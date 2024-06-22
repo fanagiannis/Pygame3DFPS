@@ -4,8 +4,8 @@ import pygame as pg
 from SpriteRenderer import AnimatedSprite
 
 class Weapon(AnimatedSprite):
-    def __init__(self, game, path='Assets/Sprites/Weapons', scale=0.5,animation_time=60):
-        super().__init__(game=game, path=path, scale=scale, animation_time=animation_time)
+    def __init__(self, game, path='Assets/Sprites/Weapons', scale=0.5,animation_time=60,damage=10):
+        super().__init__(game=game, path=path, scale=scale,animation_time=animation_time)
         self.images=deque(
             [pg.transform.smoothscale(img,(self.image.get_width()*scale,self.image.get_height()*scale))
              for img in self.images])
@@ -14,6 +14,7 @@ class Weapon(AnimatedSprite):
         self.frame_counter=0
         self.num_images=len(self.images)
         self.ticks=pg.time.get_ticks()
+        self.damage=damage
     
     def Attack(self):
         if self.attack:
