@@ -34,13 +34,13 @@ class SpriteLoader():
         self.animated_sprites.append(Rat)
     
     def Enemies(self):
-        rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(15,5),Level=1,Value=100,HP=100,scale=0.7)
+        rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(10,5),Level=1,Value=100,HP=100,scale=0.5)
         self.enemies.append(rat)
         skeleton=Skeleton(self.game,path='Assets/Sprites/Animated/Skeleton/Idle/1.png',pos=(10,10),Level=5,Value=200,HP=200,scale=0.7)
         self.enemies.append(skeleton)
         wereboar= Wereboar(self.game,path='Assets/Sprites/Animated/Wereboar/Idle/1.png',pos=(12,12),Level=5,Value=200,HP=200,scale=0.7)
         self.enemies.append(wereboar)
-        zombie= Zombie(self.game,path='Assets/Sprites/Animated/Zombie/Idle/1.png',pos=(5,5),Level=5,Value=200,HP=200,scale=0.7)
+        zombie= Zombie(self.game,path='Assets/Sprites/Animated/Zombie/Idle/1.png',pos=(5,5),Level=10,Value=500,HP=300,scale=0.7)
         self.enemies.append(zombie)
 
     def Update(self):

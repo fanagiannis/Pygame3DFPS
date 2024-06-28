@@ -161,13 +161,13 @@ class Enemy(AnimatedSprite):
             self.y += dy
     
 class Rat(Enemy):
-    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
+    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.4, shift=0.9, animation_time=120):
         super().__init__(game, Level, Value, HP, path, pos, scale, shift, animation_time)
     def Update(self):
         return super().Update()
 
 class Skeleton(Enemy):
-    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
+    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.6, shift=0.25, animation_time=120):
         super().__init__(game, Level, Value, HP, path, pos, scale, shift, animation_time)
         #ANIMATIONS
         self.images_idle=self.get_images('Assets/Sprites/Animated/Skeleton/Idle')  
@@ -179,7 +179,7 @@ class Skeleton(Enemy):
         return super().Update()
 
 class Wereboar(Enemy):
-    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
+    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=1, shift=0.16, animation_time=120):
         super().__init__(game, Level, Value, HP, path, pos, scale, shift, animation_time)
         #ANIMATIONS
         self.images_idle=self.get_images('Assets/Sprites/Animated/Wereboar/Idle')  
@@ -191,7 +191,7 @@ class Wereboar(Enemy):
         return super().Update()
 
 class Zombie(Enemy):
-    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
+    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.7, shift=0.16, animation_time=120):
         super().__init__(game, Level, Value, HP, path, pos, scale, shift, animation_time)
         #ANIMATIONS
         self.images_idle=self.get_images('Assets/Sprites/Animated/Zombie/Idle')  
