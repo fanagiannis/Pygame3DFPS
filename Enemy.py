@@ -178,6 +178,31 @@ class Skeleton(Enemy):
     def Update(self):
         return super().Update()
 
+class Wereboar(Enemy):
+    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
+        super().__init__(game, Level, Value, HP, path, pos, scale, shift, animation_time)
+        #ANIMATIONS
+        self.images_idle=self.get_images('Assets/Sprites/Animated/Wereboar/Idle')  
+        self.images_walking=self.get_images('Assets/Sprites/Animated/Wereboar/Walk')
+        self.images_attack=self.get_images('Assets/Sprites/Animated/Wereboar/Attack')
+        self.images_death=self.get_images('Assets/Sprites/Animated/Wereboar/Death')
+        self.images_hit=self.get_images('Assets/Sprites/Animated/Wereboar/Hit')
+    def Update(self):
+        return super().Update()
+
+class Zombie(Enemy):
+    def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):
+        super().__init__(game, Level, Value, HP, path, pos, scale, shift, animation_time)
+        #ANIMATIONS
+        self.images_idle=self.get_images('Assets/Sprites/Animated/Zombie/Idle')  
+        self.images_walking=self.get_images('Assets/Sprites/Animated/Zombie/Walk')
+        self.images_attack=self.get_images('Assets/Sprites/Animated/Zombie/Attack')
+        self.images_death=self.get_images('Assets/Sprites/Animated/Zombie/Death')
+        self.images_hit=self.get_images('Assets/Sprites/Animated/Zombie/Hit')
+    def Update(self):
+        return super().Update()
+
+
 #CLASS WEREBOAR
 
 #CLASS ZOMBIE
