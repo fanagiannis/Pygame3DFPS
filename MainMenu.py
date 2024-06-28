@@ -26,7 +26,13 @@ class MainMenu():
         
         self.button_play=self.menu.add.button(" Play ",self.DungeonSelection)                                 #LOAD MAIN MENU
         self.button_quit=self.menu.add.button(" Quit ",exit)                                 #LOAD MAIN MENU
-    
+
+        self.dungeon_descs={
+            'The Rat King': 'Start the game.',
+            'Lair Of The Necromancer': 'Quit the game.',
+            'Undead Legion':'C'
+        }
+
     def BackgroundImages(self):
         self.bgimages=[
             pygame_menu.BaseImage('Assets/Images/Wallpapers/CastleVillage.png'),
@@ -41,14 +47,15 @@ class MainMenu():
     def DungeonSelection(self):
         self.button_play._visible=False
         self.button_quit._visible=False
-        self.button_play=self.menu.add.button(" The Rat King ",self.RunGame)
-        self.button_play=self.menu.add.button(" DUNGEON 2 ",self.game.Run)
-        self.button_play=self.menu.add.button(" DUNGEON 3 ",self.game.Run)
+        self.button_play1=self.menu.add.button(" The Rat King ",self.RunGame)
+        self.button_play2=self.menu.add.button(" Necromancer's Lair ",self.game.Run)
+        self.button_play3=self.menu.add.button(" Undead Legion ",self.game.Run)
+
 
     def change_background(self, index):
         self.current_bg = self.bgimages[index]
         self.menu.get_theme().background_color = self.current_bg
-        self.menu.full_reset()
+        self.menu.full_reset()   
 
     def RunGame(self):
         self.game.Run()

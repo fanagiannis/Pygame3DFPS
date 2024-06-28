@@ -11,14 +11,24 @@ class Arsenal:
         pass
 
     def WeaponList(self):
-        self.Unarmed=Weapon(self.game,path='Assets/Sprites/Weapons/Unarmed/Idle.png',scale=0.4,damage=10)
-        self.Sword=Weapon(self.game,path='Assets/Sprites/Weapons/SteelSword/Idle.png',scale=0.5,damage=40)
+        self.Unarmed=Weapon(self.game,path='Assets/Sprites/Weapons/Unarmed/Idle.png',scale=0.8,damage=10)
+        self.Dagger=Weapon(self.game,path='Assets/Sprites/Weapons/Dagger/Idle.png',scale=0.8,damage=30)
+        self.Flail=Weapon(self.game,path='Assets/Sprites/Weapons/Flail/Idle.png',scale=0.8,damage=40)
+        self.Sword=Weapon(self.game,path='Assets/Sprites/Weapons/SteelSword/Idle.png',scale=0.5,damage=50)
+        self.Mace=Weapon(self.game,path='Assets/Sprites/Weapons/Mace/Idle.png',scale=0.9,damage=60)
+        self.Axe=Weapon(self.game,path='Assets/Sprites/Weapons/Axe/Idle.png',scale=0.8,damage=90)
+        self.Warhammer=Weapon(self.game,path='Assets/Sprites/Weapons/Warhammer/Idle.png',scale=0.8,damage=110)
 
     #DEBUG
     def List(self):
         self.WeaponList()
         self.AddWeapon(self.Unarmed)
         self.AddWeapon(self.Sword)
+        self.AddWeapon(self.Dagger)
+        self.AddWeapon(self.Warhammer)
+        self.AddWeapon(self.Mace)
+        self.AddWeapon(self.Flail)
+        self.AddWeapon(self.Axe)
     #DEBUG
 
     def SelectWeapon(self):
@@ -32,6 +42,10 @@ class Arsenal:
             if len(self.inventory)>3:self.selectedweapon=3
         if keys[pg.K_5]:
             if len(self.inventory)>4:self.selectedweapon=4
+        if keys[pg.K_6]:
+            if len(self.inventory)>4:self.selectedweapon=5
+        if keys[pg.K_7]:
+            if len(self.inventory)>4:self.selectedweapon=6
 
     def AddWeapon(self,weapon):
         self.inventory.append(weapon)
