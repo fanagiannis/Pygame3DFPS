@@ -85,6 +85,15 @@ class Game:
         self.Game_Objects()
         self.Run()
 
+    def ReturnMainMenu(self):
+        if self.player.vitalitystats.IsDead or self.map.GetClear:
+            timer = 0
+            timer+=self.DELTA_TIME
+            print(timer)
+            if timer>=200:
+                self.running = False
+                self.MainMenu() 
+
     def Update(self):
         self.DISPLAY.fill((0,0,0,0))
         self.Floorcaster.Update()
@@ -97,13 +106,7 @@ class Game:
         #self.map.draw()
         self.Cycle()
 
-        if self.player.vitalitystats.IsDead or self.map.GetClear:
-            timer = 0
-            timer+=self.DELTA_TIME
-            print(timer)
-            if timer>=200:
-                self.running = False
-                self.MainMenu() 
+        self.ReturnMainMenu()
 
 if __name__ == '__main__':
 
