@@ -81,11 +81,11 @@ class Map:
                 
     def PickableItems(self):
         self.pickable_items=[
-            PickableItem(self.game,type='Sword',pos=(1,0),scale=0.5),
-            PickableItem(self.game,type='Dagger',pos=(2,0),scale=0.5),
-            PickableItem(self.game,type='Flail',pos=(3,0),scale=0.5),
-            PickableItem(self.game,type='Mace',pos=(4,0),scale=0.5),
-            PickableItem(self.game,type='Axe',pos=(5,0),scale=0.5),
+            PickableItem(self.game,type='Sword',pos=(6,6),scale=0.5),
+            PickableItem(self.game,type='Dagger',pos=(17,7),scale=0.5),
+            PickableItem(self.game,type='Flail',pos=(27,22),scale=0.5),
+            PickableItem(self.game,type='Mace',pos=(30,5),scale=0.5),
+            PickableItem(self.game,type='Axe',pos=(30,17),scale=0.5),
             PickableItem(self.game,type='Warhammer',pos=(6,29),scale=0.5)
         ]
 
