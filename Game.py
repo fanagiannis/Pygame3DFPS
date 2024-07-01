@@ -29,7 +29,7 @@ class Game:
 
     def Game_Objects(self):
         self.running=True
-        self.map = Map(self,MAP)
+        self.map = Map(self,MAP_RAT_KING)
         self.player = Player(self)
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
