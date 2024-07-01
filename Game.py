@@ -23,6 +23,7 @@ class Game:
         self.FPS=60
         self.DELTA_TIME=1
         self.running=True
+        self.timer=0
         print("Game Created!")
         self.menu=MainMenu(self)
         pass
@@ -87,12 +88,13 @@ class Game:
 
     def ReturnMainMenu(self):
         if self.player.vitalitystats.IsDead or self.map.GetClear:
-            timer = 0
-            timer+=self.DELTA_TIME
-            print(timer)
-            if timer>=200:
+            
+            self.timer+=self.DELTA_TIME
+            print(self.timer)
+            if self.timer>=200:
                 self.running = False
                 self.MainMenu() 
+                self.timer=0
 
     def Update(self):
         self.DISPLAY.fill((0,0,0,0))
