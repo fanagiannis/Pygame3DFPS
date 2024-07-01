@@ -104,7 +104,7 @@ class Enemy(AnimatedSprite):
     def DeathAnimation(self):
         self.game.player.stats.GainXP(self.Value) 
         #print("dead")
-        self.game.Sprites.enemies.remove(self)
+        self.game.map.enemies.remove(self)
 
     def Update(self):
         self.hitbox=pg.Rect((self.x-0.15)*100,(self.y-0.15)*100,self.x+25,self.y+25)

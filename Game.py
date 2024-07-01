@@ -24,13 +24,16 @@ class Game:
         self.DELTA_TIME=1
         self.running=True
         print("Game Created!")
+        self.selectedmap=None
         self.menu=MainMenu(self)
         pass
 
     def Game_Objects(self):
         self.running=True
-        self.map = Map(self,MAP_RAT_KING)
         self.player = Player(self)
+        map_rat_king = Map(self, MAP_RAT_KING, difficulty='easy')
+        map_necromancers_lair = Map(self, MAP_NECROMANCERS_LAIR, difficulty='hard')
+        self.map = map_rat_king
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
@@ -39,7 +42,6 @@ class Game:
         self.Arsenal=Arsenal(self)
         self.Sprites=SpriteLoader(self,self.Arsenal,self.Raycaster)
         
-
     def MainMenu(self):
         self.Game_Objects()
         self.Soundmixer.PlayMenuTheme()
@@ -89,7 +91,7 @@ class Game:
         self.player.Update()
         self.Raycaster.Update()
         self.Sprites.Update()     
-        
+        self.map.Update()
         #self.map.draw()
         self.Cycle()
 

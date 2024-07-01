@@ -4,7 +4,7 @@ from SpriteRenderer import *
 from Weapon import*
 
 class PickableItem(Sprite):
-    def __init__(self,game,type,path='Assets/Sprites/Chest.png', pos=..., scale=0.7, shift=0.9, castlight=False):
+    def __init__(self,game,type,path='Assets/Sprites/Chest.png', pos=..., scale=0.7, shift=0.7, castlight=False):
         super().__init__(game, path, pos, scale, shift, castlight)
         self.game=game
         self.type=type
@@ -17,11 +17,9 @@ class PickableItem(Sprite):
             if not self.picked:
                 self.game.DISPLAY.fill('yellow')
                 self.game.Soundmixer.Play(self.game.Soundmixer.WeaponPickup)
-            #self.action
             self.picked=True
         if not self.picked:
             self.get_sprite()
-        #return super().Update()
     def Pickup(self):
         print(f"{self.type} added")
         self.game.Arsenal.PickupWeapon(self.type)

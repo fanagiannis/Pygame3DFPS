@@ -1,8 +1,6 @@
 import pygame as pg
 
 from SpriteRenderer import*
-from Enemy import *
-from PickableItem import*
 
 class SpriteLoader():
     def __init__(self,game,arsenal,raycaster):
@@ -13,15 +11,6 @@ class SpriteLoader():
         self.sprites=[]
         self.light_sprites=[]
         self.animated_sprites=[]
-        self.enemies=[]
-        self.pickable_items=[]
-        self.enemies_pos={}
-        #CREATE SPRITES
-        #self.StaticSprites()
-        #self.LightSprites()
-        #self.AnimatedSprites()
-        self.PickableItems()
-        self.Enemies()
 
     def Create_Sprite(self,Sprite):
         self.sprites.append(Sprite)
@@ -37,35 +26,12 @@ class SpriteLoader():
     def AnimatedSprites(self):
         Rat=AnimatedSprite(self.game,'Assets/Sprites/Animated/1.png',(10,10))
         self.animated_sprites.append(Rat)
-    
-    def PickableItems(self):
-        self.pickable_items=[
-            PickableItem(self.game,type='Sword',pos=(30,30),scale=0.5),
-            PickableItem(self.game,type='Dagger',pos=(30,28),scale=0.5),
-            PickableItem(self.game,type='Flail',pos=(30,26),scale=0.5),
-            PickableItem(self.game,type='Mace',pos=(30,24),scale=0.5),
-            PickableItem(self.game,type='Axe',pos=(30,22),scale=0.5),
-            PickableItem(self.game,type='Warhammer',pos=(30,20),scale=0.5)
-        ]
-        
-        #self.Create_Sprite(Sword)
-    
-    def Enemies(self):
-        rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(11,5),Level=1,Value=100,HP=100,scale=0.5)
-        self.enemies.append(rat)
-        skeleton=Skeleton(self.game,path='Assets/Sprites/Animated/Skeleton/Idle/1.png',pos=(8,8),Level=5,Value=200,HP=200,scale=0.7)
-        self.enemies.append(skeleton)
-        wereboar= Wereboar(self.game,path='Assets/Sprites/Animated/Wereboar/Idle/1.png',pos=(12,12),Level=5,Value=200,HP=200,scale=0.7)
-        self.enemies.append(wereboar)
-        zombie= Zombie(self.game,path='Assets/Sprites/Animated/Zombie/Idle/1.png',pos=(5,5),Level=10,Value=500,HP=300,scale=0.7)
-        self.enemies.append(zombie)
 
     def Update(self):
-        self.enemies_pos= {enemy.map_pos for enemy in self.enemies if not enemy.IsDead}
-        [pickableitem.Update() for pickableitem in self.pickable_items]
+        
         [staticsprite.Update() for staticsprite in self.sprites]
         [lightsprite.Update() for lightsprite in self.light_sprites]
         [animsprite.Update() for animsprite in self.animated_sprites]
-        [enemy.Update() for enemy in self.enemies]
+      
         
        
