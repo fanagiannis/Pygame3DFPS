@@ -24,16 +24,15 @@ class Game:
         self.DELTA_TIME=1
         self.running=True
         print("Game Created!")
-        self.selectedmap=None
         self.menu=MainMenu(self)
         pass
 
     def Game_Objects(self):
         self.running=True
         self.player = Player(self)
-        map_rat_king = Map(self, MAP_RAT_KING, difficulty='easy')
-        map_necromancers_lair = Map(self, MAP_NECROMANCERS_LAIR, difficulty='hard')
-        self.map = map_rat_king
+        self.map_rat_king = Map(self, MAP_RAT_KING, difficulty=1)
+        self.map_legion = Map(self, MAP_LEGION, difficulty=2)
+        self.map = self.map_rat_king
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
@@ -68,6 +67,7 @@ class Game:
                 if event.key==pg.K_h:
                     self.player.Heal(self.player.vitalitystats.MagicPower)
                     
+
 
     def Cycle(self): 
         self.ShowFPS()

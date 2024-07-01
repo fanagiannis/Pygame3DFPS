@@ -48,7 +48,7 @@ class MainMenu():
         self.button_play._visible=False
         self.button_quit._visible=False
         self.button_play1=self.menu.add.button(" The Rat King ",self.RunGame)
-        self.button_play2=self.menu.add.button(" Necromancer's Lair ",self.game.Run)
+        self.button_play2=self.menu.add.button(" Necromancer's Lair ",self.RunGame)
         self.button_play3=self.menu.add.button(" Undead Legion ",self.game.Run)
 
 
@@ -56,7 +56,7 @@ class MainMenu():
         self.current_bg = self.bgimages[index]
         self.menu.get_theme().background_color = self.current_bg
         self.menu.full_reset()   
-
+    
     def RunGame(self):
         self.game.Run()
 

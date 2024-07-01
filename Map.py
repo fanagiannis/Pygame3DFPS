@@ -10,7 +10,7 @@ from Enemy import *
 _ = False
 
 MAP_RAT_KING=[
-    [1]*35,
+    [1]*32,
     [4,4,4,4,4,4,4,4,4,4,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2],
     [4,_,_,_,_,_,_,_,_,4,1,_,_,_,_,_,_,_,_,_,_,_,1,2,_,_,_,_,_,_,_,2],
     [4,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,1,2,_,_,_,1,_,_,_,2],
@@ -41,10 +41,10 @@ MAP_RAT_KING=[
     [1,9,9,_,_,_,_,9,9,4,_,_,_,4,_,_,_,_,4,6,_,_,_,_,_,_,_,_,_,_,_,6],
     [1,9,9,_,_,_,_,9,4,4,_,_,_,_,_,_,_,_,4,6,_,_,6,_,6,_,6,_,6,_,_,6],
     [4,9,9,9,9,9,9,9,4,4,4,4,4,4,4,4,4,4,4,6,_,_,_,_,_,_,_,_,_,_,6,6],
-    [6]*35
+    [6]*32
 ]
 
-MAP_NECROMANCERS_LAIR=[
+MAP_LEGION=[
     [11]*5,
     [11,_,_,_,_,11],
     [11,_,_,_,_,11],
@@ -72,11 +72,12 @@ class Map:
 
     def get_enemy_spawn(self):
         while True:
-            x=random.randint(0,self.cols-1)
-            y=random.randint(0,self.rows-1)
-            if self.mini_map[y][x] == _:
-                return (x, y)
-
+            x = random.randint(0, self.cols - 1)
+            y = random.randint(0, self.rows - 1)
+            if 0 <= y < self.rows and 0 <= x < self.cols:
+                if self.mini_map[y][x] == _:
+                    return (x, y)
+                
     def PickableItems(self):
         self.pickable_items=[
             PickableItem(self.game,type='Sword',pos=(1,0),scale=0.5),
@@ -88,14 +89,37 @@ class Map:
         ]
 
     def Enemies(self):
-        rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=self.get_enemy_spawn(),Level=1,Value=100,HP=100,scale=0.5)
-        self.enemies.append(rat)
-        skeleton=Skeleton(self.game,path='Assets/Sprites/Animated/Skeleton/Idle/1.png',pos=(8,6),Level=5,Value=200,HP=200,scale=0.7)
-        self.enemies.append(skeleton)
-        wereboar= Wereboar(self.game,path='Assets/Sprites/Animated/Wereboar/Idle/1.png',pos=(12,12),Level=5,Value=200,HP=200,scale=0.7)
-        self.enemies.append(wereboar)
-        zombie= Zombie(self.game,path='Assets/Sprites/Animated/Zombie/Idle/1.png',pos=(5,5),Level=10,Value=500,HP=300,scale=0.7)
-        self.enemies.append(zombie)
+        num_rats=10 if self.difficulty==1 else 15
+        num_skeletons=2 if self.difficulty==1 else 6
+        num_wereboars=0 if self.difficulty==1 else 5
+        num_zombies=1 if self.difficulty==1 else 20
+
+        if self.difficulty==1:
+            for _ in range(num_rats):
+                rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(1,5),Value=100*random.randint(1,2),HP=100*random.randint(1,3),scale=0.5)
+                self.enemies.append(rat)
+            for _ in range(num_skeletons):
+                skeleton=Skeleton(self.game,path='Assets/Sprites/Animated/Skeleton/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(5,8),Value=200*random.randint(1,2),HP=200*random.randint(1,3),scale=0.7)
+                self.enemies.append(skeleton)
+            for _ in range(num_zombies):
+                zombie= Zombie(self.game,path='Assets/Sprites/Animated/Zombie/Idle/1.png',pos=(6,27),Level=20,Value=1000,HP=500,scale=0.7)
+                self.enemies.append(zombie)
+        
+        elif self.difficulty==2:
+            for _ in range(num_rats):
+                rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(1,5),Value=100*random.randint(1,2),HP=100*random.randint(1,3),scale=0.5)
+                self.enemies.append(rat)
+            for _ in range(num_skeletons):
+                skeleton=Skeleton(self.game,path='Assets/Sprites/Animated/Skeleton/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(5,8),Value=200*random.randint(1,2),HP=200*random.randint(1,3),scale=0.7)
+                self.enemies.append(skeleton)
+            for _ in range(num_wereboars):
+                wereboar= Wereboar(self.game,path='Assets/Sprites/Animated/Wereboar/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(5,8),Value=200*random.randint(1,2),HP=200*random.randint(1,3),scale=0.7)
+                self.enemies.append(wereboar)
+            for _ in range(num_zombies):
+                zombie= Zombie(self.game,path='Assets/Sprites/Animated/Zombie/Idle/1.png',pos=self.get_enemy_spawn(),Level=15,Value=1000,HP=400,scale=0.7)
+                self.enemies.append(zombie)
+        
+        
     
     def get_map(self):
         for j, row in enumerate(self.mini_map):
