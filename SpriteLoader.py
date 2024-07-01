@@ -14,6 +14,7 @@ class SpriteLoader():
         self.light_sprites=[]
         self.animated_sprites=[]
         self.enemies=[]
+        self.pickable_items=[]
         self.enemies_pos={}
         #CREATE SPRITES
         #self.StaticSprites()
@@ -38,8 +39,11 @@ class SpriteLoader():
         self.animated_sprites.append(Rat)
     
     def PickableItems(self):
-        Sword=PickableItem(self,'Assets/Sprites/Animated/Rat/Idle/1.png',pos=(30,30),scale=0.5,shift=0.2)
-        self.Create_Sprite(Sword)
+        self.pickable_items=[
+            PickableItem(self.game,type='sword',path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(30,30),scale=0.5,shift=0.2)
+        ]
+        
+        #self.Create_Sprite(Sword)
     
     def Enemies(self):
         rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(10,5),Level=1,Value=100,HP=100,scale=0.5)
@@ -53,6 +57,7 @@ class SpriteLoader():
 
     def Update(self):
         self.enemies_pos= {enemy.map_pos for enemy in self.enemies if not enemy.IsDead}
+        [pickableitem.Update() for pickableitem in self.pickable_items]
         [staticsprite.Update() for staticsprite in self.sprites]
         [lightsprite.Update() for lightsprite in self.light_sprites]
         [animsprite.Update() for animsprite in self.animated_sprites]

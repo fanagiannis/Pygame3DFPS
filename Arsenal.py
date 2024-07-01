@@ -18,6 +18,14 @@ class Arsenal:
         self.Mace=Weapon(self.game,path='Assets/Sprites/Weapons/Mace/Idle.png',scale=0.9,damage=60)
         self.Axe=Weapon(self.game,path='Assets/Sprites/Weapons/Axe/Idle.png',scale=0.8,damage=90)
         self.Warhammer=Weapon(self.game,path='Assets/Sprites/Weapons/Warhammer/Idle.png',scale=0.8,damage=110)
+        self.weapons_dict = {
+            'dagger': self.Dagger,
+            'flail': self.Flail,
+            'sword': self.Sword,
+            'mace': self.Mace,
+            'axe': self.Axe,
+            'warhammer': self.Warhammer
+        }
 
     #DEBUG
     def List(self):
@@ -48,7 +56,13 @@ class Arsenal:
             if len(self.inventory)>4:self.selectedweapon=6
 
     def AddWeapon(self,weapon):
-        self.inventory.append(weapon)
+        if weapon not in self.inventory:
+            self.inventory.append(weapon)
+    
+    def PickupWeapon(self,weapon_type):
+        if weapon_type in self.weapons_dict:
+            weapon=self.weapons_dict[weapon_type]
+            self.AddWeapon(weapon)
     
     def GetSelectedWeapon(self):
         return self.inventory[self.selectedweapon]
