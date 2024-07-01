@@ -62,6 +62,7 @@ class Map:
         self.rows = len(self.mini_map)
         self.cols = len(self.mini_map[0])
         self.get_map()
+        self.cleared=False
         
         self.difficulty=difficulty
         self.pickable_items=[]
@@ -135,4 +136,9 @@ class Map:
         self.enemies_pos= {enemy.map_pos for enemy in self.enemies if not enemy.IsDead}
         [pickableitem.Update() for pickableitem in self.pickable_items]
         [enemy.Update() for enemy in self.enemies]
+
+        if len(self.enemies)<=0: self.cleared=True
+    
+    @property
+    def GetClear(self): return self.cleared
 

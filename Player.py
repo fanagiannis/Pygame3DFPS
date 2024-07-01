@@ -165,10 +165,15 @@ class PlayerMovement:
             self.posy += dy
 
     def Update(self):
-        if not self.game.player.vitalitystats.Death(): self.Movement()
+        if not self.game.player.vitalitystats.Death(): 
+            self.Movement()
+            if self.game.map.GetClear: 
+                text_win=FONT_DEATH.render("DUNGEON CLEARED",False,'orange') 
+                self.game.DISPLAY.blit(text_win,(self.game.SCREEN_WIDTH//2-200,self.game.SCREEN_HEIGHT//2+100))
         else: 
             text_Death=FONT_DEATH.render("YOU DIED",False,'red') 
             self.game.DISPLAY.blit(text_Death,(self.game.SCREEN_WIDTH//2-100,self.game.SCREEN_HEIGHT//2))
+        
 
     @property
     def pos(self):

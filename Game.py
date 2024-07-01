@@ -60,7 +60,9 @@ class Game:
             if event.type==pg.QUIT :
                 pg.quit() 
             if self.player.vitalitystats.IsDead and pg.key.get_pressed()[pg.K_TAB]:
-                    self.running=False
+                self.running=False
+            if self.map.GetClear and pg.key.get_pressed()[pg.K_TAB]:
+                self.running=False
             if event.type==pg.KEYUP and not self.player.vitalitystats.IsDead:
                 if event.key==pg.K_SPACE: 
                     self.player.hitbox.Activate()
@@ -94,6 +96,14 @@ class Game:
         self.map.Update()
         #self.map.draw()
         self.Cycle()
+
+        if self.player.vitalitystats.IsDead or self.map.GetClear:
+            timer = 0
+            timer+=self.DELTA_TIME
+            print(timer)
+            if timer>=200:
+                self.running = False
+                self.MainMenu() 
 
 if __name__ == '__main__':
 
