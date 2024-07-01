@@ -29,7 +29,7 @@ class SoundMixer():
         self.Levelupsound=pg.mixer.Sound(self.assetpath+"Levelup.wav")
         self.Enchantsound=pg.mixer.Sound(self.assetpath+"Enchant.wav")
         self.Selectsound=pg.mixer.Sound(self.assetpath+"Select.wav")
-        
+        self.WeaponPickup=pg.mixer.Sound(self.assetpath+"Weild.wav")
         self.Deathsound=pg.mixer.Sound(self.assetpath+"Death.wav")
 
     def Play(self,sound):

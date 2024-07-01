@@ -34,8 +34,6 @@ class Game:
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
-        
-        
         self.Soundmixer=SoundMixer()
         self.Pathfinding=PathFinding(self)
         self.Arsenal=Arsenal(self)

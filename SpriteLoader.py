@@ -40,12 +40,12 @@ class SpriteLoader():
     
     def PickableItems(self):
         self.pickable_items=[
-            PickableItem(self.game,type='Sword',path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(30,30),scale=0.5,shift=0.2),
-            PickableItem(self.game,type='Dagger',path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(30,28),scale=0.5,shift=0.2),
-            PickableItem(self.game,type='Flail',path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(30,26),scale=0.5,shift=0.2),
-            PickableItem(self.game,type='Mace',path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(30,24),scale=0.5,shift=0.2),
-            PickableItem(self.game,type='Axe',path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(30,22),scale=0.5,shift=0.2),
-            PickableItem(self.game,type='Warhammer',path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(30,20),scale=0.5,shift=0.2)
+            PickableItem(self.game,type='Sword',pos=(30,30),scale=0.5),
+            PickableItem(self.game,type='Dagger',pos=(30,28),scale=0.5),
+            PickableItem(self.game,type='Flail',pos=(30,26),scale=0.5),
+            PickableItem(self.game,type='Mace',pos=(30,24),scale=0.5),
+            PickableItem(self.game,type='Axe',pos=(30,22),scale=0.5),
+            PickableItem(self.game,type='Warhammer',pos=(30,20),scale=0.5)
         ]
         
         #self.Create_Sprite(Sword)
