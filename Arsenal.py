@@ -6,7 +6,7 @@ class Arsenal:
     def __init__(self,game):
         self.game=game
         self.inventory=[]
-        self.selectedweapon=1
+        self.selectedweapon=0
         self.List()
         pass
 
@@ -23,12 +23,12 @@ class Arsenal:
     def List(self):
         self.WeaponList()
         self.AddWeapon(self.Unarmed)
-        self.AddWeapon(self.Sword)
-        self.AddWeapon(self.Dagger)
-        self.AddWeapon(self.Warhammer)
-        self.AddWeapon(self.Mace)
-        self.AddWeapon(self.Flail)
-        self.AddWeapon(self.Axe)
+        # self.AddWeapon(self.Sword)
+        # self.AddWeapon(self.Dagger)
+        # self.AddWeapon(self.Warhammer)
+        # self.AddWeapon(self.Mace)
+        # self.AddWeapon(self.Flail)
+        # self.AddWeapon(self.Axe)
     #DEBUG
 
     def SelectWeapon(self):
@@ -55,7 +55,8 @@ class Arsenal:
 
     def Update(self):
         self.SelectWeapon()
-        self.inventory[self.selectedweapon].Update()
+        if self.inventory:
+            self.inventory[self.selectedweapon].Update()
     
     @property
     def GetDamage(self): return self.inventory[self.selectedweapon].damage

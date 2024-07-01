@@ -2,11 +2,14 @@ import pygame as pg
 
 from SpriteRenderer import*
 from Enemy import *
+from PickableItem import*
 
 class SpriteLoader():
-    def __init__(self,game):
+    def __init__(self,game,arsenal,raycaster):
         self.game=game
         self.player=self.game.player
+        self.arsenal=arsenal
+        self.Raycaster=raycaster
         self.sprites=[]
         self.light_sprites=[]
         self.animated_sprites=[]
@@ -16,13 +19,14 @@ class SpriteLoader():
         #self.StaticSprites()
         #self.LightSprites()
         #self.AnimatedSprites()
+        self.PickableItems()
         self.Enemies()
 
     def Create_Sprite(self,Sprite):
         self.sprites.append(Sprite)
 
     def StaticSprites(self):
-        Skeleton=Sprite(self.game,'Assets/Sprites/test.png')
+        Skeleton=Sprite(self.game,'Assets/Sprites/Animated/Rat/Idle/1.png',pos=(25,25),scale=0.5,shift=0.2)
         self.sprites.append(Skeleton)
 
     def LightSprites(self):
@@ -32,6 +36,10 @@ class SpriteLoader():
     def AnimatedSprites(self):
         Rat=AnimatedSprite(self.game,'Assets/Sprites/Animated/1.png',(10,10))
         self.animated_sprites.append(Rat)
+    
+    def PickableItems(self):
+        Sword=PickableItem(self,'Assets/Sprites/Animated/Rat/Idle/1.png',pos=(30,30),scale=0.5,shift=0.2)
+        self.Create_Sprite(Sword)
     
     def Enemies(self):
         rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(10,5),Level=1,Value=100,HP=100,scale=0.5)

@@ -34,10 +34,13 @@ class Game:
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
-        self.Sprites=SpriteLoader(self)
+        
+        
         self.Soundmixer=SoundMixer()
         self.Pathfinding=PathFinding(self)
         self.Arsenal=Arsenal(self)
+        self.Sprites=SpriteLoader(self,self.Arsenal,self.Raycaster)
+        
 
     def MainMenu(self):
         self.Game_Objects()

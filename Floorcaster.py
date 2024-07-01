@@ -26,7 +26,7 @@ class Floorcaster():
     
     def LoadSurface(self):
         surf_sky = pg.surfarray.make_surface(self.sky)
-        surf_sky= pg.transform.scale(surf_sky,(self.game.SCREEN_WIDTH,self.game.SCREEN_HEIGHT))
+        surf_sky= pg.transform.scale(surf_sky,(self.game.SCREEN_WIDTH+100,self.game.SCREEN_HEIGHT+100))
         self.game.DISPLAY.blit(surf_sky,(0,0))
         pass
 
