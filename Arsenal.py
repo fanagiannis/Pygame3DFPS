@@ -19,12 +19,12 @@ class Arsenal:
         self.Axe=Weapon(self.game,path='Assets/Sprites/Weapons/Axe/Idle.png',scale=0.8,damage=90)
         self.Warhammer=Weapon(self.game,path='Assets/Sprites/Weapons/Warhammer/Idle.png',scale=0.8,damage=110)
         self.weapons_dict = {
-            'dagger': self.Dagger,
-            'flail': self.Flail,
-            'sword': self.Sword,
-            'mace': self.Mace,
-            'axe': self.Axe,
-            'warhammer': self.Warhammer
+            'Dagger': self.Dagger,
+            'Flail': self.Flail,
+            'Sword': self.Sword,
+            'Mace': self.Mace,
+            'Axe': self.Axe,
+            'Warhammer': self.Warhammer
         }
 
     #DEBUG

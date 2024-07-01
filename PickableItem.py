@@ -22,4 +22,5 @@ class PickableItem(Sprite):
             self.get_sprite()
         #return super().Update()
     def Pickup(self):
+        print(f"{self.type} added")
         self.game.Arsenal.PickupWeapon(self.type)
