@@ -51,9 +51,9 @@ class SpriteLoader():
         #self.Create_Sprite(Sword)
     
     def Enemies(self):
-        rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(10,5),Level=1,Value=100,HP=100,scale=0.5)
+        rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=(11,5),Level=1,Value=100,HP=100,scale=0.5)
         self.enemies.append(rat)
-        skeleton=Skeleton(self.game,path='Assets/Sprites/Animated/Skeleton/Idle/1.png',pos=(10,10),Level=5,Value=200,HP=200,scale=0.7)
+        skeleton=Skeleton(self.game,path='Assets/Sprites/Animated/Skeleton/Idle/1.png',pos=(8,8),Level=5,Value=200,HP=200,scale=0.7)
         self.enemies.append(skeleton)
         wereboar= Wereboar(self.game,path='Assets/Sprites/Animated/Wereboar/Idle/1.png',pos=(12,12),Level=5,Value=200,HP=200,scale=0.7)
         self.enemies.append(wereboar)
