@@ -108,7 +108,7 @@ class Map:
         if self.difficulty==1: 
             self.items_pos=[(6,6),(17,7),(27,22),(30,5),(30,17)]
         elif self.difficulty==2:
-            self.items_pos=[(6,6),(17,7),(27,22),(30,5),(30,17)]
+            self.items_pos=[(5,4),(16,15),(27,3),(27,29),(13,3)]
         random.shuffle(self.items_pos)
         self.pickable_items=[
                 PickableItem(self.game, type='Sword', pos=self.items_pos[0], scale=0.5),
@@ -120,9 +120,9 @@ class Map:
             ]
 
     def Enemies(self):
-        num_rats=random.randint(10,20) if self.difficulty==1 else random.randint(20,30) 
-        num_skeletons=random.randint(10,15) if self.difficulty==1 else random.randint(25,40)
-        num_wereboars=random.randint(0,6) if self.difficulty==1 else random.randint(10,20)
+        num_rats=random.randint(10,20) if self.difficulty==1 else random.randint(20,25) 
+        num_skeletons=random.randint(10,15) if self.difficulty==1 else random.randint(25,30)
+        num_wereboars=random.randint(0,6) if self.difficulty==1 else random.randint(6,12)
         num_zombies=1 if self.difficulty==1 else random.randint(30,35)
 
         if self.difficulty==1:
