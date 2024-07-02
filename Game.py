@@ -25,11 +25,9 @@ class Game:
         self.running=True
         self.timer=0
         print("Game Created!")
-        self.map_selected=None
-       
+        self.map_selected=None  
         self.menu=MainMenu(self)
-        pass
-    
+
     def Menu_Objects(self):
         self.Soundmixer=SoundMixer()
         self.player = Player(self)
@@ -51,7 +49,6 @@ class Game:
         self.Menu_Objects()
         self.Soundmixer.PlayMenuTheme()
         self.menu.Update()
-        pass
 
     def Run(self):
         self.Soundmixer.StopMenuTheme()
@@ -79,9 +76,7 @@ class Game:
 
     def Cycle(self): 
         self.ShowFPS()
-        #pg.display.update()
         pg.display.flip()
-        #self.DISPLAY.fill((0,0,0,0))
         self.DELTA_TIME=self.CLOCK.tick(self.FPS)
         
     def ShowFPS(self):
@@ -111,11 +106,9 @@ class Game:
         self.map.Update()
         #self.map.draw()
         self.Cycle()
-
         self.ReturnMainMenu()
 
 if __name__ == '__main__':
-
     pg.init()
     game = Game()
     game.MainMenu() 
