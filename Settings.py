@@ -12,7 +12,6 @@ FONT_RPG="Assets\Fonts\AncientModernTales-a7Po.ttf"
 FONT_BASIC=pg.font.Font(FONT_RPG,15)
 FONT_STATS=pg.font.Font(FONT_RPG,30)
 FONT_DEATH=pg.font.Font(FONT_RPG,50)
-#FONT_TOKEN=pg.font.Font(FONT_RPG,15)
 
 FOV = math.pi / 3
 HALF_FOV = FOV / 2

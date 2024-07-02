@@ -48,7 +48,9 @@ class Game:
         self.Sprites=SpriteLoader(self,self.Arsenal,self.Raycaster)
         
     def MainMenu(self):
-        pg.display.set_caption("Prince's Field")
+        icon = pg.image.load('Assets/Sprites/Animated/Skeleton/Idle/1.png')
+        pg.display.set_icon(icon)
+        pg.display.set_caption("The Elder Falls")
         self.Menu_Objects()
         self.Soundmixer.PlayMenuTheme()
         self.menu.Update()
@@ -76,7 +78,6 @@ class Game:
                     self.player.Heal(self.player.vitalitystats.MagicPower)
 
     def Cycle(self): 
-        
         pg.display.flip()
         self.DELTA_TIME=self.CLOCK.tick(self.FPS)
         

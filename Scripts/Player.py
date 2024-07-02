@@ -3,8 +3,6 @@ import pygame as pg
 import math
 import time
 
-
-
 class Player():
     def __init__(self,game):
         self.game=game
