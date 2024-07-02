@@ -48,6 +48,7 @@ class Game:
         self.Sprites=SpriteLoader(self,self.Arsenal,self.Raycaster)
         
     def MainMenu(self):
+        pg.display.set_caption("Prince's Field")
         self.Menu_Objects()
         self.Soundmixer.PlayMenuTheme()
         self.menu.Update()
@@ -75,7 +76,7 @@ class Game:
                     self.player.Heal(self.player.vitalitystats.MagicPower)
 
     def Cycle(self): 
-        self.ShowFPS()
+        
         pg.display.flip()
         self.DELTA_TIME=self.CLOCK.tick(self.FPS)
         
@@ -89,7 +90,6 @@ class Game:
     def ReturnMainMenu(self):
         if self.player.vitalitystats.IsDead or self.map.GetClear:
             self.timer+=self.DELTA_TIME
-            print(self.timer)
             if self.timer>=200:
                 self.running = False
                 self.MainMenu() 

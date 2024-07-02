@@ -15,7 +15,7 @@ class MainMenu():
         menu_theme.title_font_color='orange'
         menu_theme.widget_font=FONT_RPG
         menu_theme.widget_font_color='yellow'
-        menu_title="THE OLDER PAPERS"
+        menu_title="Prince's Field"
         self.menu=pygame_menu.Menu(menu_title,self.game.SCREEN_WIDTH,self.game.SCREEN_HEIGHT,theme=menu_theme)
 
         menu_theme.widget_margin=(-600,0)
