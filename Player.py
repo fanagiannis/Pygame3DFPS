@@ -19,7 +19,6 @@ class Player():
         self.crosshair=pg.image.load("Assets/Crosshair/Crosshair.png").convert_alpha()
         self.attackcooldown=1000
         self.playerattacktime=0
-        #self.UpdateStats()
 
     def Draw(self):
         #COLLISION BOX
@@ -98,7 +97,6 @@ class PlayerHitbox():
 
     def Draw(self):
         self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
-        ##pg.draw.rect(self.player.game.DISPLAY,'blue',self.hitcollision,1) #DEBUG #DEBUG
 
     def Update(self):
         if self.active:
@@ -218,7 +216,6 @@ class PlayerVitality():
             self.game.DISPLAY.fill('red')
             self.vitality_stats['HP']['value']-=dmg 
             self.game.Soundmixer.PlaySound(self.game.Soundmixer.Hurtsound)
-            print(dmg)
         
     def Heal(self,value): 
         if self.vitality_stats['HP']['value']<=self.maxhp and self.vitality_stats['HP']['value']>=0: self.vitality_stats['HP']['value']+=value
@@ -266,7 +263,6 @@ class PlayerVitality():
             self.Manaregentime=timer
             if self.vitality_stats['MANA']['value']<self.maxmana: 
                 self.IncMana(1+int(0.5*self.player.stats.Get_Mind))
-                print(1+int(0.5*self.player.stats.Get_Mind))
 
     def StatsReset(self):
         if self.vitality_stats['HP']['value']<0: self.vitality_stats['HP']['value']=0
@@ -295,15 +291,6 @@ class PlayerVitality():
         self.ManaRegen()
         self.StatsReset()
         self.Fonts()
-        #DEBUG
-        # keys=pg.key.get_pressed()
-        # if keys[pg.K_1]: self.Heal(1)
-        # if keys[pg.K_2]: self.TakeDamage(1)
-        # if keys[pg.K_3]: self.IncStamina(1)
-        # if keys[pg.K_4]: self.DecStamina(1)
-        # if keys[pg.K_5]: self.IncMana(1)
-        # if keys[pg.K_6]: self.DecMana(1)
-        #DEBUG
     
 class PlayerStats():
     def __init__(self,game,STR,END,DEX,MIND,INT):
@@ -359,7 +346,6 @@ class PlayerStats():
         self.DisplayStats()
         self.StatUpgrade()
         self.LevelUP()
-        if pg.key.get_pressed()[pg.K_f]: self.LevelUP(), self.GainXP(1) #DEBUG
     
     @property
     def Get_Strength(self): return self.stats['Strength']['value']

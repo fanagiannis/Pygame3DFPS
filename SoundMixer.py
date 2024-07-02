@@ -41,7 +41,7 @@ class SoundMixer():
 
     def PlayDeathSound(self):
         if self.deathsound_played:
-            self.Deathsound.play()#self.PlaySound(self.Deathsound)
+            self.Deathsound.play()
             self.deathsound_played=False
     
     def PlayMenuTheme(self):

@@ -22,16 +22,13 @@ class Enemy(AnimatedSprite):
         self.hit=False
         self.death_animation_played=False
         self.speed=0.01
-
         self.hitbox=pg.Rect((self.x-0.15)*100,(self.y-0.15)*100,self.x+25,self.y+25)
 
         #ATTACK
         self.attackcooldown=1000
         self.attacktime=0
-
         self.hitcooldown=5000
         self.hittime=0
-
         self.framecounter=0
 
         #ANIMATIONS
@@ -65,45 +62,39 @@ class Enemy(AnimatedSprite):
         return False
 
     def Attack(self):
-        timer=pg.time.get_ticks()
-        #self.attackvision=pg.draw.circle(self.game.DISPLAY, (0,0,0,0), (self.posx*100,self.posy*100), radius=self.attackradius,width=1) 
+        timer=pg.time.get_ticks() 
         self.attackvision=pg.Rect(((self.x-0.7)*100,(self.y-0.7)*100,125,125))
-        
         if self.attackvision.colliderect(self.game.player.collisionbox): 
             self.attacking=True
             if timer-self.attacktime>=self.attackcooldown and not self.game.player.vitalitystats.Death():
-                self.game.player.vitalitystats.TakeDamage(0)#self.Damage)
+                self.game.player.vitalitystats.TakeDamage(self.Damage)
                 self.attacktime = timer  
-                print("Attack")
         else:
             self.attacking=False
        
 
     def Hit(self):
-        if self.game.player.hitbox.IsActive and self.hitbox.colliderect(self.game.player.hitbox.rect) :#and not self.damaged:
+        if self.game.player.hitbox.IsActive and self.hitbox.colliderect(self.game.player.hitbox.rect) :
             self.TakeDamage()
             self.hit=True
         if self.hit:
             self.framecounter+=0.1
-            print(self.framecounter)
             if self.framecounter>len(self.images_hit):
                 self.framecounter=0 
                 self.hit=False
     
     def AnimationStates(self):
-        #self.animate(self.images_death)
         self.animate(self.images_idle)
         if self.player_spotted and not self.attacking : self.animate(self.images_walking)
         if self.hit : self.animate(self.images_hit)
         if self.attacking : self.animate(self.images_attack)
-        if self.Vision():#ray_cast_value:
+        if self.Vision():
             self.player_spotted=True
         if self.player_spotted and not self.attacking:
             self.Movement()
     
     def DeathAnimation(self):
         self.game.player.stats.GainXP(self.Value) 
-        #print("dead")
         self.game.map.enemies.remove(self)
 
     def Update(self):
@@ -129,7 +120,6 @@ class Enemy(AnimatedSprite):
         keys=pg.key.get_pressed()
         if keys[pg.K_r]:
             self.TakeDamage()
-            #print(self.TakeDamage())
             time.sleep(0.1)
         
         #self.Draw()
@@ -201,8 +191,3 @@ class Zombie(Enemy):
         self.images_hit=self.get_images('Assets/Sprites/Animated/Zombie/Hit')
     def Update(self):
         return super().Update()
-
-
-#CLASS WEREBOAR
-
-#CLASS ZOMBIE

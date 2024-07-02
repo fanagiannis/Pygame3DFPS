@@ -27,17 +27,9 @@ class Arsenal:
             'Warhammer': self.Warhammer
         }
 
-    #DEBUG
     def List(self):
         self.WeaponList()
         self.AddWeapon(self.Unarmed)
-        # self.AddWeapon(self.Sword)
-        # self.AddWeapon(self.Dagger)
-        # self.AddWeapon(self.Warhammer)
-        # self.AddWeapon(self.Mace)
-        # self.AddWeapon(self.Flail)
-        # self.AddWeapon(self.Axe)
-    #DEBUG
 
     def SelectWeapon(self):
         keys=pg.key.get_pressed()

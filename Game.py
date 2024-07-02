@@ -71,8 +71,6 @@ class Game:
                     self.player.hitbox.Activate()
                 if event.key==pg.K_h:
                     self.player.Heal(self.player.vitalitystats.MagicPower)
-                    
-
 
     def Cycle(self): 
         self.ShowFPS()
