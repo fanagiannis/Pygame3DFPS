@@ -78,6 +78,7 @@ class Game:
                     self.player.Heal(self.player.vitalitystats.MagicPower)
 
     def Cycle(self): 
+        self.ReturnMainMenu()
         pg.display.flip()
         self.DELTA_TIME=self.CLOCK.tick(self.FPS)
         
@@ -89,7 +90,13 @@ class Game:
         self.Run()
 
     def ReturnMainMenu(self):
-        if self.player.vitalitystats.IsDead or self.map.GetClear:
+        if self.player.vitalitystats.IsDead or self.map.GetClear: 
+            if self.player.vitalitystats.IsDead:
+                text_Death=FONT_DEATH.render("YOU DIED",False,'red') 
+                self.DISPLAY.blit(text_Death,(self.SCREEN_WIDTH//2-100,self.SCREEN_HEIGHT//2))
+            elif self.map.GetClear: 
+                text_win=FONT_DEATH.render("DUNGEON CLEARED",False,'orange') 
+                self.DISPLAY.blit(text_win,(self.SCREEN_WIDTH//2-200,self.SCREEN_HEIGHT//2+100))
             self.timer+=self.DELTA_TIME
             if self.timer>=200:
                 self.running = False
@@ -98,6 +105,7 @@ class Game:
 
     def Update(self):
         self.DISPLAY.fill((0,0,0,0))
+        
         self.Floorcaster.Update()
         self.Texturerenderer.Update()
         self.Arsenal.Update()
@@ -107,7 +115,7 @@ class Game:
         self.map.Update()
         #self.map.draw()
         self.Cycle()
-        self.ReturnMainMenu()
+        
 
 if __name__ == '__main__':
     pg.init()
