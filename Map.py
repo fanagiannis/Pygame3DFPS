@@ -45,13 +45,37 @@ MAP_RAT_KING=[
 ]
 
 MAP_LEGION=[
-    [11]*5,
-    [11,_,_,_,_,11],
-    [11,_,_,_,_,11],
-    [11,_,_,_,_,11],
-    [11,_,_,_,_,11],
-    [11,_,_,_,_,11],
-    [11]*5
+    [11]*32,
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,11],
+    [11]*32
 ]
 
 class Map:
@@ -108,16 +132,16 @@ class Map:
         
         elif self.difficulty==2:
             for _ in range(num_rats):
-                rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(4,8),Value=100*random.randint(1,2),HP=100*random.randint(1,3),scale=0.5)
+                rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(4,8),Value=100*random.randint(3,4),HP=100*random.randint(1,3),scale=0.6)
                 self.enemies.append(rat)
             for _ in range(num_skeletons):
-                skeleton=Skeleton(self.game,path='Assets/Sprites/Animated/Skeleton/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(5,8),Value=200*random.randint(1,2),HP=200*random.randint(1,3),scale=0.7)
+                skeleton=Skeleton(self.game,path='Assets/Sprites/Animated/Skeleton/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(5,8),Value=200*random.randint(3,4),HP=200*random.randint(1,3),scale=0.7)
                 self.enemies.append(skeleton)
             for _ in range(num_wereboars):
-                wereboar= Wereboar(self.game,path='Assets/Sprites/Animated/Wereboar/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(5,8),Value=200*random.randint(1,2),HP=200*random.randint(1,3),scale=0.7)
+                wereboar= Wereboar(self.game,path='Assets/Sprites/Animated/Wereboar/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(5,8),Value=200*random.randint(3,4),HP=200*random.randint(1,3),scale=0.7)
                 self.enemies.append(wereboar)
             for _ in range(num_zombies):
-                zombie= Zombie(self.game,path='Assets/Sprites/Animated/Zombie/Idle/1.png',pos=self.get_enemy_spawn(),Level=15,Value=1000,HP=400,scale=0.7)
+                zombie= Zombie(self.game,path='Assets/Sprites/Animated/Zombie/Idle/1.png',pos=self.get_enemy_spawn(),Level=20,Value=1000*random.randint(3,4),HP=400*random.randint(2,3),scale=0.7)
                 self.enemies.append(zombie)
         
         

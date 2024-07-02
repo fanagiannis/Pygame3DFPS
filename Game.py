@@ -1,5 +1,5 @@
 import pygame as pg
-import sys
+
 from Settings import *
 from Map import *
 from Player import *
@@ -25,15 +25,20 @@ class Game:
         self.running=True
         self.timer=0
         print("Game Created!")
+        self.map_selected=None
+       
         self.menu=MainMenu(self)
         pass
-
-    def Game_Objects(self):
-        self.running=True
+    
+    def Menu_Objects(self):
+        self.Soundmixer=SoundMixer()
         self.player = Player(self)
         self.map_rat_king = Map(self, MAP_RAT_KING, difficulty=1)
         self.map_legion = Map(self, MAP_LEGION, difficulty=2)
-        self.map = self.map_rat_king
+
+    def Game_Objects(self):
+        self.running=True
+        self.map = self.map_selected
         self.Texturerenderer = TextureRenderer(self)
         self.Raycaster = RayCaster(self)
         self.Floorcaster=Floorcaster(self)
@@ -43,7 +48,7 @@ class Game:
         self.Sprites=SpriteLoader(self,self.Arsenal,self.Raycaster)
         
     def MainMenu(self):
-        self.Game_Objects()
+        self.Menu_Objects()
         self.Soundmixer.PlayMenuTheme()
         self.menu.Update()
         pass

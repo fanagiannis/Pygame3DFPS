@@ -32,14 +32,11 @@ class MainMenu():
             pygame_menu.BaseImage('Assets/Images/Wallpapers/RockyVillage.png')
         ]
 
-    def DungeonImaged(self):
-        self.dungeonImages=[]
-
     def DungeonSelection(self):
         self.button_play._visible=False
         self.button_quit._visible=False
-        self.button_play1=self.menu.add.button(" The Rat King ",self.RunGame)
-        self.button_play2=self.menu.add.button(" Necromancer's Lair ",self.RunGame)
+        self.button_play1=self.menu.add.button(" The Rat King ",self.RunGameRK)
+        self.button_play2=self.menu.add.button(" Undead Legion ",self.RunGameL)
         self.button_play3=self.menu.add.button(" Back ",self.Back)
 
     def change_background(self, index):
@@ -47,7 +44,12 @@ class MainMenu():
         self.menu.get_theme().background_color = self.current_bg
         self.menu.full_reset()   
     
-    def RunGame(self):
+    def RunGameRK(self):
+        self.game.map_selected=self.game.map_rat_king
+        self.game.Run()
+
+    def RunGameL(self):
+        self.game.map_selected=self.game.map_legion
         self.game.Run()
 
     def Back(self):

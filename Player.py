@@ -333,7 +333,7 @@ class PlayerStats():
     def LevelUP(self):
         if self.stats['XP']['value']>=self.XPthreshhold:
             self.game.Soundmixer.Play(self.game.Soundmixer.Levelupsound)
-            self.XPthreshhold*=2
+            self.XPthreshhold*=1.5
             self.stats['Level']['value']+=1
             self.stats['Token']['value']+=1
     
