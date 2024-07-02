@@ -133,9 +133,9 @@ class PlayerMovement:
 
         #ANGLE 
         if keys[pg.K_LEFT]:
-            self.angle-=0.001*self.game.DELTA_TIME
+            self.angle-=0.002*self.game.DELTA_TIME
         if keys[pg.K_RIGHT]:
-            self.angle+=0.001*self.game.DELTA_TIME
+            self.angle+=0.002*self.game.DELTA_TIME
 
         #MOVEMENT
         if keys[pg.K_w]:   
