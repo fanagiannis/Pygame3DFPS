@@ -92,6 +92,7 @@ class Map:
         self.pickable_items=[]
         self.enemies=[]
         self.enemies_pos={}
+        self.items_pos=[]
         self.Enemies()    
         self.PickableItems()
 
@@ -104,14 +105,19 @@ class Map:
                     return (x, y)
                 
     def PickableItems(self):
+        if self.difficulty==1: 
+            self.items_pos=[(6,6),(17,7),(27,22),(30,5),(30,17)]
+        elif self.difficulty==2:
+            self.items_pos=[(6,6),(17,7),(27,22),(30,5),(30,17)]
+        random.shuffle(self.items_pos)
         self.pickable_items=[
-            PickableItem(self.game,type='Sword',pos=(6,6),scale=0.5),
-            PickableItem(self.game,type='Dagger',pos=(17,7),scale=0.5),
-            PickableItem(self.game,type='Flail',pos=(27,22),scale=0.5),
-            PickableItem(self.game,type='Mace',pos=(30,5),scale=0.5),
-            PickableItem(self.game,type='Axe',pos=(30,17),scale=0.5),
-            PickableItem(self.game,type='Warhammer',pos=(6,29),scale=0.5)
-        ]
+                PickableItem(self.game, type='Sword', pos=self.items_pos[0], scale=0.5),
+                PickableItem(self.game, type='Dagger', pos=self.items_pos[1], scale=0.5),
+                PickableItem(self.game, type='Flail', pos=self.items_pos[2], scale=0.5),
+                PickableItem(self.game, type='Mace', pos=self.items_pos[3], scale=0.5),
+                PickableItem(self.game, type='Axe', pos=self.items_pos[4], scale=0.5),
+                PickableItem(self.game, type='Warhammer', pos=(6,29), scale=0.5)
+            ]
 
     def Enemies(self):
         num_rats=random.randint(10,20) if self.difficulty==1 else random.randint(20,30) 
