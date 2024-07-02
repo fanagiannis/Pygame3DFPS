@@ -1,7 +1,7 @@
 import pygame as pg
 
-from SpriteRenderer import *
-from Weapon import*
+from Scripts.Raycasting.SpriteRenderer import *
+from Scripts.Arsenal.Weapon import*
 
 class PickableItem(Sprite):
     def __init__(self,game,type,path='Assets/Sprites/Chest.png', pos=..., scale=0.7, shift=0.7, castlight=False):

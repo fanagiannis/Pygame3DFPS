@@ -1,6 +1,6 @@
 import pygame as pg
 
-from SpriteRenderer import*
+from Scripts.Raycasting.SpriteRenderer import*
 
 class SpriteLoader():
     def __init__(self,game,arsenal,raycaster):

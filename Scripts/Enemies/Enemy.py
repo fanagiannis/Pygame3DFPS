@@ -1,9 +1,10 @@
 import pygame as pg
 import time
 
-from SpriteRenderer import AnimatedSprite
 from Settings import*
-from Pathfinding import * 
+
+from Scripts.Raycasting.SpriteRenderer import AnimatedSprite
+from Scripts.Enemies.Pathfinding import * 
 
 class Enemy(AnimatedSprite):
     def __init__(self, game, Level, Value, HP, path='resources/sprites/animated_sprites/green_light/0.png', pos=..., scale=0.8, shift=0.16, animation_time=120):

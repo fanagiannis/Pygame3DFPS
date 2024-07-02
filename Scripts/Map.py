@@ -1,8 +1,8 @@
 import pygame as pg
 import random
 
-from PickableItem import *
-from Enemy import *
+from Scripts.PickableItem import *
+from Scripts.Enemies.Enemy import *
 
 #   WALL         [1]*64,
 #   SPACE        [1,_,_,_,_,_,_,_,_,_,_,_,_,_,_,1],

@@ -1,7 +1,6 @@
 import pygame as pg
 import pygame_menu 
 import random
-from pygame_menu.examples import create_example_window
 
 from Settings import *
 

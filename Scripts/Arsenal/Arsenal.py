@@ -1,6 +1,6 @@
 import pygame as pg 
 
-from Weapon import *
+from Scripts.Arsenal.Weapon import *
 
 class Arsenal:
     def __init__(self,game):

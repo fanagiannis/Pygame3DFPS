@@ -1,7 +1,7 @@
 from collections import deque
 import pygame as pg
 
-from SpriteRenderer import AnimatedSprite
+from Scripts.Raycasting.SpriteRenderer import AnimatedSprite
 
 class Weapon(AnimatedSprite):
     def __init__(self, game, path='Assets/Sprites/Weapons', scale=0.5,animation_time=60,damage=10):

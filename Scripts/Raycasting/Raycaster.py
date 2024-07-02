@@ -2,7 +2,6 @@ import pygame as pg
 import math
 from Settings import *
 
-
 class RayCaster:
     def __init__(self, game):
         self.game = game

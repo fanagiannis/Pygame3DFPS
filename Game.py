@@ -1,18 +1,20 @@
 import pygame as pg
 
 from Settings import *
-from Map import *
-from Player import *
-from Raycaster import *
-from TextureRenderer import*
-from Floorcaster import * 
-from SpriteLoader import *
-from SoundMixer import *
-from Pathfinding import *
-from Weapon import*
-from Arsenal import*
 
-from MainMenu import *
+from Scripts.Map import *
+from Scripts.Player import *
+from Scripts.SoundMixer import *
+from Scripts.MainMenu import *
+
+from Scripts.Raycasting.SpriteLoader import *
+from Scripts.Raycasting.Raycaster import *
+from Scripts.Raycasting.TextureRenderer import*
+from Scripts.Raycasting.Floorcaster import * 
+from Scripts.Arsenal.Weapon import*
+from Scripts.Arsenal.Arsenal import*
+from Scripts.Enemies.Pathfinding import *
+
 
 class Game:
     def __init__(self):
