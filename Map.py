@@ -90,10 +90,10 @@ class Map:
         ]
 
     def Enemies(self):
-        num_rats=10 if self.difficulty==1 else 15
-        num_skeletons=2 if self.difficulty==1 else 6
-        num_wereboars=0 if self.difficulty==1 else 5
-        num_zombies=1 if self.difficulty==1 else 20
+        num_rats=random.randint(10,20) if self.difficulty==1 else random.randint(20,30) 
+        num_skeletons=random.randint(10,15) if self.difficulty==1 else random.randint(25,40)
+        num_wereboars=random.randint(0,6) if self.difficulty==1 else random.randint(10,20)
+        num_zombies=1 if self.difficulty==1 else random.randint(30,35)
 
         if self.difficulty==1:
             for _ in range(num_rats):
@@ -108,7 +108,7 @@ class Map:
         
         elif self.difficulty==2:
             for _ in range(num_rats):
-                rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(1,5),Value=100*random.randint(1,2),HP=100*random.randint(1,3),scale=0.5)
+                rat=Rat(self.game,path='Assets/Sprites/Animated/Rat/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(4,8),Value=100*random.randint(1,2),HP=100*random.randint(1,3),scale=0.5)
                 self.enemies.append(rat)
             for _ in range(num_skeletons):
                 skeleton=Skeleton(self.game,path='Assets/Sprites/Animated/Skeleton/Idle/1.png',pos=self.get_enemy_spawn(),Level=random.randint(5,8),Value=200*random.randint(1,2),HP=200*random.randint(1,3),scale=0.7)

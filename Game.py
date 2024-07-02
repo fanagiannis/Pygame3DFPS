@@ -88,7 +88,6 @@ class Game:
 
     def ReturnMainMenu(self):
         if self.player.vitalitystats.IsDead or self.map.GetClear:
-            
             self.timer+=self.DELTA_TIME
             print(self.timer)
             if self.timer>=200:

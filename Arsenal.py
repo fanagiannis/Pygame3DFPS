@@ -51,9 +51,9 @@ class Arsenal:
         if keys[pg.K_5]:
             if len(self.inventory)>4:self.selectedweapon=4
         if keys[pg.K_6]:
-            if len(self.inventory)>4:self.selectedweapon=5
+            if len(self.inventory)>5:self.selectedweapon=5
         if keys[pg.K_7]:
-            if len(self.inventory)>4:self.selectedweapon=6
+            if len(self.inventory)>6:self.selectedweapon=6
 
     def AddWeapon(self,weapon):
         if weapon not in self.inventory:
