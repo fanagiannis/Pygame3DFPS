@@ -105,7 +105,6 @@ class Game:
 
     def Update(self):
         self.DISPLAY.fill((0,0,0,0))
-        
         self.Floorcaster.Update()
         self.Texturerenderer.Update()
         self.Arsenal.Update()

@@ -20,8 +20,9 @@ class MainMenu():
 
         menu_theme.widget_margin=(-600,0)
         
-        self.button_play=self.menu.add.button(" Play ",self.DungeonSelection)                                 #LOAD MAIN MENU
-        self.button_quit=self.menu.add.button(" Quit ",exit)                                 #LOAD MAIN MENU
+        self.button_play=self.menu.add.button(" Play ",self.DungeonSelection)                              
+        self.button_play=self.menu.add.button(" How To Play ",self.Guide)                              
+        self.button_quit=self.menu.add.button(" Quit ",exit)                               
 
     def BackgroundImages(self):
         self.bgimages=[
@@ -32,8 +33,7 @@ class MainMenu():
         ]
 
     def DungeonSelection(self):
-        self.button_play._visible=False
-        self.button_quit._visible=False
+        self.menu.clear()
         self.button_play1=self.menu.add.button(" The Rat King ",self.RunGameRK)
         self.button_play2=self.menu.add.button(" Undead Legion ",self.RunGameL)
         self.button_play3=self.menu.add.button(" Back ",self.Back)
@@ -51,12 +51,23 @@ class MainMenu():
         self.game.map_selected=self.game.map_legion
         self.game.Run()
 
+    def Guide(self):
+        self.menu.clear()
+        self.menu.add.label("Guide")
+        self.menu.add.label("WASD to move.")
+        self.menu.add.label("Left and Right arrow keys to look around.")
+        self.menu.add.label("Press Space to attack.")
+        self.menu.add.label("                      ")
+        self.menu.add.label("-------QUEST-------")
+        self.menu.add.label("Clear the dungeon to win!")
+        self.menu.add.label("                      ")
+        self.menu.add.button(" Back ", self.Back)
+
     def Back(self):
-        self.button_play._visible=True
-        self.button_quit._visible=True
-        self.button_play1._visible=False
-        self.button_play2._visible=False
-        self.button_play3._visible=False
+        self.menu.clear()
+        self.button_play=self.menu.add.button(" Play ",self.DungeonSelection)                              
+        self.button_play=self.menu.add.button(" How To Play ",self.Guide)                              
+        self.button_quit=self.menu.add.button(" Quit ",exit)   
 
     def Update(self):
         self.menu.mainloop(self.game.DISPLAY)   #SET MAIN MENU LOOP
