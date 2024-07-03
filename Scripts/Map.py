@@ -87,7 +87,14 @@ class Map:
         self.cols = len(self.mini_map[0])
         self.get_map()
         self.cleared=False
-        
+        self.playerspawn = [
+            (14, 12), (14, 13), (14, 14), (14, 15), (14, 16), (14, 17), (14, 18), (14, 19), (14, 20),
+            (15, 12), (15, 13), (15, 14), (15, 15), (15, 16), (15, 17), (15, 18), (15, 19), (15, 20),
+            (16, 12), (16, 13), (16, 14), (16, 15), (16, 16), (16, 17), (16, 18), (16, 19), (16, 20),
+            (17, 12), (17, 13), (17, 14), (17, 15), (17, 16), (17, 17), (17, 18), (17, 19), (17, 20),
+            (18, 12), (18, 13), (18, 14), (18, 15), (18, 16), (18, 17), (18, 18), (18, 19), (18, 20),
+        ]
+        self.enemy_positions = set()
         self.difficulty=difficulty
         self.pickable_items=[]
         self.enemies=[]
@@ -96,12 +103,15 @@ class Map:
         self.Enemies()    
         self.PickableItems()
 
+    def is_within_player_spawn_area(self, pos):
+        return pos in self.playerspawn
+    
     def get_enemy_spawn(self):
         while True:
             x = random.randint(0, self.cols - 1)
             y = random.randint(0, self.rows - 1)
             if 0 <= y < self.rows and 0 <= x < self.cols:
-                if self.mini_map[y][x] == _:
+                if (x,y) not in self.playerspawn and self.mini_map[y][x] == _:
                     return (x, y)
                 
     def PickableItems(self):
@@ -121,9 +131,9 @@ class Map:
 
     def Enemies(self):
         num_rats=random.randint(10,20) if self.difficulty==1 else random.randint(20,25) 
-        num_skeletons=random.randint(10,15) if self.difficulty==1 else random.randint(25,30)
+        num_skeletons=random.randint(10,15) if self.difficulty==1 else random.randint(15,20)
         num_wereboars=random.randint(0,6) if self.difficulty==1 else random.randint(6,12)
-        num_zombies=1 if self.difficulty==1 else random.randint(30,35)
+        num_zombies=1 if self.difficulty==1 else random.randint(10,25)
 
         if self.difficulty==1:
             for _ in range(num_rats):

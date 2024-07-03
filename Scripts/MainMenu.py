@@ -57,6 +57,7 @@ class MainMenu():
         self.menu.add.label("WASD to move.")
         self.menu.add.label("Left and Right arrow keys to look around.")
         self.menu.add.label("Press Space to attack.")
+        self.menu.add.label("Press H to heal.")
         self.menu.add.label("                      ")
         self.menu.add.label("-------QUEST-------")
         self.menu.add.label("Clear the dungeon to win!")

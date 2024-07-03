@@ -35,7 +35,7 @@ class Player():
         self.game.DISPLAY.blit(self.crosshair,(self.game.SCREEN_WIDTH//2-self.crosshair.get_width()//2,self.game.SCREEN_HEIGHT//2-self.crosshair.get_height()//2))
     
     def Heal(self,value):
-        if self.GetMana>0 and self.GetHP<self.vitalitystats.maxhp:
+        if self.GetMana>value and self.GetHP<self.vitalitystats.maxhp:
             self.game.Soundmixer.Play(self.game.Soundmixer.Enchantsound)
             self.vitalitystats.Heal(value)
             self.vitalitystats.DecMana(value)
