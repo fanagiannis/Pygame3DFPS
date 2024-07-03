@@ -253,7 +253,7 @@ class PlayerVitality():
         if timer-self.Manaregentime>=250:
             self.Manaregentime=timer
             if self.vitality_stats['MANA']['value']<self.maxmana: 
-                self.IncMana(1+int(0.5*self.player.stats.Get_Mind))
+                self.IncMana(1+int(0.8*self.player.stats.Get_Mind))
 
     def StatsReset(self):
         if self.vitality_stats['HP']['value']<0: self.vitality_stats['HP']['value']=0
