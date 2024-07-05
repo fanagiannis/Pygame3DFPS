@@ -111,7 +111,7 @@ class PlayerHitbox():
 class PlayerMovement:
     def __init__(self, game):
         self.game = game
-        self.posx, self.posy = (5,5)
+        self.posx, self.posy = (15,15)
         self.angle = 0
         self.scale=60
         self.speed=0.004
