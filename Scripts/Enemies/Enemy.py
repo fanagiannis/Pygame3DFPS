@@ -65,7 +65,7 @@ class Enemy(AnimatedSprite):
         if self.attackvision.colliderect(self.game.player.collisionbox): 
             self.attacking=True
             if timer-self.attacktime>=self.attackcooldown and not self.game.player.vitalitystats.Death():
-                self.game.player.vitalitystats.TakeDamage(0)#self.Damage)
+                self.game.player.vitalitystats.TakeDamage(self.Damage)
                 self.attacktime = timer  
         else:
             self.attacking=False
@@ -179,3 +179,4 @@ class Zombie(Enemy):
         self.images_hit=self.get_images('Assets/Sprites/Animated/Zombie/Hit')
     def Update(self):
         return super().Update()
+)
