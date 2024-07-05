@@ -179,3 +179,4 @@ class Zombie(Enemy):
         self.images_hit=self.get_images('Assets/Sprites/Animated/Zombie/Hit')
     def Update(self):
         return super().Update()
+)
