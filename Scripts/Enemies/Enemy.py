@@ -24,14 +24,12 @@ class Enemy(AnimatedSprite):
         self.death_animation_played=False
         self.speed=0.01
         self.hitbox=pg.Rect((self.x-0.15)*100,(self.y-0.15)*100,self.x+25,self.y+25)
-
         #ATTACK
         self.attackcooldown=1000
         self.attacktime=0
         self.hitcooldown=5000
         self.hittime=0
         self.framecounter=0
-
         #ANIMATIONS
         self.images_idle=self.get_images('Assets/Sprites/Animated/Rat/Idle')  
         self.images_walking=self.get_images('Assets/Sprites/Animated/Rat/Walk')
@@ -39,7 +37,6 @@ class Enemy(AnimatedSprite):
         self.images_death=self.get_images('Assets/Sprites/Animated/Rat/Death')
         self.images_hit=self.get_images('Assets/Sprites/Animated/Rat/Hit')
        
-    
     def TakeDamage(self):
         self.HP=self.HP-(self.game.player.DealDamage-2*self.Level)
         self.game.Soundmixer.PlaySound(self.game.Soundmixer.Hitsound)
@@ -68,11 +65,10 @@ class Enemy(AnimatedSprite):
         if self.attackvision.colliderect(self.game.player.collisionbox): 
             self.attacking=True
             if timer-self.attacktime>=self.attackcooldown and not self.game.player.vitalitystats.Death():
-                self.game.player.vitalitystats.TakeDamage(self.Damage)
+                self.game.player.vitalitystats.TakeDamage(0)#self.Damage)
                 self.attacktime = timer  
         else:
             self.attacking=False
-       
 
     def Hit(self):
         if self.game.player.hitbox.IsActive and self.hitbox.colliderect(self.game.player.hitbox.rect) :
@@ -106,26 +102,17 @@ class Enemy(AnimatedSprite):
         elif not self.Death():
             self.AnimationStates()
         self.check_animation_time()
-        self.get_sprite()
-                
+        self.get_sprite()  
         #self.draw_ray_cast()
         #self.ray_cast_value=self.ray_cast_player_npc()
-        
-         #DEBUG
         self.Vision()    #USED TO DETECT PLAYER
         self.Attack()
         self.Hit()
-        
-        
-       
         keys=pg.key.get_pressed()
-        if keys[pg.K_r]:
-            self.TakeDamage()
-            time.sleep(0.1)
-        
+        # if keys[pg.K_r]:
+        #     self.TakeDamage()
+        #     time.sleep(0.1)
         #self.Draw()
-    
-        #DEBUG
         
     #MOVEMENT
     @property

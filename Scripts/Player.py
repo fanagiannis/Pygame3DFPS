@@ -13,8 +13,6 @@ class Player():
         self.collisionbox=pg.Rect((self.movement.posx*100,self.movement.posy*100,50,50))
         self.hitbox=PlayerHitbox(self)
         self.crosshair=pg.image.load("Assets/Crosshair/Crosshair.png").convert_alpha()
-        self.hitbox=PlayerHitbox(self)
-        self.crosshair=pg.image.load("Assets/Crosshair/Crosshair.png").convert_alpha()
         self.attackcooldown=1000
         self.playerattacktime=0
 
@@ -71,9 +69,9 @@ class Player():
     @property 
     def DealDamage(self):
         return 30+10*self.stats.stats['Level']['value']+10*self.stats.Get_Strength+self.game.Arsenal.GetDamage
-    @property 
-    def DealMagicDamage(self):
-        return 30+10*self.stats.stats['Level']['value']+10*self.stats.Get_Intelligence
+    # @property 
+    # def DealMagicDamage(self):
+    #     return 30+10*self.stats.stats['Level']['value']+10*self.stats.Get_Intelligence
 
 class PlayerHitbox():
     def __init__(self, player):
@@ -88,13 +86,14 @@ class PlayerHitbox():
         if timer-self.player.playerattacktime>=self.player.attackcooldown and self.player.GetStamina>10 and self.player.GetStamina>10:
             self.active = True
             self.player.game.Soundmixer.PlaySound(self.player.game.Soundmixer.Swingsound)
-            self.player.vitalitystats.DecStamina(20)
+            self.player.vitalitystats.DecStamina(0)
             self.timer=timer
             self.player.playerattacktime=timer
             self.player.game.Arsenal.inventory[self.player.game.Arsenal.selectedweapon].attack = True
 
     def Draw(self):
         self.hitcollision=pg.Rect(((self.player.movement.posx+math.cos(self.player.movement.angle)-0.25)*100,(self.player.movement.posy+math.sin(self.player.movement.angle)-0.25)*100,50,50))  #(,,hitboxsizex,hitboxsizey)
+        #pg.draw.rect(self.player.game.DISPLAY,'red',self.hitcollision)
 
     def Update(self):
         if self.active:
@@ -112,7 +111,7 @@ class PlayerHitbox():
 class PlayerMovement:
     def __init__(self, game):
         self.game = game
-        self.posx, self.posy = (15,15)
+        self.posx, self.posy = (5,5)
         self.angle = 0
         self.scale=60
         self.speed=0.004

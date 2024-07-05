@@ -34,3 +34,4 @@ class Weapon(AnimatedSprite):
     
     @property
     def GetAttack(self): return self.attack
+
